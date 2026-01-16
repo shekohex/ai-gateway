@@ -22,7 +22,7 @@ model_list:
       model: gemini-claude-opus-4-5-thinking
       api_base: "os.environ/CLIPROXYAPI_BASE_URL"
       api_key: "os.environ/CLIPROXYAPI_KEY"
-      weight: 7
+      weight: 97
       order: 1
       max_budget: 1000 # (USD)
       budget_duration: 5h
@@ -42,6 +42,7 @@ litellm_settings:
   turn_off_message_logging: True
   redact_user_api_key_info: true
   cache: True
+  enable_caching_on_provider_specific_optional_params: True
   cache_params:
     type: disk
     disk_cache_dir: .litellm_cache
