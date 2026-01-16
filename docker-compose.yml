@@ -2,18 +2,22 @@ version: "3.9"
 
 services:
   cli-proxy-api:
+    image: eceasy/cli-proxy-api:latest
+    container_name: cli-proxy-api
     ports:
       - 8317:8317
+    restart: always
     volumes:
       - ./config/cliproxyapi/config.yaml:/CLIProxyAPI/config.yaml
       - ./data/cliproxyapi/auth-dir:/root/.cli-proxy-api
-    image: eceasy/cli-proxy-api:latest
     networks:
       - aiproxy-llm-connect
   litellm:
     image: docker.litellm.ai/berriai/litellm:main-stable
+    container_name: litellm_proxy
     ports:
       - "4000:4000"
+    restart: always
     volumes:
       - ./config/litellm/config.yaml:/app/config.yaml
     environment:
@@ -35,8 +39,8 @@ services:
       - aiproxy-llm-connect
   db:
     image: postgres:16
-    restart: always
     container_name: litellm_db
+    restart: always
     env_file:
       - .env
     volumes:
@@ -51,16 +55,16 @@ services:
 
   prometheus:
     image: prom/prometheus
-    volumes:
-      - ./data/prometheus:/prometheus
-      - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
+    restart: always
+    volumes:
+      - ./data/prometheus:/prometheus
+    #  - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
       - "--storage.tsdb.path=/prometheus"
       - "--storage.tsdb.retention.time=15d"
-    restart: always
     networks:
       - aiproxy-llm-connect
 
