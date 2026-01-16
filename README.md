@@ -31,12 +31,40 @@ AI coding backends powered by [CLIProxyAPI](https://github.com/router-for-me/CLI
 - Configure [`.env`](./.env.example) file
 - Just run `docker-compose up` and enjoy
 
-## Usage
+## Check
 
 ```bash
 curl "http://localhost:4000/v1/models" \
      -H 'Authorization: Bearer $LITELLM_MASTER_KEY'
 ```
+
+## Usage
+
+### Claude Code
+
+1. Edit `~/.claude/settings.json`
+2. Add `env` field like
+
+```json
+{
+   "env": {
+    "ANTHROPIC_BASE_URL": "http://127.0.0.1:4000",
+    "ANTHROPIC_AUTH_TOKEN": "sk-dummy", // LITELLM_MASTER_KEY should be
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-5-20251101",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-4.7",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5",
+    "ANTHROPIC_MODEL": "opusplan",
+    "CLAUDE_CODE_SUBAGENT_MODEL": "glm-4.7",
+    "API_TIMEOUT_MS": "3000000"
+   }
+}
+```
+
+### Kilo Code
+
+1. Add custom provider
+2. Set Base URL as `http://127.0.0.1:400`
+3. Set your preferred model
 
 ## License
 
