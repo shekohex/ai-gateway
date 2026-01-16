@@ -20,6 +20,8 @@ services:
     restart: always
     volumes:
       - ./config/litellm/config.yaml:/app/config.yaml
+    command: [ "--config", "/app/config.yaml", "--detailed_debug" ]
+    init: true
     environment:
       STORE_MODEL_IN_DB: "True"
       CLIPROXYAPI_BASE_URL: "http://cli-proxy-api:8317"
@@ -35,6 +37,11 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./config/litellm/config.yaml
+          target: /app/config.yaml
     networks:
       - aiproxy-llm-connect
   db:
