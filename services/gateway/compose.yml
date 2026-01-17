@@ -19,7 +19,6 @@ services:
         - action: sync+restart
           path: ../../config/cliproxyapi/config.yaml
           target: /CLIProxyAPI/config.yaml
-          initial_sync: true
     networks:
       - ai-gateway-connect
 
@@ -51,6 +50,5 @@ services:
         - action: sync+restart
           path: ../../config/litellm/config.yaml
           target: /app/config.yaml
-          initial_sync: true
     networks:
       - ai-gateway-connect
