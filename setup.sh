@@ -190,7 +190,8 @@ onboard() {
 
     # Ensure config files exist
     log "Initializing configuration files..."
-
+    mkdir -p config/litellm config/cliproxyapi
+    
     if [[ ! -f "config/litellm/config.yaml" ]]; then
         cp config/litellm/config.example.yaml config/litellm/config.yaml
         record_state "init" "Created config/litellm/config.yaml from example"
@@ -199,6 +200,34 @@ onboard() {
         cp config/cliproxyapi/config.example.yaml config/cliproxyapi/config.yaml
         record_state "init" "Created config/cliproxyapi/config.yaml from example"
     fi
+
+    # Fix Data Directory Permissions
+    log "Preparing data directories..."
+    # Map directories to their expected container UIDs for better security
+    # Postgres: 999, Redis: 999, Clickhouse: 101, Prometheus: 65534, Minio: 1001
+    declare -A dir_map=(
+        ["data/postgres"]="999:999"
+        ["data/redis"]="999:999"
+        ["data/clickhouse/data"]="101:101"
+        ["data/clickhouse/logs"]="101:101"
+        ["data/minio"]="1001:1001"
+        ["data/prometheus"]="65534:65534"
+        ["data/cliproxyapi/auth-dir"]="1000:1000"
+    )
+
+    for dir in "${!dir_map[@]}"; do
+        mkdir -p "$dir"
+        local owner="${dir_map[$dir]}"
+        
+        # Try chown first for better security
+        if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+            sudo chown -R "$owner" "$dir" 2>/dev/null || chmod -R 777 "$dir"
+        else
+            # macOS handles bind mount permissions differently (usually mapped to host user)
+            chmod -R 777 "$dir"
+        fi
+    done
+    record_state "init" "Initialized data directories with mapped permissions"
 
     # Write final .env
     {
