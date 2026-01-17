@@ -1,4 +1,4 @@
-version: "3.9"
+name: ai-gateway
 
 services:
   cli-proxy-api:
@@ -17,7 +17,8 @@ services:
           target: /CLIProxyAPI/config.yaml
           initial_sync: true
     networks:
-      - aiproxy-llm-connect
+      - ai-gateway-connect
+
   litellm:
     image: docker.litellm.ai/berriai/litellm:main-stable
     container_name: litellm_proxy
@@ -26,7 +27,7 @@ services:
     restart: always
     # volumes:
     #   - ./config/litellm/config.yaml:/app/config.yaml
-    command: [ "--config", "/app/config.yaml", "--detailed_debug" ]
+    command: ["--config", "/app/config.yaml", "--detailed_debug"]
     init: true
     environment:
       CLIPROXYAPI_BASE_URL: "http://cli-proxy-api:8317"
@@ -49,22 +50,36 @@ services:
           target: /app/config.yaml
           initial_sync: true
     networks:
-      - aiproxy-llm-connect
+      - ai-gateway-connect
   db:
-    image: postgres:16
-    container_name: litellm_db
+    image: postgres:17
+    container_name: litellm-db
     restart: always
     env_file:
       - .env
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -d litellm -U llmproxy" ]
+      test: ["CMD-SHELL", "pg_isready -d litellm -U llmproxy"]
       interval: 1s
       timeout: 5s
       retries: 10
     networks:
       - aiproxy-llm-connect
+  redis:
+    image: redis:7-alpine
+    container_name: litellm-redis
+    restart: always
+    volumes:
+      - ./data/redis:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ai-gateway-connect
 
   prometheus:
     image: prom/prometheus
@@ -79,9 +94,7 @@ services:
       - "--storage.tsdb.path=/prometheus"
       - "--storage.tsdb.retention.time=15d"
     networks:
-      - aiproxy-llm-connect
+      - ai-gateway-connect
 
 networks:
-  aiproxy-llm-connect:
-
-
+  ai-gateway-connect:
