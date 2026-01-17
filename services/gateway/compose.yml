@@ -54,7 +54,3 @@ services:
           initial_sync: true
     networks:
       - ai-gateway-connect
-
-networks:
-  ai-gateway-connect:
-    external: true

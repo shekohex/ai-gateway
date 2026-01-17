@@ -81,7 +81,3 @@ services:
       start_period: 1s
     networks:
       - ai-gateway-connect
-
-networks:
-  ai-gateway-connect:
-    external: true

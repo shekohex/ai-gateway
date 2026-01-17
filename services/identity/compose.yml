@@ -19,7 +19,3 @@ services:
     networks:
       - ai-gateway-connect
 
-
-networks:
-  ai-gateway-connect:
-    external: true
