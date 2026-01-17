@@ -1,70 +1,113 @@
-# AIProxy-LiteLLM
+# AI Gateway
 
-AI coding backends powered by [CLIProxyAPI](https://github.com/router-for-me/CLIProxyAPI) and [LiteLLM](https://github.com/BerriAI/litellm)
+A production-grade AI gateway providing unified access to multiple LLM providers with robust observability, security, and identity management. Powered by LiteLLM, Langfuse, and Pangolin.
 
-## Features
+## Core Components
 
-- Persistent dashboard with LiteLLM
-- Cost and usage tracking with LiteLLM
-- Codex and Gemini backend as coding API with CLIProxyAPI
-- Customizable
-- Free and open-source
+- **LiteLLM Proxy**: Unified OpenAI-compatible API gateway for 100+ LLMs.
+- **Langfuse**: Open-source observability, tracing, and prompt management.
+- **CLIProxyAPI**: High-performance backend for specialized coding models.
+- **Newt**: Secure identity and site management.
+- **Data Stack**: Postgres (Persistence), Redis (Caching/Routing), Clickhouse (Analytics), Minio (Blob Storage).
 
-## Docs
+## Prerequisites
 
-- [CLIProxyAPI](https://help.router-for.me)
-- [LiteLLM Proxy](https://docs.litellm.ai/docs/simple_proxy)
+- Linux or macOS
+- Docker and Docker Compose (v2+)
+- curl, openssl, and jq
 
-## Configuration
+## Getting Started
 
-- [CLIProxyAPI](https://help.router-for.me/configuration/options.html), [file](./config/cliproxyapi/config.example.yaml)
-- [LiteLLM Proxy](https://docs.litellm.ai/docs/proxy/config_settings), [file](./config/litellm/config.example.yaml)
+The project includes a comprehensive CLI tool for onboarding and management.
 
-## Requires
+### 1. Installation
 
-- Docker installed
-- Read docs mentioned above
-- AI coding subscription
+Clone the repository and run the onboarding script:
 
-## Running
+```bash
+./setup.sh onboard
+```
 
-- Configure [`.env`](./.env.example) file
-- Just run `docker-compose up` and enjoy
+The script will:
+- Verify system dependencies.
+- Guide you through security and database configuration.
+- Generate cryptographically secure secrets.
+- Create a tailored `.env` file.
 
-## Check
+### 2. Launching the Stack
+
+Start all services in detached mode:
+
+```bash
+./setup.sh up -d
+```
+
+### 3. Verification
+
+Check the availability of models through the proxy:
 
 ```bash
 curl "http://localhost:4000/v1/models" \
-     -H 'Authorization: Bearer $LITELLM_MASTER_KEY'
+     -H "Authorization: Bearer <LITELLM_MASTER_KEY>"
 ```
 
-## Usage
+## Management CLI
+
+The `setup.sh` utility provides several commands for lifecycle management:
+
+| Command | Description |
+| :--- | :--- |
+| `onboard` | Interactive setup and configuration |
+| `up` | Start the stack (supports all docker compose flags) |
+| `down` | Stop and remove service containers |
+| `restart` | Restart all active services |
+| `update` | Pull latest images and restart the stack |
+| `cleanup` | Remove orphans and stop services |
+| `reset` | **Destructive**: Wipe all data volumes and configuration |
+
+## Pangolin Site Configuration
+
+When configuring a **Site** in the Pangolin Dashboard, use the following internal resource endpoints to expose them securely:
+
+- **LiteLLM Gateway**: `http://litellm:4000`
+- **CLI-Proxy-API**: `http://cli-proxy-api:8317`
+- **Langfuse Interface**: `http://langfuse-web:3000`
+- **Metrics (Prometheus)**: `http://prometheus:9090`
+
+Other services (Postgres, Redis, Clickhouse, Minio) are kept isolated within the internal Docker network and are not exposed to the Pangolin agent.
+
+## Observability and UI
+
+
+- **LiteLLM Admin UI**: `http://localhost:4000/ui` (Management of keys, models, and budgets)
+- **Langfuse Dashboard**: `http://localhost:3000` (Tracing and analytics)
+- **Prometheus**: `http://localhost:9090` (System metrics)
+
+## Configuration Reference
+
+- **LiteLLM Proxy**: Located in `config/litellm/config.yaml`.
+- **CLIProxyAPI**: Located in `config/cliproxyapi/config.yaml`.
+- **Environment Variables**: Managed via the root `.env` file.
+
+## Service Maintenance
+
+Logs are automatically rotated with a maximum size of 100MB per service and 3-day retention for request/response logs within the database.
+
+## Integration Examples
 
 ### Claude Code
 
-1. Edit `~/.claude/settings.json`
-2. Add `env` field like
+Configure your `~/.claude/settings.json` to route through the gateway:
 
 ```json
 {
-   "env": {
+  "env": {
     "ANTHROPIC_BASE_URL": "http://127.0.0.1:4000",
-    "ANTHROPIC_AUTH_TOKEN": "sk-dummy", // LITELLM_MASTER_KEY should be
-    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-5-20251101",
-    "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-4.7",
-    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5",
-    "ANTHROPIC_MODEL": "opusplan",
-    "CLAUDE_CODE_SUBAGENT_MODEL": "glm-4.7",
-    "API_TIMEOUT_MS": "3000000"
-   }
+    "ANTHROPIC_AUTH_TOKEN": "your-master-key",
+    "ANTHROPIC_MODEL": "claude-opus-4-5"
+  }
 }
 ```
-
-### Kilo Code
-
-1. Add custom provider
-2. Set Base URL as `http://127.0.0.1:400`
-3. Set your preferred model
 
 ## License
 
