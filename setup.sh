@@ -216,14 +216,14 @@ onboard() {
 
     # Fix Data Directory Permissions
     log "Preparing data directories..."
-    # Map directories to their expected container UIDs for better security
+    # Map directories to their expected container UIDs
     # Postgres: 999, Redis: 999, Clickhouse: 101, Prometheus: 65534, Minio: 1001
     declare -A dir_map=(
         ["data/postgres"]="999:999"
         ["data/redis"]="999:999"
         ["data/clickhouse/data"]="101:101"
         ["data/clickhouse/logs"]="101:101"
-        ["data/minio"]="1001:1001"
+        ["data/minio/langfuse"]="1001:1001" # Pre-create bucket dir
         ["data/prometheus"]="65534:65534"
         ["data/cliproxyapi/auth-dir"]="1000:1000"
     )
@@ -232,11 +232,14 @@ onboard() {
         mkdir -p "$dir"
         local owner="${dir_map[$dir]}"
         
-        # Try chown first for better security
+        # Ensure parent directories also have permissions
+        local parent="${dir%/*}"
+        [[ -d "$parent" ]] && chmod 777 "$parent"
+
         if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+            # Attempt to set the correct UID/GID for the container user
             sudo chown -R "$owner" "$dir" 2>/dev/null || chmod -R 777 "$dir"
         else
-            # macOS handles bind mount permissions differently (usually mapped to host user)
             chmod -R 777 "$dir"
         fi
     done
