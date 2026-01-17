@@ -3,76 +3,77 @@
 
 model_list:  # List of model deployments https://docs.litellm.ai/docs/proxy/configs#model-list
 
-  # Multiple deployments for the same model_name enables load balancing and failover
-  # Weight: Higher weight = higher probability of being selected
-  # Order: Lower order = higher priority in routing
-
-  - model_name: claude-opus-4-5  # Alias used when calling the API https://docs.litellm.ai/docs/proxy/configs#model_name
-    litellm_params:  # Parameters passed directly to litellm https://docs.litellm.ai/docs/proxy/configs#litellm_params
-      model: anthropic/claude-opus-4-5-20251101  # Actual provider/model identifier https://docs.litellm.ai/docs/proxy/configs#model
-      api_base: os.environ/CLIPROXYAPI_BASE_URL  # Custom API base URL from env var https://docs.litellm.ai/docs/proxy/configs#api_base
-      api_key: os.environ/CLIPROXYAPI_KEY  # API key from env var https://docs.litellm.ai/docs/proxy/configs#api_key
-      weight: 2  # Load balancing weight (higher = more traffic) https://docs.litellm.ai/docs/proxy/configs#weight
-      order: 2  # Priority order (lower = higher priority) https://docs.litellm.ai/docs/proxy/configs#order
-
-  - model_name: claude-sonnet-4-5
+  - model_name: gemini-claude-sonnet-4-5
     litellm_params:
-      model: anthropic/claude-sonnet-4-5-20250929
+      model: anthropic/claude-sonnet-4-5
       api_base: os.environ/CLIPROXYAPI_BASE_URL
       api_key: os.environ/CLIPROXYAPI_KEY
-      weight: 2
-      order: 2
 
-  - model_name: claude-opus-4-5
+  - model_name: tab_flash_lite_preview
     litellm_params:
-      model: anthropic/gemini-claude-opus-4-5-thinking
+      model: google/tab-flash-lite
       api_base: os.environ/CLIPROXYAPI_BASE_URL
       api_key: os.environ/CLIPROXYAPI_KEY
-      weight: 7
-      order: 1
 
-  - model_name: claude-sonnet-4-5
+  - model_name: gemini-claude-sonnet-4-5-thinking
     litellm_params:
-      model: anthropic/gemini-claude-sonnet-4-5
+      model: anthropic/claude-sonnet-4-5-thinking
       api_base: os.environ/CLIPROXYAPI_BASE_URL
       api_key: os.environ/CLIPROXYAPI_KEY
-      weight: 7
-      order: 1
 
-  - model_name: GLM-4.7
+  - model_name: gemini-2.5-computer-use-preview-10-2025
     litellm_params:
-      model: zai/glm-4.7
-      api_base: os.environ/ZAI_API_BASE
-      api_key: os.environ/ZAI_API_KEY
-      tpm: 150000  # Tokens per minute rate limit https://docs.litellm.ai/docs/proxy/configs#tpm
+      model: google/rev19-uic3-1p
+      api_base: os.environ/CLIPROXYAPI_BASE_URL
+      api_key: os.environ/CLIPROXYAPI_KEY
 
-  - model_name: GLM-4.6
+  - model_name: gemini-claude-opus-4-5-thinking
     litellm_params:
-      model: zai/glm-4.6
-      api_base: os.environ/ZAI_API_BASE
-      api_key: os.environ/ZAI_API_KEY
-      tpm: 150000
+      model: anthropic/claude-opus-4-5-thinking
+      api_base: os.environ/CLIPROXYAPI_BASE_URL
+      api_key: os.environ/CLIPROXYAPI_KEY
 
-  - model_name: GLM-4.5-Air
+  - model_name: gemini-3-flash-preview
     litellm_params:
-      model: zai/glm-4.5-air
-      api_base: os.environ/ZAI_API_BASE
-      api_key: os.environ/ZAI_API_KEY
-      tpm: 150000
+      model: google/gemini-3-flash
+      api_base: os.environ/CLIPROXYAPI_BASE_URL
+      api_key: os.environ/CLIPROXYAPI_KEY
 
-  - model_name: minimax/MiniMax-M2.1
+  - model_name: gemini-2.5-pro
     litellm_params:
-      model: minimax/MiniMax-M2.1
-      api_base: os.environ/MINIMAX_API_BASE
-      api_key: os.environ/MINIMAX_API_KEY
-      tpm: 150000
+      model: google/gemini-2.5-pro
+      api_base: os.environ/CLIPROXYAPI_BASE_URL
+      api_key: os.environ/CLIPROXYAPI_KEY
 
-  - model_name: minimax/MiniMax-M2.1-lightning
+  - model_name: gpt-oss-120b-medium
     litellm_params:
-      model: minimax/MiniMax-M2.1-lightning
-      api_base: os.environ/MINIMAX_API_BASE
-      api_key: os.environ/MINIMAX_API_KEY
-      tpm: 150000
+      model: google/gpt-oss-120b
+      api_base: os.environ/CLIPROXYAPI_BASE_URL
+      api_key: os.environ/CLIPROXYAPI_KEY
+
+  - model_name: gemini-3-pro-image-preview
+    litellm_params:
+      model: google/gemini-3-pro-image
+      api_base: os.environ/CLIPROXYAPI_BASE_URL
+      api_key: os.environ/CLIPROXYAPI_KEY
+
+  - model_name: gemini-3-pro-preview
+    litellm_params:
+      model: google/gemini-3-pro-high
+      api_base: os.environ/CLIPROXYAPI_BASE_URL
+      api_key: os.environ/CLIPROXYAPI_KEY
+
+  - model_name: gemini-2.5-flash-lite
+    litellm_params:
+      model: google/gemini-2.5-flash-lite
+      api_base: os.environ/CLIPROXYAPI_BASE_URL
+      api_key: os.environ/CLIPROXYAPI_KEY
+
+  - model_name: gemini-2.5-flash
+    litellm_params:
+      model: google/gemini-2.5-flash
+      api_base: os.environ/CLIPROXYAPI_BASE_URL
+      api_key: os.environ/CLIPROXYAPI_KEY
 
 # Global settings for all LLM calls https://docs.litellm.ai/docs/proxy/config_settings#litellm_settings---reference
 litellm_settings:

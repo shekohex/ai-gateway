@@ -104,7 +104,7 @@ Configure your `~/.claude/settings.json` to route through the gateway:
   "env": {
     "ANTHROPIC_BASE_URL": "http://127.0.0.1:4000",
     "ANTHROPIC_AUTH_TOKEN": "your-master-key",
-    "ANTHROPIC_MODEL": "claude-opus-4-5"
+    "ANTHROPIC_MODEL": "gemini-claude-opus-4-5-thinking"
   }
 }
 ```
