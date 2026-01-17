@@ -1,3 +1,9 @@
+x-logging: &default-logging
+  driver: "json-file"
+  options:
+    max-size: "100mb"
+    max-file: "3"
+
 services:
   prometheus:
     image: prom/prometheus
