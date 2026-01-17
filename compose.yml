@@ -1,100 +1,18 @@
 name: ai-gateway
 
-services:
-  cli-proxy-api:
-    image: eceasy/cli-proxy-api:latest
-    container_name: cli-proxy-api
-    ports:
-      - 8317:8317
-    restart: always
-    volumes:
-      #  - ./config/cliproxyapi/config.yaml:/CLIProxyAPI/config.yaml
-      - ./data/cliproxyapi/auth-dir:/root/.cli-proxy-api
-    develop:
-      watch:
-        - action: sync+restart
-          path: ./config/cliproxyapi/config.yaml
-          target: /CLIProxyAPI/config.yaml
-          initial_sync: true
-    networks:
-      - ai-gateway-connect
+x-logging: &default-logging
+  driver: "json-file"
+  options:
+    max-size: "100mb"
+    max-file: "3" # Rotate after 3 files of 100mb or similar, effectively handling rotation
 
-  litellm:
-    image: docker.litellm.ai/berriai/litellm:main-stable
-    container_name: litellm_proxy
-    ports:
-      - "4000:4000"
-    restart: always
-    # volumes:
-    #   - ./config/litellm/config.yaml:/app/config.yaml
-    command: ["--config", "/app/config.yaml", "--detailed_debug"]
-    init: true
-    environment:
-      CLIPROXYAPI_BASE_URL: "http://cli-proxy-api:8317"
-    env_file:
-      - .env
-    depends_on:
-      - db
-    healthcheck:
-      test:
-        - CMD-SHELL
-        - python3 -c "import urllib.request; urllib.request.urlopen('http://localhost:4000/health/liveliness')"
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
-    develop:
-      watch:
-        - action: sync+restart
-          path: ./config/litellm/config.yaml
-          target: /app/config.yaml
-          initial_sync: true
-    networks:
-      - ai-gateway-connect
-  db:
-    image: postgres:17
-    container_name: litellm-db
-    restart: always
-    env_file:
-      - .env
-    volumes:
-      - ./data/postgres:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d litellm -U llmproxy"]
-      interval: 1s
-      timeout: 5s
-      retries: 10
-    networks:
-      - aiproxy-llm-connect
-  redis:
-    image: redis:7-alpine
-    container_name: litellm-redis
-    restart: always
-    volumes:
-      - ./data/redis:/data
-    command: redis-server --appendonly yes
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    networks:
-      - ai-gateway-connect
-
-  prometheus:
-    image: prom/prometheus
-    ports:
-      - "9090:9090"
-    restart: always
-    volumes:
-      - ./data/prometheus:/prometheus
-    #  - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-    command:
-      - "--config.file=/etc/prometheus/prometheus.yml"
-      - "--storage.tsdb.path=/prometheus"
-      - "--storage.tsdb.retention.time=15d"
-    networks:
-      - ai-gateway-connect
+include:
+  - path: services/data/compose.yml
+  - path: services/gateway/compose.yml
+  - path: services/observability/compose.yml
+  - path: services/identity/compose.yml
 
 networks:
   ai-gateway-connect:
+    name: ai-gateway-connect
+    driver: bridge

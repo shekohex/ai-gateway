@@ -1,0 +1,19 @@
+services:
+  newt:
+    image: fosrl/newt:latest
+    container_name: newt
+    logging: *default-logging
+    restart: unless-stopped
+    env_file:
+      - ../../.env
+    environment:
+      - PANGOLIN_ENDPOINT=${PANGOLIN_ENDPOINT:-https://app.pangolin.net}
+      - NEWT_ID=${NEWT_ID}
+      - NEWT_SECRET=${NEWT_SECRET}
+    networks:
+      - ai-gateway-connect
+
+
+networks:
+  ai-gateway-connect:
+    external: true
