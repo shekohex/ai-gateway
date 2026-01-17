@@ -14,6 +14,7 @@ services:
     restart: always
     volumes:
       - ../../data/cliproxyapi/auth-dir:/root/.cli-proxy-api
+      - ../../config/cliproxyapi/config.yaml:/CLIProxyAPI/config.yaml
     develop:
       watch:
         - action: sync+restart
@@ -29,6 +30,8 @@ services:
     ports:
       - "4000:4000"
     restart: always
+    volumes:
+      - ../../config/litellm/config.yaml:/app/config.yaml
     command: ["--config", "/app/config.yaml", "--detailed_debug"]
     init: true
     environment:
