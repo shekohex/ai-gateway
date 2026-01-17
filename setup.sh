@@ -132,40 +132,65 @@ onboard() {
         set -a; source "$ENV_FILE"; set +a
     fi
 
+    # Helper to get current value or example
+    get_val() {
+        local key="$1"
+        local default_gen="${2:-}"
+        
+        # 1. Check if already set in environment (from existing .env)
+        if [[ -n "${!key:-}" ]]; then
+            echo "${!key}"
+            return
+        fi
+        
+        # 2. Try to get from .env.example if it's not a dummy/placeholder
+        local example
+        example=$(grep "^$key=" "$ENV_EXAMPLE" | cut -d'=' -f2- | tr -d '"' | tr -d "'")
+        if [[ -n "$example" ]] && [[ "$example" != "sk-1234" ]] && [[ "$example" != "sk-dummy" ]] && [[ "$example" != "your-secure-password" ]] && [[ "$example" != "dbpassword9090" ]] && [[ "$example" != "miniosecret" ]] && [[ "$example" != "clickhouse" ]]; then
+            echo "$example"
+            return
+        fi
+
+        # 3. Fallback to generator if provided
+        if [[ -n "$default_gen" ]]; then
+            eval "$default_gen"
+        fi
+    }
+
     # Core Variables
     log "Configuring Security..."
-    local master_key; ask "LiteLLM Master Key" "$(generate_litellm_key)" master_key 1
-    local salt_key; ask "LiteLLM Salt Key" "$(generate_litellm_key)" salt_key 1
-    local mgmt_pass; ask "Management Password" "$(generate_secret 16)" mgmt_pass 1
-    local cliproxy_key; ask "CLIProxyAPI Key" "$(generate_litellm_key)" cliproxy_key 1
+    local master_key; ask "LiteLLM Master Key" "$(get_val LITELLM_MASTER_KEY generate_litellm_key)" master_key 1
+    local salt_key; ask "LiteLLM Salt Key" "$(get_val LITELLM_SALT_KEY generate_litellm_key)" salt_key 1
+    local mgmt_pass; ask "Management Password" "$(get_val MANAGEMENT_PASSWORD "generate_secret 16")" mgmt_pass 1
+    local cliproxy_key; ask "CLIProxyAPI Key" "$(get_val CLIPROXYAPI_KEY generate_litellm_key)" cliproxy_key 1
     
     log "Configuring Database..."
-    local pg_user; ask "Postgres User" "llmproxy" pg_user
-    local pg_pass; ask "Postgres Password" "$(generate_secret 16)" pg_pass 1
+    local pg_user; ask "Postgres User" "$(get_val POSTGRES_USER "echo llmproxy")" pg_user
+    local pg_pass; ask "Postgres Password" "$(get_val POSTGRES_PASSWORD "generate_secret 16")" pg_pass 1
     local db_url="postgresql://${pg_user}:${pg_pass}@db:5432/litellm"
     
     log "Configuring Langfuse..."
-    local lf_salt; ask "Langfuse Salt" "$(generate_secret)" lf_salt 1
-    local lf_enc; ask "Langfuse Encryption Key" "$(generate_secret)" lf_enc 1
-    local lf_next_secret; ask "Langfuse NextAuth Secret" "$(generate_secret)" lf_next_secret 1
-    local lf_pk; ask "Langfuse Public Key" "$(generate_langfuse_pk)" lf_pk 1
-    local lf_sk; ask "Langfuse Secret Key" "$(generate_langfuse_sk)" lf_sk 1
+    local lf_salt; ask "Langfuse Salt" "$(get_val LANGFUSE_SALT generate_secret)" lf_salt 1
+    local lf_enc; ask "Langfuse Encryption Key" "$(get_val LANGFUSE_ENCRYPTION_KEY generate_secret)" lf_enc 1
+    local lf_next_secret; ask "Langfuse NextAuth Secret" "$(get_val NEXTAUTH_SECRET generate_secret)" lf_next_secret 1
+    local lf_pk; ask "Langfuse Public Key" "$(get_val LANGFUSE_PUBLIC_KEY generate_langfuse_pk)" lf_pk 1
+    local lf_sk; ask "Langfuse Secret Key" "$(get_val LANGFUSE_SECRET_KEY generate_langfuse_sk)" lf_sk 1
     
     log "Configuring Redis..."
-    local redis_pass; ask "Redis Password" "$(generate_secret 16)" redis_pass 1
+    local redis_pass; ask "Redis Password" "$(get_val REDIS_PASSWORD "generate_secret 16")" redis_pass 1
 
     log "Configuring Minio..."
-    local minio_user; ask "Minio Root User" "minio" minio_user
-    local minio_pass; ask "Minio Root Password" "$(generate_secret 16)" minio_pass 1
+    local minio_user; ask "Minio Root User" "$(get_val MINIO_ROOT_USER "echo minio")" minio_user
+    local minio_pass; ask "Minio Root Password" "$(get_val MINIO_ROOT_PASSWORD "generate_secret 16")" minio_pass 1
 
     log "Configuring Clickhouse..."
-    local ch_user; ask "Clickhouse User" "clickhouse" ch_user
-    local ch_pass; ask "Clickhouse Password" "$(generate_secret 16)" ch_pass 1
+    local ch_user; ask "Clickhouse User" "$(get_val CLICKHOUSE_USER "echo clickhouse")" ch_user
+    local ch_pass; ask "Clickhouse Password" "$(get_val CLICKHOUSE_PASSWORD "generate_secret 16")" ch_pass 1
 
     log "Configuring Newt..."
-    local pangolin_endpoint; ask "Pangolin Endpoint" "https://app.pangolin.net" pangolin_endpoint
-    local newt_id; ask "Newt Site ID" "" newt_id
-    local newt_secret; ask "Newt Site Secret" "" newt_secret 1
+    local pangolin_endpoint; ask "Pangolin Endpoint" "$(get_val PANGOLIN_ENDPOINT "echo https://app.pangolin.net")" pangolin_endpoint
+    local newt_id; ask "Newt Site ID" "$(get_val NEWT_ID)" newt_id
+    local newt_secret; ask "Newt Site Secret" "$(get_val NEWT_SECRET)" newt_secret 1
 
 
     # Configuration Analysis Section
