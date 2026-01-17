@@ -37,6 +37,38 @@ warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
 error() { echo -e "${RED}[ERROR]${NC} $1"; exit 1; }
 success() { echo -e "${GREEN}[SUCCESS]${NC} $1"; }
 
+record_state() {
+    local action="$1"
+    local detail="$2"
+    local timestamp
+    timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+    printf '{"timestamp": "%s", "action": "%s", "detail": "%s"}\n' "$timestamp" "$action" "$detail" >> "$STATE_FILE"
+}
+
+run_cmd() {
+    if [[ $VERBOSE -eq 1 ]]; then
+        echo -e "${BOLD}> Running:${NC} $1"
+    fi
+    record_state "exec" "$1"
+    eval "$1"
+}
+
+# --- Detection ---
+check_deps() {
+    log "Checking dependencies..."
+    local deps=("curl" "openssl" "jq" "docker" "git")
+    for dep in "${deps[@]}"; do
+        if ! command -v "$dep" >/dev/null 2>&1; then
+            error "Missing dependency: $dep. Please install it first."
+        fi
+    done
+    
+    if ! docker compose version >/dev/null 2>&1; then
+        error "Docker Compose (v2) is required."
+    fi
+    success "All dependencies met."
+}
+
 # --- Onboarding Logic ---
 generate_secret() {
     openssl rand -hex 32
@@ -55,7 +87,12 @@ ask() {
     fi
 
     if [[ "$hide_default" -eq 1 ]]; then
-        read -p "$(echo -e "${BOLD}${prompt}${NC}: ")" value
+        # Mask input for secrets
+        printf "%b%s%b: " "${BOLD}" "${prompt}" "${NC}"
+        stty -echo
+        read value
+        stty echo
+        printf "\n"
     else
         read -p "$(echo -e "${BOLD}${prompt}${NC} ${GRAY}(${default})${NC}: ")" value
     fi
@@ -81,6 +118,9 @@ onboard() {
         # shellcheck source=/dev/null
         set -a; source "$ENV_FILE"; set +a
     fi
+
+    local temp_env=".env.tmp"
+    touch "$temp_env"
 
     # Helper to get current value or example
     get_val() {
@@ -111,10 +151,12 @@ onboard() {
     local lf_next_secret; ask "Langfuse NextAuth Secret" "$(generate_secret)" lf_next_secret 1
     
     log "Configuring Newt..."
+    local pangolin_endpoint; ask "Pangolin Endpoint" "$(get_val PANGOLIN_ENDPOINT)" pangolin_endpoint
     local newt_id; ask "Newt Site ID" "$(get_val NEWT_ID)" newt_id
-    local newt_secret; ask "Newt Site Secret" "$(get_val NEWT_SECRET)" newt_secret
+    local newt_secret; ask "Newt Site Secret" "$(get_val NEWT_SECRET)" newt_secret 1
 
     # Configuration Analysis Section
+
     echo -e "\n${BOLD}Configuration Comparison:${NC}"
     local compare_configs
     ask "Compare current configs with examples to see missing features?" "n" compare_configs
@@ -194,7 +236,7 @@ onboard() {
         echo "CLICKHOUSE_PASSWORD=\"clickhouse\""
         echo ""
         echo "# Newt"
-        echo "PANGOLIN_ENDPOINT=\"https://app.pangolin.net\""
+        echo "PANGOLIN_ENDPOINT=\"$pangolin_endpoint\""
         echo "NEWT_ID=\"$newt_id\""
         echo "NEWT_SECRET=\"$newt_secret\""
     } > "$ENV_FILE"
