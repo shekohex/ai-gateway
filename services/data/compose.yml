@@ -44,7 +44,6 @@ services:
     container_name: langfuse-clickhouse
     logging: *default-logging
     restart: always
-    user: "101:101"
     environment:
       CLICKHOUSE_DB: default
       CLICKHOUSE_USER: ${CLICKHOUSE_USER:-clickhouse}
