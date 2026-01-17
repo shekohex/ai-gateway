@@ -28,11 +28,11 @@ services:
     container_name: litellm-redis
     logging: *default-logging
     restart: always
+    command: redis-server --requirepass ${REDIS_PASSWORD} --appendonly yes
     volumes:
       - ../../data/redis:/data
-    command: redis-server --appendonly yes
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
