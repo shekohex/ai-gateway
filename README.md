@@ -31,8 +31,8 @@ Clone the repository and run the onboarding script:
 The script will:
 - Verify system dependencies.
 - Guide you through security and database configuration.
-- Generate cryptographically secure secrets.
-- Create a tailored `.env` file.
+- Automatically generate cryptographically secure secrets (e.g., `sk-...` for LiteLLM, `pk-lf-...`/`sk-lf-...` for Langfuse) if you leave inputs empty.
+- Create a tailored `.env` file with production-ready defaults.
 
 ### 2. Launching the Stack
 
