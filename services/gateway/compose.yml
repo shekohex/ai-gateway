@@ -12,6 +12,8 @@ services:
     ports:
       - 8317:8317
     restart: always
+    env_file:
+      - ../../.env
     volumes:
       - ../../data/cliproxyapi/auth-dir:/root/.cli-proxy-api
       - ../../config/cliproxyapi/config.yaml:/CLIProxyAPI/config.yaml
