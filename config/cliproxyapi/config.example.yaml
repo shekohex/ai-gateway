@@ -55,7 +55,7 @@ usage-statistics-enabled: false
 proxy-url: ""
 
 # When true, unprefixed model requests only use credentials without a prefix (except when prefix == model name).
-force-model-prefix: false
+force-model-prefix: true
 
 # Number of times to retry a request. Retries will occur if the HTTP response code is 403, 408, 500, 502, 503, or 504.
 request-retry: 3
@@ -70,7 +70,7 @@ quota-exceeded:
 
 # Routing strategy for selecting credentials when multiple match.
 routing:
-  strategy: "round-robin" # round-robin (default), fill-first
+  strategy: "fill-first" # round-robin (default), fill-first
 
 # When true, enable authentication for the WebSocket API (/v1/ws).
 ws-auth: false
@@ -210,34 +210,41 @@ codex-instructions-enabled: false
 # You can repeat the same name with different aliases to expose multiple client model names.
 oauth-model-alias:
   antigravity:
+    - name: "gemini-2.5-pro"
+      alias: "gemini-2.5-pro"
+    - name: "gemini-2.5-flash"
+      alias: "gemini-2.5-flash"
+    - name: "gemini-2.5-flash-lite"
+      alias: "gemini-2.5-flash-lite"
+    - name: "gemini-3-flash"
+      alias: "gemini-3-flash-preview"
+    - name: "gemini-3-pro-high"
+      alias: "gemini-3-pro-preview"
+    - name: "gemini-3-pro-image"
+      alias: "gemini-3-pro-image-preview"
+    - name: "claude-sonnet-4-5"
+      alias: "claude-sonnet-4-5"
+    - name: "claude-sonnet-4-5-thinking"
+      alias: "claude-sonnet-4-5-thinking"
+    - name: "claude-opus-4-5-thinking"
+      alias: "claude-opus-4-5-thinking"
+    - name: "gpt-oss-120b"
+      alias: "gpt-oss-120b-medium"
     - name: "rev19-uic3-1p"
       alias: "gemini-2.5-computer-use-preview-10-2025"
     - name: "tab-flash-lite"
       alias: "tab_flash_lite_preview"
-    - name: "gemini-3-pro-image"
-      alias: "gemini-3-pro-image-preview"
-    - name: "gemini-3-pro-high"
-      alias: "gemini-3-pro-preview"
-    - name: "gemini-3-flash"
-      alias: "gemini-3-flash-preview"
+  gemini-cli:
     - name: "gemini-2.5-pro"
-      alias: "gemini-2.5-pro"
-    - name: "gemini-2.5-flash-lite"
-      alias: "gemini-2.5-flash-lite"
+      alias: "google-gemini-2.5-pro"
     - name: "gemini-2.5-flash"
-      alias: "gemini-2.5-flash"
-    - name: "gpt-oss-120b"
-      alias: "gpt-oss-120b-medium"
-    - name: "claude-sonnet-4-5"
-      alias: "gemini-claude-sonnet-4-5"
-    - name: "claude-sonnet-4-5-thinking"
-      alias: "gemini-claude-sonnet-4-5-thinking"
-    - name: "claude-opus-4-5-thinking"
-      alias: "gemini-claude-opus-4-5-thinking"
-#   gemini-cli:
-#     - name: "gemini-2.5-pro"          # original model name under this channel
-#       alias: "g2.5p"                  # client-visible alias
-#       fork: true                      # when true, keep original and also add the alias as an extra model (default: false)
+      alias: "google-gemini-2.5-flash"
+    - name: "gemini-2.5-flash-lite"
+      alias: "google-gemini-2.5-flash-lite"
+    - name: "gemini-3-flash-preview"
+      alias: "google-gemini-3-flash-preview"
+    - name: "gemini-3-pro-preview"
+      alias: "google-gemini-3-pro-preview"
 #   vertex:
 #     - name: "gemini-2.5-pro"
 #       alias: "g2.5p"
