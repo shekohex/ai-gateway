@@ -210,8 +210,6 @@ codex-instructions-enabled: false
 # You can repeat the same name with different aliases to expose multiple client model names.
 oauth-model-alias:
   antigravity:
-    - name: "gemini-2.5-pro"
-      alias: "gemini-2.5-pro"
     - name: "gemini-2.5-flash"
       alias: "gemini-2.5-flash"
     - name: "gemini-2.5-flash-lite"
@@ -228,15 +226,13 @@ oauth-model-alias:
       alias: "claude-sonnet-4-5-thinking"
     - name: "claude-opus-4-5-thinking"
       alias: "claude-opus-4-5-thinking"
-    - name: "gpt-oss-120b"
-      alias: "gpt-oss-120b-medium"
     - name: "rev19-uic3-1p"
       alias: "gemini-2.5-computer-use-preview-10-2025"
     - name: "tab-flash-lite"
       alias: "tab_flash_lite_preview"
   gemini-cli:
     - name: "gemini-2.5-pro"
-      alias: "google-gemini-2.5-pro"
+      alias: "gemini-2.5-pro"
     - name: "gemini-2.5-flash"
       alias: "google-gemini-2.5-flash"
     - name: "gemini-2.5-flash-lite"

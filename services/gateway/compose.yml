@@ -14,6 +14,8 @@ services:
     restart: always
     env_file:
       - ../../.env
+    environment:
+      PROXY_API_KEY: ${CLIPROXYAPI_KEY:-sk-dummy}
     volumes:
       - ../../data/cliproxyapi/auth-dir:/root/.cli-proxy-api
       - ../../config/cliproxyapi/config.yaml:/CLIProxyAPI/config.yaml
@@ -38,6 +40,8 @@ services:
     init: true
     environment:
       CLIPROXYAPI_BASE_URL: "http://cli-proxy-api:8317"
+      CLIPROXYAPI_OPENAI_BASE_URL: "http://cli-proxy-api:8317/v1"
+      CLIPROXYAPI_GEMINI_BASE_URL: "http://cli-proxy-api:8317/v1beta"
     env_file:
       - ../../.env
     depends_on:

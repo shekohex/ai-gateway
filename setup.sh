@@ -192,6 +192,15 @@ onboard() {
     local newt_id; ask "Newt Site ID" "$(get_val NEWT_ID)" newt_id
     local newt_secret; ask "Newt Site Secret" "$(get_val NEWT_SECRET)" newt_secret 1
 
+    log "Configuring Z.AI (Optional)..."
+    local configure_zai
+    ask "Configure Z.AI models (glm-4.7, coding, anthropic format)?" "n" configure_zai
+
+    if [[ "$configure_zai" =~ ^[Yy]$ ]]; then
+        local zai_key
+        ask "Z.AI API Key" "" zai_key 1
+    fi
+
 
     # Configuration Analysis Section
 
@@ -311,6 +320,16 @@ onboard() {
         echo "NEWT_SECRET=\"$newt_secret\""
     } > "$ENV_FILE"
 
+    if [[ -n "${zai_key:-}" ]]; then
+        {
+            echo ""
+            echo "# Z.AI (Zhipu AI)"
+            echo "ZAI_API_KEY=\"$zai_key\""
+        } >> "$ENV_FILE"
+    fi
+
+    rm "$temp_env"
+
     rm "$temp_env"
     record_state "onboard" "Configuration generated in $ENV_FILE"
     success "Onboarding complete. Configuration saved to $ENV_FILE"
@@ -366,19 +385,25 @@ cmd_reset() {
     success "System reset complete."
 }
 
+cmd_fetch_models() {
+    log "Fetching models.dev API..."
+    run_cmd "./scripts/fetch-models-api.sh $*"
+}
+
 # --- CLI Entry Point ---
 usage() {
     echo "Usage: $0 [command] [options]"
     echo ""
     echo "Commands:"
-    echo "  onboard     Run the interactive onboarding process"
-    echo "  up          Start the stack (pass -d for detached mode)"
-    echo "  down        Stop the stack"
-    echo "  restart     Restart all services"
-    echo "  update      Pull latest images and restart"
-    echo "  cleanup     Remove orphans and stop services"
-    echo "  reset       Wipe all data and configuration"
-    echo "  help        Show this help message"
+    echo "  onboard        Run the interactive onboarding process"
+    echo "  up             Start the stack (pass -d for detached mode)"
+    echo "  down           Stop the stack"
+    echo "  restart        Restart all services"
+    echo "  update         Pull latest images and restart"
+    echo "  cleanup        Remove orphans and stop services"
+    echo "  reset          Wipe all data and configuration"
+    echo "  fetch-models   Download/refresh models.dev API cache"
+    echo "  help           Show this help message"
     echo ""
     echo "Options:"
     echo "  --no-interactive  Disable interactive prompts"
@@ -402,14 +427,15 @@ main() {
     done
 
     case "$cmd" in
-        onboard) onboard ;;
-        up)      cmd_up "$@" ;;
-        down)    cmd_down "$@" ;;
-        restart) cmd_restart "$@" ;;
-        update)  cmd_update ;;
-        cleanup) cmd_cleanup ;;
-        reset)   cmd_reset ;;
-        help|*)  usage ;;
+        onboard)       onboard ;;
+        up)            cmd_up "$@" ;;
+        down)          cmd_down "$@" ;;
+        restart)       cmd_restart "$@" ;;
+        update)        cmd_update ;;
+        cleanup)       cmd_cleanup ;;
+        reset)         cmd_reset ;;
+        fetch-models)  cmd_fetch_models "$@" ;;
+        help|*)        usage ;;
     esac
 }
 

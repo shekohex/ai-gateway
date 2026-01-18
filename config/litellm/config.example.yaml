@@ -18,6 +18,13 @@ credential_list:
     credential_info:
       description: "CLIProxyAPI credentials (OpenAI-compatible)"
 
+  - credential_name: cliproxyapi_credential_gemini
+    credential_values:
+      api_base: os.environ/CLIPROXYAPI_GEMINI_BASE_URL
+      api_key: os.environ/CLIPROXYAPI_KEY
+    credential_info:
+      description: "CLIProxyAPI credentials (Gemini-compatible)"
+
   - credential_name: zai_coding_credential
     credential_values:
       api_base: https://api.z.ai/api/coding/paas/v4
@@ -38,17 +45,11 @@ model_list:
   # --------------------------------------------------
   - model_name: claude-sonnet-4-5
     litellm_params:
-      model: anthropic/claude-sonnet-4-5
-      litellm_credential_name: cliproxyapi_credential
-      order: 1
-
-  - model_name: claude-sonnet-4-5-thinking
-    litellm_params:
       model: anthropic/claude-sonnet-4-5-thinking
       litellm_credential_name: cliproxyapi_credential
       order: 1
 
-  - model_name: claude-opus-4-5-thinking
+  - model_name: claude-opus-4-5
     litellm_params:
       model: anthropic/claude-opus-4-5-thinking
       litellm_credential_name: cliproxyapi_credential
@@ -57,44 +58,31 @@ model_list:
   - model_name: gemini-3-flash-preview
     litellm_params:
       model: gemini/gemini-3-flash-preview
-      litellm_credential_name: cliproxyapi_credential
+      litellm_credential_name: cliproxyapi_credential_gemini
       order: 1
 
   - model_name: gemini-3-pro-preview
     litellm_params:
       model: gemini/gemini-3-pro-preview
-      litellm_credential_name: cliproxyapi_credential
+      litellm_credential_name: cliproxyapi_credential_gemini
       order: 1
 
   - model_name: gemini-3-pro-image-preview
     litellm_params:
       model: gemini/gemini-3-pro-image-preview
-      litellm_credential_name: cliproxyapi_credential
-      order: 1
-
-  - model_name: gpt-oss-120b-medium
-    litellm_params:
-      model: openai/gpt-oss-120b-medium
-      litellm_credential_name: cliproxyapi_credential_openai
-      order: 1
-
-  # Overlapping models - Antigravity first (order: 1)
-  - model_name: gemini-2.5-pro
-    litellm_params:
-      model: gemini/gemini-2.5-pro
-      litellm_credential_name: cliproxyapi_credential
+      litellm_credential_name: cliproxyapi_credential_gemini
       order: 1
 
   - model_name: gemini-2.5-flash
     litellm_params:
       model: gemini/gemini-2.5-flash
-      litellm_credential_name: cliproxyapi_credential
+      litellm_credential_name: cliproxyapi_credential_gemini
       order: 1
 
   - model_name: gemini-2.5-flash-lite
     litellm_params:
       model: gemini/gemini-2.5-flash-lite
-      litellm_credential_name: cliproxyapi_credential
+      litellm_credential_name: cliproxyapi_credential_gemini
       order: 1
 
   # --------------------------------------------------
@@ -103,119 +91,279 @@ model_list:
   # Overlapping models - Gemini-CLI fallback (order: 2)
   - model_name: gemini-2.5-pro
     litellm_params:
-      model: gemini/google-gemini-2.5-pro
-      litellm_credential_name: cliproxyapi_credential
-      order: 2
+      model: gemini/gemini-2.5-pro
+      litellm_credential_name: cliproxyapi_credential_gemini
+      order: 1
 
   - model_name: gemini-2.5-flash
     litellm_params:
       model: gemini/google-gemini-2.5-flash
-      litellm_credential_name: cliproxyapi_credential
+      litellm_credential_name: cliproxyapi_credential_gemini
       order: 2
 
   - model_name: gemini-2.5-flash-lite
     litellm_params:
       model: gemini/google-gemini-2.5-flash-lite
-      litellm_credential_name: cliproxyapi_credential
+      litellm_credential_name: cliproxyapi_credential_gemini
       order: 2
 
   - model_name: gemini-3-flash-preview
     litellm_params:
       model: gemini/google-gemini-3-flash-preview
-      litellm_credential_name: cliproxyapi_credential
+      litellm_credential_name: cliproxyapi_credential_gemini
       order: 2
 
   - model_name: gemini-3-pro-preview
     litellm_params:
       model: gemini/google-gemini-3-pro-preview
-      litellm_credential_name: cliproxyapi_credential
+      litellm_credential_name: cliproxyapi_credential_gemini
       order: 2
 
   # --------------------------------------------------
   # Z.AI Coding Plan - Optimized for Coding (OpenAI-compatible)
   # --------------------------------------------------
-  - model_name: zai-coding-glm-4.7
+  - model_name: glm-4.7
     litellm_params:
-      model: openai/glm-4.7
+      model: zai/glm-4.7
       litellm_credential_name: zai_coding_credential
+      order: 2
 
-  - model_name: zai-coding-glm-4.6
+  - model_name: glm-4.6
     litellm_params:
-      model: openai/glm-4.6
+      model: zai/glm-4.6
       litellm_credential_name: zai_coding_credential
+      order: 2
 
-  - model_name: zai-coding-glm-4.6v
+  - model_name: glm-4.6v
     litellm_params:
-      model: openai/glm-4.6v
+      model: zai/glm-4.6v
       litellm_credential_name: zai_coding_credential
+      order: 2
 
-  - model_name: zai-coding-glm-4.5
+  - model_name: glm-4.5
     litellm_params:
-      model: openai/glm-4.5
+      model: zai/glm-4.5
       litellm_credential_name: zai_coding_credential
+      order: 2
 
-  - model_name: zai-coding-glm-4.5-flash
+  - model_name: glm-4.5-flash
     litellm_params:
-      model: openai/glm-4.5-flash
+      model: zai/glm-4.5-flash
       litellm_credential_name: zai_coding_credential
+      order: 2
 
-  - model_name: zai-coding-glm-4.5-air
+  - model_name: glm-4.5-air
     litellm_params:
-      model: openai/glm-4.5-air
+      model: zai/glm-4.5-air
       litellm_credential_name: zai_coding_credential
+      order: 2
 
-  - model_name: zai-coding-glm-4.5-airx
+  - model_name: glm-4.5-airx
     litellm_params:
-      model: openai/glm-4.5-airx
+      model: zai/glm-4.5-airx
       litellm_credential_name: zai_coding_credential
-
-  - model_name: zai-coding-glm-4.5v
-    litellm_params:
-      model: openai/glm-4.5v
-      litellm_credential_name: zai_coding_credential
+      order: 2
 
   # --------------------------------------------------
   # Z.AI Anthropic Format - Anthropic-compatible Endpoint (same GLM models)
   # --------------------------------------------------
-  - model_name: zai-anthropic-glm-4.7
+  - model_name: glm-4.7
     litellm_params:
       model: anthropic/glm-4.7
       litellm_credential_name: zai_anthropic_credential
+      order: 1
+      use_in_pass_through: true
+      max_input_tokens: 200000
+      max_output_tokens: 128000
+      input_cost_per_token: 6e-7
+      output_cost_per_token: 0.0000022
+      supports_function_calling: true
+      supports_tool_choice: true
+      source: "https://docs.z.ai/guides/overview/pricing"
+    model_info:
+      mode: chat
+      max_tokens: 200000
+      max_input_tokens: 200000
+      max_output_tokens: 128000
+      supports_system_messages: true
+      supports_prompt_caching: true
+      supports_vision: false
+      supports_audio_input: false
+      supports_web_search: false
+      supports_reasoning: true
+      supports_function_calling: true
+      supports_response_schema: true
 
-  - model_name: zai-anthropic-glm-4.6
+  - model_name: glm-4.6
     litellm_params:
       model: anthropic/glm-4.6
       litellm_credential_name: zai_anthropic_credential
+      order: 1
+      use_in_pass_through: true
+      max_input_tokens: 200000
+      max_output_tokens: 128000
+      input_cost_per_token: 6e-7
+      output_cost_per_token: 0.0000022
+      supports_function_calling: true
+      supports_tool_choice: true
+      source: "https://docs.z.ai/guides/overview/pricing"
+    model_info:
+      mode: chat
+      max_tokens: 200000
+      max_input_tokens: 200000
+      max_output_tokens: 128000
+      supports_system_messages: true
+      supports_prompt_caching: true
+      supports_vision: false
+      supports_audio_input: false
+      supports_web_search: false
+      supports_reasoning: true
+      supports_function_calling: true
+      supports_response_schema: true
 
-  - model_name: zai-anthropic-glm-4.6v
+  - model_name: glm-4.6v
     litellm_params:
       model: anthropic/glm-4.6v
       litellm_credential_name: zai_anthropic_credential
+      order: 1
+      use_in_pass_through: true
+      max_input_tokens: 128000
+      max_output_tokens: 128000
+      input_cost_per_token: 3e-7
+      output_cost_per_token: 9e-7
+      supports_function_calling: true
+      supports_tool_choice: true
+      source: "https://docs.z.ai/guides/overview/pricing"
+    model_info:
+      mode: chat
+      max_tokens: 128000
+      max_input_tokens: 128000
+      max_output_tokens: 128000
+      supports_system_messages: true
+      supports_prompt_caching: true
+      supports_vision: true
+      supports_audio_input: false
+      supports_web_search: false
+      supports_reasoning: true
+      supports_function_calling: true
+      supports_response_schema: true
 
-  - model_name: zai-anthropic-glm-4.5
+  - model_name: glm-4.5
     litellm_params:
       model: anthropic/glm-4.5
       litellm_credential_name: zai_anthropic_credential
+      order: 1
+      use_in_pass_through: true
+      max_input_tokens: 128000
+      max_output_tokens: 128000
+      input_cost_per_token: 6e-7
+      output_cost_per_token: 0.0000022
+      supports_function_calling: true
+      supports_tool_choice: true
+      source: "https://docs.z.ai/guides/overview/pricing"
+    model_info:
+      mode: chat
+      max_tokens: 128000
+      max_input_tokens: 128000
+      max_output_tokens: 128000
+      supports_system_messages: true
+      supports_prompt_caching: true
+      supports_vision: false
+      supports_audio_input: false
+      supports_web_search: false
+      supports_reasoning: true
+      supports_function_calling: true
+      supports_response_schema: true
 
-  - model_name: zai-anthropic-glm-4.5-flash
+  - model_name: glm-4.5-flash
     litellm_params:
       model: anthropic/glm-4.5-flash
       litellm_credential_name: zai_anthropic_credential
+      order: 1
+      use_in_pass_through: true
+      max_input_tokens: 128000
+      max_output_tokens: 128000
+      input_cost_per_token: 0
+      output_cost_per_token: 0
+      supports_function_calling: true
+      supports_tool_choice: true
+      source: "https://docs.z.ai/guides/overview/pricing"
+    model_info:
+      mode: chat
+      max_tokens: 128000
+      max_input_tokens: 128000
+      max_output_tokens: 128000
+      supports_system_messages: true
+      supports_prompt_caching: true
+      supports_vision: false
+      supports_audio_input: false
+      supports_web_search: false
+      supports_reasoning: true
+      supports_function_calling: true
+      supports_response_schema: true
 
-  - model_name: zai-anthropic-glm-4.5-air
+  - model_name: glm-4.5-air
     litellm_params:
       model: anthropic/glm-4.5-air
       litellm_credential_name: zai_anthropic_credential
+      order: 1
+      use_in_pass_through: true
+      max_input_tokens: 128000
+      max_output_tokens: 128000
+      input_cost_per_token: 2e-7
+      output_cost_per_token: 0.0000011
+      supports_function_calling: true
+      supports_tool_choice: true
+      source: "https://docs.z.ai/guides/overview/pricing"
+    model_info:
+      mode: chat
+      max_tokens: 128000
+      max_input_tokens: 128000
+      max_output_tokens: 128000
+      supports_system_messages: true
+      supports_prompt_caching: true
+      supports_vision: false
+      supports_audio_input: false
+      supports_web_search: false
+      supports_reasoning: true
+      supports_function_calling: true
+      supports_response_schema: true
 
-  - model_name: zai-anthropic-glm-4.5-airx
+  - model_name: glm-4.5-airx
     litellm_params:
       model: anthropic/glm-4.5-airx
       litellm_credential_name: zai_anthropic_credential
+      order: 1
+      use_in_pass_through: true
+      max_input_tokens: 128000
+      max_output_tokens: 128000
+      input_cost_per_token: 0.0000011
+      output_cost_per_token: 0.0000045
+      supports_function_calling: true
+      supports_tool_choice: true
+      source: "https://docs.z.ai/guides/overview/pricing"
+    model_info:
+      mode: chat
+      max_tokens: 128000
+      max_input_tokens: 128000
+      max_output_tokens: 128000
+      supports_system_messages: true
+      supports_prompt_caching: true
+      supports_vision: false
+      supports_audio_input: false
+      supports_web_search: false
+      supports_reasoning: true
+      supports_function_calling: true
+      supports_response_schema: true
 
-  - model_name: zai-anthropic-glm-4.5v
+# Search tools that AI can invoke and use.
+# https://docs.litellm.ai/docs/search/
+search_tools:
+  - search_tool_name: firecrawl-search
     litellm_params:
-      model: anthropic/glm-4.5v
-      litellm_credential_name: zai_anthropic_credential
+      search_provider: firecrawl
+      api_base: os.environ/FIRECRAWL_API_BASE
+      api_key: os.environ/FIRECRAWL_API_KEY
 
 # Global settings for all LLM calls https://docs.litellm.ai/docs/proxy/config_settings#litellm_settings---reference
 litellm_settings:
