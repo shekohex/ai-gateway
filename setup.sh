@@ -201,6 +201,16 @@ onboard() {
         ask "Z.AI API Key" "" zai_key 1
     fi
 
+    log "Configuring Search (Firecrawl)..."
+    local firecrawl_base; ask "Firecrawl API Base" "$(get_val FIRECRAWL_API_BASE "echo https://api.firecrawl.dev/v2")" firecrawl_base
+    local firecrawl_key; ask "Firecrawl API Key" "$(get_val FIRECRAWL_API_KEY "echo sk-firecrawl")" firecrawl_key 1
+
+    log "Configuring Audio Services..."
+    local speaches_base; ask "Speaches API Base" "$(get_val SPEACHES_API_BASE "echo http://192.168.1.120:3001/v1")" speaches_base
+    local speaches_key; ask "Speaches API Key" "$(get_val SPEACHES_API_KEY "echo sk-free")" speaches_key 1
+    local egyptalk_base; ask "EgypTalk ASR Base" "$(get_val EGYPTALK_ASR_BASE "echo http://192.168.1.120:3002/v1")" egyptalk_base
+    local egyptalk_key; ask "EgypTalk ASR API Key" "$(get_val EGYPTALK_ASR_API "echo sk-free")" egyptalk_key 1
+
 
     # Configuration Analysis Section
 
@@ -318,6 +328,16 @@ onboard() {
         echo "PANGOLIN_ENDPOINT=\"$pangolin_endpoint\""
         echo "NEWT_ID=\"$newt_id\""
         echo "NEWT_SECRET=\"$newt_secret\""
+        echo ""
+        echo "# Search"
+        echo "FIRECRAWL_API_BASE=\"$firecrawl_base\""
+        echo "FIRECRAWL_API_KEY=\"$firecrawl_key\""
+        echo ""
+        echo "# Audio (STT & TTS)"
+        echo "SPEACHES_API_BASE=\"$speaches_base\""
+        echo "SPEACHES_API_KEY=\"$speaches_key\""
+        echo "EGYPTALK_ASR_BASE=\"$egyptalk_base\""
+        echo "EGYPTALK_ASR_API=\"$egyptalk_key\""
     } > "$ENV_FILE"
 
     if [[ -n "${zai_key:-}" ]]; then
@@ -328,9 +348,6 @@ onboard() {
         } >> "$ENV_FILE"
     fi
 
-    rm "$temp_env"
-
-    rm "$temp_env"
     record_state "onboard" "Configuration generated in $ENV_FILE"
     success "Onboarding complete. Configuration saved to $ENV_FILE"
     
