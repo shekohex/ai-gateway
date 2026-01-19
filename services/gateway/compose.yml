@@ -26,6 +26,8 @@ services:
           target: /CLIProxyAPI/config.yaml
     networks:
       - ai-gateway-connect
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   litellm:
     image: docker.litellm.ai/berriai/litellm:main-stable
@@ -61,3 +63,5 @@ services:
           target: /app/config.yaml
     networks:
       - ai-gateway-connect
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
