@@ -531,16 +531,6 @@ litellm_settings:
     port: os.environ/REDIS_PORT # Redis port from env var
     password: os.environ/REDIS_PASSWORD # Redis password from env var
     ttl: 3600 # Default cache TTL in seconds (1 hour)
-  callbacks:
-    - websearch_interception:
-        enabled_providers:
-          - bedrock # Enable for AWS Bedrock
-          - azure # Enable for Azure OpenAI
-          - vertex_ai # Enable for Google Vertex
-          - openai
-          - gemini
-          - zai
-        search_tool_name: firecrawl-search # Optional: use specific search tool
 
 # Router configuration for load balancing and failover https://docs.litellm.ai/docs/proxy/config_settings#router_settings---reference
 router_settings:
