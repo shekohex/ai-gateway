@@ -43,6 +43,8 @@ services:
     image: docker.io/clickhouse/clickhouse-server
     container_name: langfuse-clickhouse
     logging: *default-logging
+    profiles:
+      - observability
     restart: always
     environment:
       CLICKHOUSE_DB: default
@@ -64,6 +66,8 @@ services:
     image: cgr.dev/chainguard/minio
     container_name: langfuse-minio
     logging: *default-logging
+    profiles:
+      - observability
     restart: always
     command: server --address ":9000" --console-address ":9001" /data
     environment:

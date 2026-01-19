@@ -169,23 +169,32 @@ onboard() {
     local pg_pass; ask "Postgres Password" "$(get_val POSTGRES_PASSWORD "generate_secret 16")" pg_pass 1
     local db_url="postgresql://${pg_user}:${pg_pass}@db:5432/litellm"
     
-    log "Configuring Langfuse..."
-    local lf_salt; ask "Langfuse Salt" "$(get_val LANGFUSE_SALT generate_secret)" lf_salt 1
-    local lf_enc; ask "Langfuse Encryption Key" "$(get_val LANGFUSE_ENCRYPTION_KEY generate_secret)" lf_enc 1
-    local lf_next_secret; ask "Langfuse NextAuth Secret" "$(get_val NEXTAUTH_SECRET generate_secret)" lf_next_secret 1
-    local lf_pk; ask "Langfuse Public Key" "$(get_val LANGFUSE_PUBLIC_KEY generate_langfuse_pk)" lf_pk 1
-    local lf_sk; ask "Langfuse Secret Key" "$(get_val LANGFUSE_SECRET_KEY generate_langfuse_sk)" lf_sk 1
+    log "Configuring Observability (Langfuse + Prometheus)..."
+    local enable_observability
+    ask "Enable observability integration (Langfuse, Prometheus, Clickhouse, Minio)?" "y" enable_observability
+    
+    local lf_salt="" lf_enc="" lf_next_secret="" lf_pk="" lf_sk=""
+    local ch_user="" ch_pass="" minio_user="" minio_pass=""
+    
+    if [[ "$enable_observability" =~ ^[Yy]$ ]]; then
+        log "Configuring Langfuse..."
+        ask "Langfuse Salt" "$(get_val LANGFUSE_SALT generate_secret)" lf_salt 1
+        ask "Langfuse Encryption Key" "$(get_val LANGFUSE_ENCRYPTION_KEY generate_secret)" lf_enc 1
+        ask "Langfuse NextAuth Secret" "$(get_val NEXTAUTH_SECRET generate_secret)" lf_next_secret 1
+        ask "Langfuse Public Key" "$(get_val LANGFUSE_PUBLIC_KEY generate_langfuse_pk)" lf_pk 1
+        ask "Langfuse Secret Key" "$(get_val LANGFUSE_SECRET_KEY generate_langfuse_sk)" lf_sk 1
+        
+        log "Configuring Minio..."
+        ask "Minio Root User" "$(get_val MINIO_ROOT_USER "echo minio")" minio_user
+        ask "Minio Root Password" "$(get_val MINIO_ROOT_PASSWORD "generate_secret 16")" minio_pass 1
+
+        log "Configuring Clickhouse..."
+        ask "Clickhouse User" "$(get_val CLICKHOUSE_USER "echo clickhouse")" ch_user
+        ask "Clickhouse Password" "$(get_val CLICKHOUSE_PASSWORD "generate_secret 16")" ch_pass 1
+    fi
     
     log "Configuring Redis..."
     local redis_pass; ask "Redis Password" "$(get_val REDIS_PASSWORD "generate_secret 16")" redis_pass 1
-
-    log "Configuring Minio..."
-    local minio_user; ask "Minio Root User" "$(get_val MINIO_ROOT_USER "echo minio")" minio_user
-    local minio_pass; ask "Minio Root Password" "$(get_val MINIO_ROOT_PASSWORD "generate_secret 16")" minio_pass 1
-
-    log "Configuring Clickhouse..."
-    local ch_user; ask "Clickhouse User" "$(get_val CLICKHOUSE_USER "echo clickhouse")" ch_user
-    local ch_pass; ask "Clickhouse Password" "$(get_val CLICKHOUSE_PASSWORD "generate_secret 16")" ch_pass 1
 
     log "Configuring Newt..."
     local pangolin_endpoint; ask "Pangolin Endpoint" "$(get_val PANGOLIN_ENDPOINT "echo https://app.pangolin.net")" pangolin_endpoint
@@ -260,17 +269,18 @@ onboard() {
 
     # Fix Data Directory Permissions
     log "Preparing data directories..."
-    # Map directories to their expected container UIDs
-    # Postgres: 999, Redis: 999, Clickhouse: 101, Prometheus: 65534, Minio: 1001
     declare -A dir_map=(
         ["data/postgres"]="999:999"
         ["data/redis"]="999:999"
-        ["data/clickhouse/data"]="101:101"
-        ["data/clickhouse/logs"]="101:101"
-        ["data/minio/langfuse"]="1001:1001" # Pre-create bucket dir
-        ["data/prometheus"]="65534:65534"
         ["data/cliproxyapi/auth-dir"]="1000:1000"
     )
+
+    if [[ "$enable_observability" =~ ^[Yy]$ ]]; then
+        dir_map["data/clickhouse/data"]="101:101"
+        dir_map["data/clickhouse/logs"]="101:101"
+        dir_map["data/minio/langfuse"]="1001:1001"
+        dir_map["data/prometheus"]="65534:65534"
+    fi
 
     for dir in "${!dir_map[@]}"; do
         mkdir -p "$dir"
@@ -301,28 +311,43 @@ onboard() {
         echo "POSTGRES_PASSWORD=\"$pg_pass\""
         echo "DATABASE_URL=\"$db_url\""
         echo ""
-        echo "# Langfuse"
-        echo "LANGFUSE_DATABASE_URL=\"postgresql://${pg_user}:${pg_pass}@db:5432/langfuse\""
-        echo "LANGFUSE_SALT=\"$lf_salt\""
-        echo "LANGFUSE_ENCRYPTION_KEY=\"$lf_enc\""
-        echo "NEXTAUTH_SECRET=\"$lf_next_secret\""
-        echo "NEXTAUTH_URL=\"http://localhost:3000\""
-        echo "LANGFUSE_PUBLIC_KEY=\"$lf_pk\""
-        echo "LANGFUSE_SECRET_KEY=\"$lf_sk\""
-        echo "LANGFUSE_HOST=\"http://langfuse-web:3000\""
+        echo "# Docker Compose Profiles"
+        if [[ "$enable_observability" =~ ^[Yy]$ ]]; then
+            echo "COMPOSE_PROFILES=\"observability\""
+        else
+            echo "COMPOSE_PROFILES=\"\""
+        fi
         echo ""
         echo "# Redis"
         echo "REDIS_HOST=\"redis\""
         echo "REDIS_PORT=\"6379\""
         echo "REDIS_PASSWORD=\"$redis_pass\""
-        echo ""
-        echo "# Minio"
-        echo "MINIO_ROOT_USER=\"$minio_user\""
-        echo "MINIO_ROOT_PASSWORD=\"$minio_pass\""
-        echo ""
-        echo "# Clickhouse"
-        echo "CLICKHOUSE_USER=\"$ch_user\""
-        echo "CLICKHOUSE_PASSWORD=\"$ch_pass\""
+    } > "$ENV_FILE"
+
+    if [[ "$enable_observability" =~ ^[Yy]$ ]]; then
+        {
+            echo ""
+            echo "# Langfuse"
+            echo "LANGFUSE_DATABASE_URL=\"postgresql://${pg_user}:${pg_pass}@db:5432/langfuse\""
+            echo "LANGFUSE_SALT=\"$lf_salt\""
+            echo "LANGFUSE_ENCRYPTION_KEY=\"$lf_enc\""
+            echo "NEXTAUTH_SECRET=\"$lf_next_secret\""
+            echo "NEXTAUTH_URL=\"http://localhost:3000\""
+            echo "LANGFUSE_PUBLIC_KEY=\"$lf_pk\""
+            echo "LANGFUSE_SECRET_KEY=\"$lf_sk\""
+            echo "LANGFUSE_HOST=\"http://langfuse-web:3000\""
+            echo ""
+            echo "# Minio"
+            echo "MINIO_ROOT_USER=\"$minio_user\""
+            echo "MINIO_ROOT_PASSWORD=\"$minio_pass\""
+            echo ""
+            echo "# Clickhouse"
+            echo "CLICKHOUSE_USER=\"$ch_user\""
+            echo "CLICKHOUSE_PASSWORD=\"$ch_pass\""
+        } >> "$ENV_FILE"
+    fi
+
+    {
         echo ""
         echo "# Newt"
         echo "PANGOLIN_ENDPOINT=\"$pangolin_endpoint\""
@@ -338,7 +363,7 @@ onboard() {
         echo "SPEACHES_API_KEY=\"$speaches_key\""
         echo "EGYPTALK_ASR_BASE=\"$egyptalk_base\""
         echo "EGYPTALK_ASR_API=\"$egyptalk_key\""
-    } > "$ENV_FILE"
+    } >> "$ENV_FILE"
 
     if [[ -n "${zai_key:-}" ]]; then
         {
@@ -355,13 +380,20 @@ onboard() {
     echo -e "Configure these Resources in your Pangolin Dashboard for this Site:"
     echo -e "  - ${CYAN}LiteLLM Proxy${NC}: http://litellm:4000"
     echo -e "  - ${CYAN}CLI-Proxy-API${NC}: http://cli-proxy-api:8317"
-    echo -e "  - ${CYAN}Prometheus${NC}: http://prometheus:9090"
-    echo -e "  - ${CYAN}Langfuse UI${NC}: http://langfuse-web:3000"
+    if [[ "$enable_observability" =~ ^[Yy]$ ]]; then
+        echo -e "  - ${CYAN}Prometheus${NC}: http://prometheus:9090"
+        echo -e "  - ${CYAN}Langfuse UI${NC}: http://langfuse-web:3000"
+    fi
     
     echo -e "\n${BOLD}Next Steps:${NC}"
     echo -e "1. Run ${BOLD}./setup.sh up -d${NC} to start the stack."
     echo -e "2. Access LiteLLM Admin UI at ${BOLD}http://localhost:4000/ui${NC}"
-    echo -e "3. Access Langfuse at ${BOLD}http://localhost:3000${NC}"
+    if [[ "$enable_observability" =~ ^[Yy]$ ]]; then
+        echo -e "3. Access Langfuse at ${BOLD}http://localhost:3000${NC}"
+    else
+        echo -e "\n${GRAY}Note: Observability services (Langfuse, Prometheus) are disabled.${NC}"
+        echo -e "${GRAY}Re-run onboard or set COMPOSE_PROFILES=\"observability\" in .env to enable.${NC}"
+    fi
 }
 
 # --- Command Handlers ---

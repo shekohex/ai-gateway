@@ -467,8 +467,8 @@ search_tools:
 # Global settings for all LLM calls https://docs.litellm.ai/docs/proxy/config_settings#litellm_settings---reference
 litellm_settings:
   drop_params: True # Drop unsupported params instead of failing https://docs.litellm.ai/docs/proxy/config_settings#drop_params
-  success_callback: ["langfuse", "prometheus"] # Callbacks on successful requests https://docs.litellm.ai/docs/proxy/logging
-  failure_callback: ["prometheus", "langfuse"] # Callbacks on failed requests
+  success_callback: [] # Callbacks on successful requests https://docs.litellm.ai/docs/proxy/logging
+  failure_callback: [] # Callbacks on failed requests
   langfuse_public_key: os.environ/LANGFUSE_PUBLIC_KEY
   langfuse_secret_key: os.environ/LANGFUSE_SECRET_KEY
   langfuse_host: os.environ/LANGFUSE_HOST
