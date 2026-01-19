@@ -200,14 +200,44 @@ model_list:
       mode: audio_speech
       supports_audio_output: True
       supports_audio_input: True
+      input_cost_per_character: 0.000015
+
+  - model_name: tts-1
+    litellm_params:
+      model: openai/speaches-ai/Kokoro-82M-v1.0-ONNX-fp16
+      litellm_credential_name: speaches_credential
+    model_info:
+      mode: audio_speech
+      supports_audio_output: True
+      supports_audio_input: True
+      input_cost_per_character: 0.000015
+
+  - model_name: tts-1-hd
+    litellm_params:
+      model: openai/speaches-ai/Kokoro-82M-v1.0-ONNX-fp16
+      litellm_credential_name: speaches_credential
+    model_info:
+      mode: audio_speech
+      supports_audio_output: True
+      supports_audio_input: True
+      input_cost_per_character: 0.00003
 
   # STT (Transcription)
+  - model_name: whisper-1
+    litellm_params:
+      model: openai/Systran/faster-whisper-large-v3
+      litellm_credential_name: speaches_credential
+    model_info:
+      mode: audio_transcription
+      input_cost_per_second: 0.00003083
+
   - model_name: whisper-large-v3
     litellm_params:
       model: openai/Systran/faster-whisper-large-v3
       litellm_credential_name: speaches_credential
     model_info:
       mode: audio_transcription
+      input_cost_per_second: 0.00003083
 
   - model_name: whisper-distil-large-v3.5
     litellm_params:
@@ -215,6 +245,7 @@ model_list:
       litellm_credential_name: speaches_credential
     model_info:
       mode: audio_transcription
+      input_cost_per_second: 0.00001111
 
   - model_name: whisper-turbo
     litellm_params:
@@ -222,6 +253,7 @@ model_list:
       litellm_credential_name: speaches_credential
     model_info:
       mode: audio_transcription
+      input_cost_per_second: 0.00000556
 
   - model_name: egyptalk-asr
     litellm_params:
@@ -229,6 +261,7 @@ model_list:
       litellm_credential_name: egyptalk_credential
     model_info:
       mode: audio_transcription
+      input_cost_per_second: 0.00003083
 
   # --------------------------------------------------
   # Z.AI Anthropic Format - Anthropic-compatible Endpoint (same GLM models)
