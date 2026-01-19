@@ -39,6 +39,20 @@ credential_list:
     credential_info:
       description: "Z.AI Anthropic Format credentials"
 
+  - credential_name: speaches_credential
+    credential_values:
+      api_base: os.environ/SPEACHES_API_BASE
+      api_key: os.environ/SPEACHES_API_KEY
+    credential_info:
+      description: "Speaches.ai credentials (OpenAI-compatible STT/TTS)"
+
+  - credential_name: egyptalk_credential
+    credential_values:
+      api_base: os.environ/EGYPTALK_ASR_BASE
+      api_key: os.environ/EGYPTALK_ASR_API
+    credential_info:
+      description: "EgypTalk ASR credentials"
+
 model_list:
   # --------------------------------------------------
   # Antigravity models (CLIProxyAPI) - Priority order: 1
@@ -60,6 +74,8 @@ model_list:
       model: gemini/gemini-3-flash-preview
       litellm_credential_name: cliproxyapi_credential_gemini
       order: 1
+    model_info:
+      supports_web_search: True
 
   - model_name: gemini-3-pro-preview
     litellm_params:
@@ -78,12 +94,16 @@ model_list:
       model: gemini/gemini-2.5-flash
       litellm_credential_name: cliproxyapi_credential_gemini
       order: 1
+    model_info:
+      supports_web_search: True
 
   - model_name: gemini-2.5-flash-lite
     litellm_params:
       model: gemini/gemini-2.5-flash-lite
       litellm_credential_name: cliproxyapi_credential_gemini
       order: 1
+    model_info:
+      supports_web_search: True
 
   # --------------------------------------------------
   # Google/Gemini-CLI models (CLIProxyAPI) - Fallback order: 2
@@ -100,12 +120,16 @@ model_list:
       model: gemini/google-gemini-2.5-flash
       litellm_credential_name: cliproxyapi_credential_gemini
       order: 2
+    model_info:
+      supports_web_search: True
 
   - model_name: gemini-2.5-flash-lite
     litellm_params:
       model: gemini/google-gemini-2.5-flash-lite
       litellm_credential_name: cliproxyapi_credential_gemini
       order: 2
+    model_info:
+      supports_web_search: True
 
   - model_name: gemini-3-flash-preview
     litellm_params:
@@ -163,6 +187,48 @@ model_list:
       model: zai/glm-4.5-airx
       litellm_credential_name: zai_coding_credential
       order: 2
+
+  # --------------------------------------------------
+  # Audio Models (Speaches & EgypTalk)
+  # --------------------------------------------------
+  # TTS
+  - model_name: tts-kokoro
+    litellm_params:
+      model: openai/speaches-ai/Kokoro-82M-v1.0-ONNX-fp16
+      litellm_credential_name: speaches_credential
+    model_info:
+      mode: audio_speech
+      supports_audio_output: True
+      supports_audio_input: True
+
+  # STT (Transcription)
+  - model_name: whisper-large-v3
+    litellm_params:
+      model: openai/Systran/faster-whisper-large-v3
+      litellm_credential_name: speaches_credential
+    model_info:
+      mode: audio_transcription
+
+  - model_name: whisper-distil-large-v3.5
+    litellm_params:
+      model: openai/distil-whisper/distil-large-v3.5-ct2
+      litellm_credential_name: speaches_credential
+    model_info:
+      mode: audio_transcription
+
+  - model_name: whisper-turbo
+    litellm_params:
+      model: openai/deepdml/faster-whisper-large-v3-turbo-ct2
+      litellm_credential_name: speaches_credential
+    model_info:
+      mode: audio_transcription
+
+  - model_name: egyptalk-asr
+    litellm_params:
+      model: openai/egyptalk-asr-v2
+      litellm_credential_name: egyptalk_credential
+    model_info:
+      mode: audio_transcription
 
   # --------------------------------------------------
   # Z.AI Anthropic Format - Anthropic-compatible Endpoint (same GLM models)
