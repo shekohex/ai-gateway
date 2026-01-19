@@ -370,7 +370,6 @@ model_list:
     litellm_params:
       model: anthropic/glm-4.7
       litellm_credential_name: zai_anthropic_credential
-      use_in_pass_through: true
       max_input_tokens: 200000
       max_output_tokens: 128000
       input_cost_per_token: 6e-7
@@ -396,7 +395,6 @@ model_list:
     litellm_params:
       model: anthropic/glm-4.7-flashx
       litellm_credential_name: zai_anthropic_credential
-      use_in_pass_through: true
       max_input_tokens: 200000
       max_output_tokens: 128000
       input_cost_per_token: 7e-8
@@ -422,7 +420,6 @@ model_list:
     litellm_params:
       model: anthropic/glm-4.6
       litellm_credential_name: zai_anthropic_credential
-      use_in_pass_through: true
       max_input_tokens: 200000
       max_output_tokens: 128000
       input_cost_per_token: 6e-7
@@ -448,7 +445,6 @@ model_list:
     litellm_params:
       model: anthropic/glm-4.6v
       litellm_credential_name: zai_anthropic_credential
-      use_in_pass_through: true
       max_input_tokens: 128000
       max_output_tokens: 128000
       input_cost_per_token: 3e-7
@@ -474,7 +470,6 @@ model_list:
     litellm_params:
       model: anthropic/glm-4.5
       litellm_credential_name: zai_anthropic_credential
-      use_in_pass_through: true
       max_input_tokens: 128000
       max_output_tokens: 128000
       input_cost_per_token: 6e-7
@@ -500,7 +495,6 @@ model_list:
     litellm_params:
       model: anthropic/glm-4.5-flash
       litellm_credential_name: zai_anthropic_credential
-      use_in_pass_through: true
       max_input_tokens: 128000
       max_output_tokens: 128000
       input_cost_per_token: 0
@@ -526,7 +520,6 @@ model_list:
     litellm_params:
       model: anthropic/glm-4.5-air
       litellm_credential_name: zai_anthropic_credential
-      use_in_pass_through: true
       max_input_tokens: 128000
       max_output_tokens: 128000
       input_cost_per_token: 2e-7
@@ -552,7 +545,6 @@ model_list:
     litellm_params:
       model: anthropic/glm-4.5-airx
       litellm_credential_name: zai_anthropic_credential
-      use_in_pass_through: true
       max_input_tokens: 128000
       max_output_tokens: 128000
       input_cost_per_token: 0.0000011
@@ -581,7 +573,6 @@ model_list:
     litellm_params:
       model: openai/gemma3
       litellm_credential_name: gigabrain_credential
-      use_in_pass_through: true
       max_input_tokens: 32000
       max_output_tokens: 32000
       input_cost_per_token: 0
@@ -606,7 +597,6 @@ model_list:
     litellm_params:
       model: openai/qwen3
       litellm_credential_name: gigabrain_credential
-      use_in_pass_through: true
       max_input_tokens: 128000
       max_output_tokens: 128000
       input_cost_per_token: 0
@@ -631,7 +621,6 @@ model_list:
     litellm_params:
       model: openai/qwen3-coder
       litellm_credential_name: gigabrain_credential
-      use_in_pass_through: true
       max_input_tokens: 128000
       max_output_tokens: 128000
       input_cost_per_token: 0
@@ -656,10 +645,8 @@ model_list:
     litellm_params:
       model: openai/qwen3-embedding
       litellm_credential_name: gigabrain_credential
-      use_in_pass_through: true
 
   - model_name: text-embedding-3-large
     litellm_params:
       model: openai/qwen3-embedding
       litellm_credential_name: gigabrain_credential
-      use_in_pass_through: true
