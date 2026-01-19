@@ -200,6 +200,15 @@ model_list:
       litellm_credential_name: zai_coding_credential
       order: 2
 
+  - model_name: glm-4.7-flashx
+    litellm_params:
+      model: zai/glm-4.7-flashx
+      litellm_credential_name: zai_coding_credential
+      order: 2
+      input_cost_per_token: 7e-8
+      output_cost_per_token: 4e-7
+      source: "https://docs.z.ai/guides/overview/pricing"
+
   - model_name: glm-4.6
     litellm_params:
       model: zai/glm-4.6
@@ -311,6 +320,37 @@ model_list:
       mode: audio_transcription
       input_cost_per_second: 0.00003083
 
+  - model_name: glm-asr-2512
+    litellm_params:
+      model: zai/glm-asr-2512
+      litellm_credential_name: zai_coding_credential
+      input_cost_per_token: 3e-8
+      source: "https://docs.z.ai/guides/overview/pricing"
+    model_info:
+      mode: audio_transcription
+
+  - model_name: glm-asr-latest
+    litellm_params:
+      model: zai/glm-asr-2512
+      litellm_credential_name: zai_coding_credential
+      input_cost_per_token: 3e-8
+      source: "https://docs.z.ai/guides/overview/pricing"
+    model_info:
+      mode: audio_transcription
+
+  # --------------------------------------------------
+  # Image Generation Models (Z.AI)
+  # --------------------------------------------------
+  - model_name: glm-image
+    litellm_params:
+      model: zai/glm-image
+      litellm_credential_name: zai_coding_credential
+      output_cost_per_image: 0.015
+      input_cost_per_image: 0.015
+      source: "https://docs.z.ai/guides/overview/pricing"
+    model_info:
+      mode: image_generation
+
   # --------------------------------------------------
   # Z.AI Anthropic Format - Anthropic-compatible Endpoint (same GLM models)
   # --------------------------------------------------
@@ -324,6 +364,33 @@ model_list:
       max_output_tokens: 128000
       input_cost_per_token: 6e-7
       output_cost_per_token: 0.0000022
+      supports_function_calling: true
+      supports_tool_choice: true
+      source: "https://docs.z.ai/guides/overview/pricing"
+    model_info:
+      mode: chat
+      max_tokens: 200000
+      max_input_tokens: 200000
+      max_output_tokens: 128000
+      supports_system_messages: true
+      supports_prompt_caching: true
+      supports_vision: false
+      supports_audio_input: false
+      supports_web_search: false
+      supports_reasoning: true
+      supports_function_calling: true
+      supports_response_schema: true
+
+  - model_name: glm-4.7-flashx
+    litellm_params:
+      model: anthropic/glm-4.7-flashx
+      litellm_credential_name: zai_anthropic_credential
+      order: 1
+      use_in_pass_through: true
+      max_input_tokens: 200000
+      max_output_tokens: 128000
+      input_cost_per_token: 7e-8
+      output_cost_per_token: 4e-7
       supports_function_calling: true
       supports_tool_choice: true
       source: "https://docs.z.ai/guides/overview/pricing"
