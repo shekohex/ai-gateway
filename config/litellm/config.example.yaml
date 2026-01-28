@@ -14,7 +14,7 @@ litellm_settings:
   redact_user_api_key_info: true # Hide sensitive key info in logs https://docs.litellm.ai/docs/proxy/config_settings#redact_user_api_key_info
   set_verbose: False
   request_timeout: 1200
-  json_logs: true # Get debug logs in json format
+  json_logs: False # Get debug logs in json format
   cache: False # Enable/disable response caching https://docs.litellm.ai/docs/proxy/caching
   enable_caching_on_provider_specific_optional_params: True # Cache provider-specific params https://docs.litellm.ai/docs/proxy/caching
   cache_params: # Cache configuration https://docs.litellm.ai/docs/proxy/caching#supported-cache_params-on-proxy-configyaml
@@ -41,7 +41,7 @@ general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY # Required for UI and Virtual Keys
   database_url: os.environ/DATABASE_URL # Required for Virtual Keys
   ui_access_mode: admin_only # Enable Admin UI for admins
-  alerting: ["slack"] # Alert channels for failures/errors https://docs.litellm.ai/docs/proxy/alerting
+  alerting: [] # Alert channels for failures/errors https://docs.litellm.ai/docs/proxy/alerting
   store_model_in_db: true # Persist model config in database https://docs.litellm.ai/docs/proxy/config_settings#store_model_in_db
   block_robots: true
   proxy_batch_write_at: 60
@@ -139,6 +139,13 @@ credential_list:
       api_key: os.environ/OPENCODE_ZEN_API_KEY
     credential_info:
       description: "OpenCode Zen credentials (Gemini-compatible)"
+
+  - credential_name: google_gemini_credential
+    credential_values:
+      api_base: https://generativelanguage.googleapis.com
+      api_key: os.environ/GEMINI_API_KEY
+    credential_info:
+      description: "Google Gemini credentials"
 
 model_list:
   # --------------------------------------------------
@@ -312,8 +319,6 @@ model_list:
       litellm_credential_name: cliproxyapi_credential_openai
       order: 1
 
-  # --------------------------------------------------
-  # Antigravity models (CLIProxyAPI) - Priority order: 1
   # --------------------------------------------------
   # Antigravity models (CLIProxyAPI) - Priority order: 1
   # --------------------------------------------------
@@ -566,7 +571,7 @@ model_list:
       order: 2
 
   # --------------------------------------------------
-  # Audio Models (Speaches & EgypTalk)
+  # Audio Models (Speaches & EgypTalk, Gemini)
   # --------------------------------------------------
   # TTS
   - model_name: tts-kokoro
@@ -598,6 +603,24 @@ model_list:
       supports_audio_output: True
       supports_audio_input: True
       input_cost_per_character: 0.00003
+
+  - model_name: gemini-2.5-flash-preview-tts
+    litellm_params:
+      model: gemini/gemini-2.5-flash-preview-tts
+      litellm_credential_name: google_gemini_credential
+    model_info:
+      mode: audio_speech
+      supports_audio_output: True
+      supports_audio_input: True
+
+  - model_name: gemini-2.5-pro-preview-tts
+    litellm_params:
+      model: gemini/gemini-2.5-pro-preview-tts
+      litellm_credential_name: google_gemini_credential
+    model_info:
+      mode: audio_speech
+      supports_audio_output: True
+      supports_audio_input: True
 
   # STT (Transcription)
   - model_name: whisper-1
