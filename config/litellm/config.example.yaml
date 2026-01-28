@@ -146,6 +146,12 @@ credential_list:
       api_key: os.environ/GEMINI_API_KEY
     credential_info:
       description: "Google Gemini credentials"
+  - credential_name: openai_credential
+    credential_values:
+      api_base: https://api.openai.com/v1
+      api_key: os.environ/OPENAI_API_KEY
+    credential_info:
+      description: "OpenAI credentials"
 
 model_list:
   # --------------------------------------------------
@@ -622,6 +628,15 @@ model_list:
       supports_audio_output: True
       supports_audio_input: True
 
+  - model_name: gpt-4o-mini-tts
+    litellm_params:
+      model: openai/gpt-4o-mini-tts
+      litellm_credential_name: openai_credential
+    model_info:
+      mode: audio_speech
+      supports_audio_output: True
+      supports_audio_input: False
+
   # STT (Transcription)
   - model_name: whisper-1
     litellm_params:
@@ -681,6 +696,23 @@ model_list:
     model_info:
       mode: audio_transcription
 
+  - model_name: gpt-4o-transcribe
+    litellm_params:
+      model: openai/gpt-4o-transcribe
+      litellm_credential_name: openai_credential
+    model_info:
+      mode: audio_transcription
+      supports_audio_output: False
+      supports_audio_input: True
+
+  - model_name: gpt-4o-mini-transcribe
+    litellm_params:
+      model: openai/gpt-4o-mini-transcribe
+      litellm_credential_name: openai_credential
+    model_info:
+      mode: audio_transcription
+      supports_audio_output: False
+      supports_audio_input: True
   # --------------------------------------------------
   # Image Generation Models (Z.AI)
   # --------------------------------------------------
