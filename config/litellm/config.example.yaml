@@ -957,8 +957,9 @@ model_list:
       litellm_credential_name: kimi_coding_credential
       max_input_tokens: 262144
       max_output_tokens: 32768
-      input_cost_per_token: 0
-      output_cost_per_token: 0
+      input_cost_per_token: 6e-7
+      output_cost_per_token: 0.000003
+      cache_read_input_token_cost: 1e-7
       supports_function_calling: true
       supports_tool_choice: true
       source: "https://www.kimi.com/coding/docs/en/third-party-agents.html"
