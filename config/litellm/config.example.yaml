@@ -98,6 +98,13 @@ credential_list:
     credential_info:
       description: "Z.AI Anthropic Format credentials"
 
+  - credential_name: kimi_coding_credential
+    credential_values:
+      api_base: https://api.kimi.com/coding/v1
+      api_key: os.environ/KIMI_API_KEY
+    credential_info:
+      description: "Kimi Coding Plan credentials (OpenAI-compatible)"
+
   - credential_name: speaches_credential
     credential_values:
       api_base: os.environ/SPEACHES_API_BASE
@@ -937,6 +944,32 @@ model_list:
       supports_system_messages: true
       supports_prompt_caching: true
       supports_vision: false
+      supports_audio_input: false
+      supports_web_search: false
+      supports_reasoning: true
+      supports_function_calling: true
+      supports_response_schema: true
+
+  - model_name: kimi/k2p5
+    litellm_params:
+      model: openai/k2p5
+      use_in_pass_through: true
+      litellm_credential_name: kimi_coding_credential
+      max_input_tokens: 262144
+      max_output_tokens: 32768
+      input_cost_per_token: 0
+      output_cost_per_token: 0
+      supports_function_calling: true
+      supports_tool_choice: true
+      source: "https://www.kimi.com/coding/docs/en/third-party-agents.html"
+    model_info:
+      mode: chat
+      max_tokens: 262144
+      max_input_tokens: 262144
+      max_output_tokens: 32768
+      supports_system_messages: true
+      supports_prompt_caching: false
+      supports_vision: true
       supports_audio_input: false
       supports_web_search: false
       supports_reasoning: true
