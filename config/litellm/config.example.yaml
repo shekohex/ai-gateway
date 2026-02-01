@@ -100,7 +100,7 @@ credential_list:
 
   - credential_name: kimi_coding_credential
     credential_values:
-      api_base: https://api.kimi.com/coding/v1
+      api_base: https://api.kimi.com/coding
       api_key: os.environ/KIMI_API_KEY
     credential_info:
       description: "Kimi Coding Plan credentials (Anthropic-compatible)"
