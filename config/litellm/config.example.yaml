@@ -950,7 +950,7 @@ model_list:
       supports_function_calling: true
       supports_response_schema: true
 
-  - model_name: kimi/k2p5
+  - model_name: k2p5
     litellm_params:
       model: openai/k2p5
       use_in_pass_through: true
