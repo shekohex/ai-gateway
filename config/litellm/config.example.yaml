@@ -103,7 +103,7 @@ credential_list:
       api_base: https://api.kimi.com/coding/v1
       api_key: os.environ/KIMI_API_KEY
     credential_info:
-      description: "Kimi Coding Plan credentials (OpenAI-compatible)"
+      description: "Kimi Coding Plan credentials (Anthropic-compatible)"
 
   - credential_name: speaches_credential
     credential_values:
@@ -952,7 +952,7 @@ model_list:
 
   - model_name: k2p5
     litellm_params:
-      model: openai/k2p5
+      model: anthropic/k2p5
       use_in_pass_through: true
       litellm_credential_name: kimi_coding_credential
       api_key: os.environ/KIMI_API_KEY
