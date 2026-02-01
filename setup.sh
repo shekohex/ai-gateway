@@ -210,6 +210,33 @@ onboard() {
         ask "Z.AI API Key" "" zai_key 1
     fi
 
+    log "Configuring OpenCode Zen (Optional)..."
+    local configure_opencode_zen
+    ask "Configure OpenCode Zen models?" "n" configure_opencode_zen
+
+    if [[ "$configure_opencode_zen" =~ ^[Yy]$ ]]; then
+        local opencode_zen_key
+        ask "OpenCode Zen API Key" "" opencode_zen_key 1
+    fi
+
+    log "Configuring Kimi (Optional)..."
+    local configure_kimi
+    ask "Configure Kimi Coding models (K2.5)?" "n" configure_kimi
+
+    if [[ "$configure_kimi" =~ ^[Yy]$ ]]; then
+        local kimi_key
+        ask "Kimi API Key" "" kimi_key 1
+    fi
+
+    log "Configuring Gemini GenAI (Optional)..."
+    local configure_gemini
+    ask "Configure Google Gemini GenAI models?" "n" configure_gemini
+
+    if [[ "$configure_gemini" =~ ^[Yy]$ ]]; then
+        local gemini_key
+        ask "Gemini API Key" "" gemini_key 1
+    fi
+
     log "Configuring Search (Firecrawl)..."
     local firecrawl_base; ask "Firecrawl API Base" "$(get_val FIRECRAWL_API_BASE "echo https://api.firecrawl.dev/v2")" firecrawl_base
     local firecrawl_key; ask "Firecrawl API Key" "$(get_val FIRECRAWL_API_KEY "echo sk-firecrawl")" firecrawl_key 1
@@ -368,8 +395,28 @@ onboard() {
     if [[ -n "${zai_key:-}" ]]; then
         {
             echo ""
-            echo "# Z.AI (Zhipu AI)"
             echo "ZAI_API_KEY=\"$zai_key\""
+        } >> "$ENV_FILE"
+    fi
+
+    if [[ -n "${opencode_zen_key:-}" ]]; then
+        {
+            echo ""
+            echo "OPENCODE_ZEN_API_KEY=\"$opencode_zen_key\""
+        } >> "$ENV_FILE"
+    fi
+
+    if [[ -n "${kimi_key:-}" ]]; then
+        {
+            echo ""
+            echo "KIMI_API_KEY=\"$kimi_key\""
+        } >> "$ENV_FILE"
+    fi
+
+    if [[ -n "${gemini_key:-}" ]]; then
+        {
+            echo ""
+            echo "GEMINI_API_KEY=\"$gemini_key\""
         } >> "$ENV_FILE"
     fi
 
