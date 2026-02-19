@@ -248,6 +248,41 @@ model_list:
   #       litellm_credential_name: opencode_zen_openai_credential
   #       order: 2
   #
+  - model_name: gpt-5.3-codex-spark
+    litellm_params:
+      model: openai/gpt-5.3-codex-spark
+      litellm_credential_name: cliproxyapi_credential_openai
+      order: 1
+      max_input_tokens: 100000
+      max_output_tokens: 32000
+      input_cost_per_token: 0.00000175
+      output_cost_per_token: 0.000014
+      cache_read_input_token_cost: 0.000000175
+      supports_function_calling: true
+      supports_tool_choice: true
+      source: "https://github.com/models-dev/models/blob/main/openai/gpt-5.3-codex-spark.toml"
+    model_info:
+      mode: chat
+      max_tokens: 128000
+      max_input_tokens: 100000
+      max_output_tokens: 32000
+      supports_system_messages: true
+      supports_prompt_caching: true
+      supports_vision: true
+      supports_audio_input: false
+      supports_web_search: false
+      supports_reasoning: true
+      supports_function_calling: true
+      supports_response_schema: true
+      knowledge_date: "2025-08-31"
+      release_date: "2026-02-05"
+
+  #   - model_name: gpt-5.3-codex-spark
+  #     litellm_params:
+  #       model: openai/gpt-5.3-codex-spark
+  #       litellm_credential_name: opencode_zen_openai_credential
+  #       order: 2
+  #
   - model_name: gpt-5.1-codex
     litellm_params:
       model: openai/gpt-5.1-codex
@@ -408,6 +443,35 @@ model_list:
       model: gemini/gemini-3-pro-preview
       litellm_credential_name: cliproxyapi_credential_gemini
       order: 1
+
+  - model_name: gemini-3.1-pro-preview
+    litellm_params:
+      model: gemini/gemini-3.1-pro-preview
+      litellm_credential_name: cliproxyapi_credential_gemini
+      order: 1
+      max_input_tokens: 1048576
+      max_output_tokens: 65536
+      input_cost_per_token: 0.000002
+      output_cost_per_token: 0.000012
+      cache_read_input_token_cost: 0.0000002
+      supports_function_calling: true
+      supports_tool_choice: true
+      source: "https://github.com/models-dev/models/blob/main/google/gemini-3.1-pro-preview.toml"
+    model_info:
+      mode: chat
+      max_tokens: 1048576
+      max_input_tokens: 1048576
+      max_output_tokens: 65536
+      supports_system_messages: true
+      supports_prompt_caching: true
+      supports_vision: true
+      supports_audio_input: true
+      supports_web_search: true
+      supports_reasoning: true
+      supports_function_calling: true
+      supports_response_schema: true
+      knowledge_date: "2025-01"
+      release_date: "2026-02-19"
 
   - model_name: gemini-3-flash
     litellm_params:
