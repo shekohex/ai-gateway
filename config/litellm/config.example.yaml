@@ -149,7 +149,7 @@ credential_list:
 
   - credential_name: google_gemini_credential
     credential_values:
-      api_base: https://generativelanguage.googleapis.com
+      api_base: https://generativelanguage.googleapis.com/v1beta
       api_key: os.environ/GEMINI_API_KEY
     credential_info:
       description: "Google Gemini credentials"
