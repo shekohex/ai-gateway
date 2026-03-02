@@ -430,199 +430,199 @@ model_list:
   #     litellm_credential_name: opencode_zen_anthropic_credential
   #     order: 1
 
-  - model_name: gemini-3-flash-preview
-    litellm_params:
-      model: gemini/gemini-3-flash-preview
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 1
-    model_info:
-      supports_web_search: True
+  # - model_name: gemini-3-flash-preview
+  #   litellm_params:
+  #     model: gemini/gemini-3-flash-preview
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 1
+  #   model_info:
+  #     supports_web_search: True
 
-  - model_name: gemini-3-pro-preview
-    litellm_params:
-      model: gemini/gemini-3-pro-preview
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 1
-
-  - model_name: gemini-3.1-pro-preview
-    litellm_params:
-      model: gemini/gemini-3.1-pro-preview
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 1
-
-  - model_name: gemini-3-flash
-    litellm_params:
-      model: gemini/gemini-3-flash
-      litellm_credential_name: opencode_zen_gemini_credential
-      order: 1
-
-  - model_name: gemini-3-pro
-    litellm_params:
-      model: gemini/gemini-3-pro
-      litellm_credential_name: opencode_zen_gemini_credential
-      order: 1
-
-  - model_name: gemini-3-pro-image-preview
-    litellm_params:
-      model: gemini/gemini-3-pro-image-preview
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 1
-
-  - model_name: gemini-2.5-flash
-    litellm_params:
-      model: gemini/gemini-2.5-flash
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 1
-    model_info:
-      supports_web_search: True
-
-  - model_name: gemini-2.5-flash-lite
-    litellm_params:
-      model: gemini/gemini-2.5-flash-lite
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 1
-    model_info:
-      supports_web_search: True
+  # - model_name: gemini-3-pro-preview
+  #   litellm_params:
+  #     model: gemini/gemini-3-pro-preview
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 1
+  #
+  # - model_name: gemini-3.1-pro-preview
+  #   litellm_params:
+  #     model: gemini/gemini-3.1-pro-preview
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 1
+  #
+  # - model_name: gemini-3-flash
+  #   litellm_params:
+  #     model: gemini/gemini-3-flash
+  #     litellm_credential_name: opencode_zen_gemini_credential
+  #     order: 1
+  #
+  # - model_name: gemini-3-pro
+  #   litellm_params:
+  #     model: gemini/gemini-3-pro
+  #     litellm_credential_name: opencode_zen_gemini_credential
+  #     order: 1
+  #
+  # - model_name: gemini-3-pro-image-preview
+  #   litellm_params:
+  #     model: gemini/gemini-3-pro-image-preview
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 1
+  #
+  # - model_name: gemini-2.5-flash
+  #   litellm_params:
+  #     model: gemini/gemini-2.5-flash
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 1
+  #   model_info:
+  #     supports_web_search: True
+  #
+  # - model_name: gemini-2.5-flash-lite
+  #   litellm_params:
+  #     model: gemini/gemini-2.5-flash-lite
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 1
+  #   model_info:
+  #     supports_web_search: True
 
   # --------------------------------------------------
   # Google/Gemini-CLI models (CLIProxyAPI) - Fallback order: 2
   # --------------------------------------------------
   # Overlapping models - Gemini-CLI fallback (order: 2)
-  - model_name: gemini-2.5-pro
-    litellm_params:
-      model: gemini/gemini-2.5-pro
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 1
-
-  - model_name: gemini-2.5-flash
-    litellm_params:
-      model: gemini/google-gemini-2.5-flash
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 2
-    model_info:
-      supports_web_search: True
-
-  - model_name: gemini-2.5-flash-lite
-    litellm_params:
-      model: gemini/google-gemini-2.5-flash-lite
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 2
-    model_info:
-      supports_web_search: True
-
-  - model_name: gemini-3-flash-preview
-    litellm_params:
-      model: gemini/google-gemini-3-flash-preview
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 2
-
-  - model_name: gemini-3-pro-preview
-    litellm_params:
-      model: gemini/google-gemini-3-pro-preview
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 2
+  # - model_name: gemini-2.5-pro
+  #   litellm_params:
+  #     model: gemini/gemini-2.5-pro
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 1
+  #
+  # - model_name: gemini-2.5-flash
+  #   litellm_params:
+  #     model: gemini/google-gemini-2.5-flash
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 2
+  #   model_info:
+  #     supports_web_search: True
+  #
+  # - model_name: gemini-2.5-flash-lite
+  #   litellm_params:
+  #     model: gemini/google-gemini-2.5-flash-lite
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 2
+  #   model_info:
+  #     supports_web_search: True
+  #
+  # - model_name: gemini-3-flash-preview
+  #   litellm_params:
+  #     model: gemini/google-gemini-3-flash-preview
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 2
+  #
+  # - model_name: gemini-3-pro-preview
+  #   litellm_params:
+  #     model: gemini/google-gemini-3-pro-preview
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 2
 
   # --------------------------------------------------
   # Gemini 2.5 Preview Aliases - Compatibility for dated versions
   # --------------------------------------------------
-  - model_name: gemini-2.5-flash-preview-04-17
-    litellm_params:
-      model: gemini/gemini-2.5-flash
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 1
-
-  - model_name: gemini-2.5-flash-preview-04-17
-    litellm_params:
-      model: gemini/google-gemini-2.5-flash
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 2
-
-  - model_name: gemini-2.5-flash-preview-05-20
-    litellm_params:
-      model: gemini/gemini-2.5-flash
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 1
-
-  - model_name: gemini-2.5-flash-preview-05-20
-    litellm_params:
-      model: gemini/google-gemini-2.5-flash
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 2
-
-  - model_name: gemini-2.5-flash-preview-09-2025
-    litellm_params:
-      model: gemini/gemini-2.5-flash
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 1
-
-  - model_name: gemini-2.5-flash-preview-09-2025
-    litellm_params:
-      model: gemini/google-gemini-2.5-flash
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 2
-
-  - model_name: gemini-2.5-flash-lite-preview-06-17
-    litellm_params:
-      model: gemini/gemini-2.5-flash-lite
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 1
-
-  - model_name: gemini-2.5-flash-lite-preview-06-17
-    litellm_params:
-      model: gemini/google-gemini-2.5-flash-lite
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 2
-
-  - model_name: gemini-2.5-flash-lite-preview-09-2025
-    litellm_params:
-      model: gemini/gemini-2.5-flash-lite
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 1
-
-  - model_name: gemini-2.5-flash-lite-preview-09-2025
-    litellm_params:
-      model: gemini/google-gemini-2.5-flash-lite
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 2
-
-  - model_name: gemini-2.5-pro-preview-05-06
-    litellm_params:
-      model: gemini/gemini-2.5-pro
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 1
-
-  - model_name: gemini-2.5-pro-preview-06-05
-    litellm_params:
-      model: gemini/gemini-2.5-pro
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 1
-
+  # - model_name: gemini-2.5-flash-preview-04-17
+  #   litellm_params:
+  #     model: gemini/gemini-2.5-flash
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 1
+  #
+  # - model_name: gemini-2.5-flash-preview-04-17
+  #   litellm_params:
+  #     model: gemini/google-gemini-2.5-flash
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 2
+  #
+  # - model_name: gemini-2.5-flash-preview-05-20
+  #   litellm_params:
+  #     model: gemini/gemini-2.5-flash
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 1
+  #
+  # - model_name: gemini-2.5-flash-preview-05-20
+  #   litellm_params:
+  #     model: gemini/google-gemini-2.5-flash
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 2
+  #
+  # - model_name: gemini-2.5-flash-preview-09-2025
+  #   litellm_params:
+  #     model: gemini/gemini-2.5-flash
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 1
+  #
+  # - model_name: gemini-2.5-flash-preview-09-2025
+  #   litellm_params:
+  #     model: gemini/google-gemini-2.5-flash
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 2
+  #
+  # - model_name: gemini-2.5-flash-lite-preview-06-17
+  #   litellm_params:
+  #     model: gemini/gemini-2.5-flash-lite
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 1
+  #
+  # - model_name: gemini-2.5-flash-lite-preview-06-17
+  #   litellm_params:
+  #     model: gemini/google-gemini-2.5-flash-lite
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 2
+  #
+  # - model_name: gemini-2.5-flash-lite-preview-09-2025
+  #   litellm_params:
+  #     model: gemini/gemini-2.5-flash-lite
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 1
+  #
+  # - model_name: gemini-2.5-flash-lite-preview-09-2025
+  #   litellm_params:
+  #     model: gemini/google-gemini-2.5-flash-lite
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 2
+  #
+  # - model_name: gemini-2.5-pro-preview-05-06
+  #   litellm_params:
+  #     model: gemini/gemini-2.5-pro
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 1
+  #
+  # - model_name: gemini-2.5-pro-preview-06-05
+  #   litellm_params:
+  #     model: gemini/gemini-2.5-pro
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 1
+  #
   # --------------------------------------------------
   # Gemini Latest Aliases - Point to 3.0 preview models
   # --------------------------------------------------
-  - model_name: gemini-flash-latest
-    litellm_params:
-      model: gemini/gemini-3-flash-preview
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 1
-
-  - model_name: gemini-flash-latest
-    litellm_params:
-      model: gemini/google-gemini-3-flash-preview
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 2
-
-  - model_name: gemini-flash-lite-latest
-    litellm_params:
-      model: gemini/gemini-2.5-flash-lite
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 1
-
-  - model_name: gemini-flash-lite-latest
-    litellm_params:
-      model: gemini/google-gemini-2.5-flash-lite
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 2
+  # - model_name: gemini-flash-latest
+  #   litellm_params:
+  #     model: gemini/gemini-3-flash-preview
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 1
+  #
+  # - model_name: gemini-flash-latest
+  #   litellm_params:
+  #     model: gemini/google-gemini-3-flash-preview
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 2
+  #
+  # - model_name: gemini-flash-lite-latest
+  #   litellm_params:
+  #     model: gemini/gemini-2.5-flash-lite
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 1
+  #
+  # - model_name: gemini-flash-lite-latest
+  #   litellm_params:
+  #     model: gemini/google-gemini-2.5-flash-lite
+  #     litellm_credential_name: cliproxyapi_credential_gemini
+  #     order: 2
   # --------------------------------------------------
   # Gemini 2.5 Google AI Studio - Using API Keys
   # --------------------------------------------------
