@@ -147,6 +147,20 @@ credential_list:
     credential_info:
       description: "OpenCode Zen credentials (Gemini-compatible)"
 
+  - credential_name: opencode_go_openai_credential
+    credential_values:
+      api_base: https://opencode.ai/zen/go/v1
+      api_key: os.environ/OPENCODE_GO_API_KEY
+    credential_info:
+      description: "OpenCode Go credentials (OpenAI-compatible)"
+
+  - credential_name: opencode_go_anthropic_credential
+    credential_values:
+      api_base: https://opencode.ai/zen/go
+      api_key: os.environ/OPENCODE_GO_API_KEY
+    credential_info:
+      description: "OpenCode Go credentials (Anthropic-compatible)"
+
   - credential_name: google_gemini_credential
     credential_values:
       api_base: https://generativelanguage.googleapis.com/v1beta
@@ -833,31 +847,31 @@ model_list:
       supports_function_calling: true
       supports_response_schema: true
 
-  - model_name: glm-5
-    litellm_params:
-      model: anthropic/glm-5
-      litellm_credential_name: zai_anthropic_credential
-      order: 1
-      max_input_tokens: 200000
-      max_output_tokens: 128000
-      input_cost_per_token: 0.000001
-      output_cost_per_token: 0.0000032
-      supports_function_calling: true
-      supports_tool_choice: true
-      source: "https://docs.z.ai/guides/overview/pricing"
-    model_info:
-      mode: chat
-      max_tokens: 200000
-      max_input_tokens: 200000
-      max_output_tokens: 128000
-      supports_system_messages: true
-      supports_prompt_caching: true
-      supports_vision: false
-      supports_audio_input: false
-      supports_web_search: false
-      supports_reasoning: true
-      supports_function_calling: true
-      supports_response_schema: true
+  # - model_name: glm-5
+  #   litellm_params:
+  #     model: anthropic/glm-5
+  #     litellm_credential_name: zai_anthropic_credential
+  #     order: 1
+  #     max_input_tokens: 200000
+  #     max_output_tokens: 128000
+  #     input_cost_per_token: 0.000001
+  #     output_cost_per_token: 0.0000032
+  #     supports_function_calling: true
+  #     supports_tool_choice: true
+  #     source: "https://docs.z.ai/guides/overview/pricing"
+  #   model_info:
+  #     mode: chat
+  #     max_tokens: 200000
+  #     max_input_tokens: 200000
+  #     max_output_tokens: 128000
+  #     supports_system_messages: true
+  #     supports_prompt_caching: true
+  #     supports_vision: false
+  #     supports_audio_input: false
+  #     supports_web_search: false
+  #     supports_reasoning: true
+  #     supports_function_calling: true
+  #     supports_response_schema: true
 
   #   - model_name: glm-4.7
   #     litellm_params:
@@ -1047,33 +1061,33 @@ model_list:
       supports_function_calling: true
       supports_response_schema: true
 
-  - model_name: k2p5
-    litellm_params:
-      model: anthropic/k2p5
-      use_in_pass_through: true
-      litellm_credential_name: kimi_coding_credential
-      api_key: os.environ/KIMI_API_KEY
-      max_input_tokens: 262144
-      max_output_tokens: 32768
-      input_cost_per_token: 6e-7
-      output_cost_per_token: 0.000003
-      cache_read_input_token_cost: 1e-7
-      supports_function_calling: true
-      supports_tool_choice: true
-      source: "https://www.kimi.com/coding/docs/en/third-party-agents.html"
-    model_info:
-      mode: chat
-      max_tokens: 262144
-      max_input_tokens: 262144
-      max_output_tokens: 32768
-      supports_system_messages: true
-      supports_prompt_caching: false
-      supports_vision: true
-      supports_audio_input: false
-      supports_web_search: false
-      supports_reasoning: true
-      supports_function_calling: true
-      supports_response_schema: true
+  # - model_name: k2p5
+  #   litellm_params:
+  #     model: anthropic/k2p5
+  #     use_in_pass_through: true
+  #     litellm_credential_name: kimi_coding_credential
+  #     api_key: os.environ/KIMI_API_KEY
+  #     max_input_tokens: 262144
+  #     max_output_tokens: 32768
+  #     input_cost_per_token: 6e-7
+  #     output_cost_per_token: 0.000003
+  #     cache_read_input_token_cost: 1e-7
+  #     supports_function_calling: true
+  #     supports_tool_choice: true
+  #     source: "https://www.kimi.com/coding/docs/en/third-party-agents.html"
+  #   model_info:
+  #     mode: chat
+  #     max_tokens: 262144
+  #     max_input_tokens: 262144
+  #     max_output_tokens: 32768
+  #     supports_system_messages: true
+  #     supports_prompt_caching: false
+  #     supports_vision: true
+  #     supports_audio_input: false
+  #     supports_web_search: false
+  #     supports_reasoning: true
+  #     supports_function_calling: true
+  #     supports_response_schema: true
 
   # --------------------------------------------------
   # Gigabrain Models (Bigboss)
@@ -1179,6 +1193,27 @@ model_list:
     litellm_params:
       model: openai/big-pickle
       litellm_credential_name: opencode_zen_openai_credential
+      order: 1
+
+  # --------------------------------------------------
+  # OpenCode Go Models
+  # --------------------------------------------------
+  - model_name: glm-5
+    litellm_params:
+      model: openai/glm-5
+      litellm_credential_name: opencode_go_openai_credential
+      order: 1
+
+  - model_name: kimi-k2.5
+    litellm_params:
+      model: openai/kimi-k2.5
+      litellm_credential_name: opencode_go_openai_credential
+      order: 1
+
+  - model_name: minimax-m2.5
+    litellm_params:
+      model: anthropic/minimax-m2.5
+      litellm_credential_name: opencode_go_anthropic_credential
       order: 1
 
   - model_name: qwen3-embedding
