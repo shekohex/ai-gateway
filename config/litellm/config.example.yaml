@@ -91,13 +91,6 @@ credential_list:
     credential_info:
       description: "Z.AI Coding Plan credentials (OpenAI-compatible)"
 
-  - credential_name: zai_anthropic_credential
-    credential_values:
-      api_base: https://api.z.ai/api/anthropic
-      api_key: os.environ/ZAI_API_KEY
-    credential_info:
-      description: "Z.AI Anthropic Format credentials"
-
   - credential_name: kimi_coding_credential
     credential_values:
       api_base: https://api.kimi.com/coding
@@ -831,69 +824,17 @@ model_list:
       mode: image_generation
 
   # --------------------------------------------------
-  # Z.AI Anthropic Format - Anthropic-compatible Endpoint (same GLM models)
+  # Z.AI OpenAI Format - OpenAI-compatible Endpoint
   # --------------------------------------------------
-  - model_name: glm-4.7
-    litellm_params:
-      model: anthropic/glm-4.7
-      litellm_credential_name: zai_anthropic_credential
-      order: 1
-      max_input_tokens: 200000
-      max_output_tokens: 128000
-      input_cost_per_token: 6e-7
-      output_cost_per_token: 0.0000022
-      supports_function_calling: true
-      supports_tool_choice: true
-      source: "https://docs.z.ai/guides/overview/pricing"
-    model_info:
-      mode: chat
-      max_tokens: 200000
-      max_input_tokens: 200000
-      max_output_tokens: 128000
-      supports_system_messages: true
-      supports_prompt_caching: true
-      supports_vision: false
-      supports_audio_input: false
-      supports_web_search: false
-      supports_reasoning: true
-      supports_function_calling: true
-      supports_response_schema: true
-
-  # - model_name: glm-5
-  #   litellm_params:
-  #     model: anthropic/glm-5
-  #     litellm_credential_name: zai_anthropic_credential
-  #     order: 1
-  #     max_input_tokens: 200000
-  #     max_output_tokens: 128000
-  #     input_cost_per_token: 0.000001
-  #     output_cost_per_token: 0.0000032
-  #     supports_function_calling: true
-  #     supports_tool_choice: true
-  #     source: "https://docs.z.ai/guides/overview/pricing"
-  #   model_info:
-  #     mode: chat
-  #     max_tokens: 200000
-  #     max_input_tokens: 200000
-  #     max_output_tokens: 128000
-  #     supports_system_messages: true
-  #     supports_prompt_caching: true
-  #     supports_vision: false
-  #     supports_audio_input: false
-  #     supports_web_search: false
-  #     supports_reasoning: true
-  #     supports_function_calling: true
-  #     supports_response_schema: true
-
   - model_name: glm-5-turbo
     litellm_params:
-      model: anthropic/glm-5-turbo
-      litellm_credential_name: zai_anthropic_credential
-      order: 1
+      model: zai/glm-5-turbo
+      litellm_credential_name: zai_coding_credential
       max_input_tokens: 200000
-      max_output_tokens: 128000
-      input_cost_per_token: 0.000001
-      output_cost_per_token: 0.0000032
+      max_output_tokens: 131072
+      input_cost_per_token: 0
+      output_cost_per_token: 0
+      cache_read_input_token_cost: 0
       supports_function_calling: true
       supports_tool_choice: true
       source: "https://docs.z.ai/guides/overview/pricing"
@@ -901,7 +842,7 @@ model_list:
       mode: chat
       max_tokens: 200000
       max_input_tokens: 200000
-      max_output_tokens: 128000
+      max_output_tokens: 131072
       supports_system_messages: true
       supports_prompt_caching: true
       supports_vision: false
@@ -910,21 +851,18 @@ model_list:
       supports_reasoning: true
       supports_function_calling: true
       supports_response_schema: true
+      knowledge_date: "2025-04"
+      release_date: "2026-03-16"
 
-  #   - model_name: glm-4.7
-  #     litellm_params:
-  #       model: openai/glm-4.7
-  #       litellm_credential_name: opencode_zen_openai_credential
-  #       order: 2
-  #
-  - model_name: glm-4.7-flashx
+  - model_name: glm-5.1
     litellm_params:
-      model: anthropic/glm-4.7-flashx
-      litellm_credential_name: zai_anthropic_credential
+      model: zai/glm-5.1
+      litellm_credential_name: zai_coding_credential
       max_input_tokens: 200000
-      max_output_tokens: 128000
-      input_cost_per_token: 7e-8
-      output_cost_per_token: 4e-7
+      max_output_tokens: 131072
+      input_cost_per_token: 0
+      output_cost_per_token: 0
+      cache_read_input_token_cost: 0
       supports_function_calling: true
       supports_tool_choice: true
       source: "https://docs.z.ai/guides/overview/pricing"
@@ -932,7 +870,7 @@ model_list:
       mode: chat
       max_tokens: 200000
       max_input_tokens: 200000
-      max_output_tokens: 128000
+      max_output_tokens: 131072
       supports_system_messages: true
       supports_prompt_caching: true
       supports_vision: false
@@ -941,16 +879,18 @@ model_list:
       supports_reasoning: true
       supports_function_calling: true
       supports_response_schema: true
+      knowledge_date: "2025-04"
+      release_date: "2026-03-27"
 
-  - model_name: glm-4.6
+  - model_name: glm-5v-turbo
     litellm_params:
-      model: anthropic/glm-4.6
-      litellm_credential_name: zai_anthropic_credential
-      order: 1
+      model: zai/glm-5v-turbo
+      litellm_credential_name: zai_coding_credential
       max_input_tokens: 200000
-      max_output_tokens: 128000
-      input_cost_per_token: 6e-7
-      output_cost_per_token: 0.0000022
+      max_output_tokens: 131072
+      input_cost_per_token: 0
+      output_cost_per_token: 0
+      cache_read_input_token_cost: 0
       supports_function_calling: true
       supports_tool_choice: true
       source: "https://docs.z.ai/guides/overview/pricing"
@@ -958,38 +898,7 @@ model_list:
       mode: chat
       max_tokens: 200000
       max_input_tokens: 200000
-      max_output_tokens: 128000
-      supports_system_messages: true
-      supports_prompt_caching: true
-      supports_vision: false
-      supports_audio_input: false
-      supports_web_search: false
-      supports_reasoning: true
-      supports_function_calling: true
-      supports_response_schema: true
-
-  #   - model_name: glm-4.6
-  #     litellm_params:
-  #       model: openai/glm-4.6
-  #       litellm_credential_name: opencode_zen_openai_credential
-  #       order: 2
-  #
-  - model_name: glm-4.6v
-    litellm_params:
-      model: anthropic/glm-4.6v
-      litellm_credential_name: zai_anthropic_credential
-      max_input_tokens: 128000
-      max_output_tokens: 128000
-      input_cost_per_token: 3e-7
-      output_cost_per_token: 9e-7
-      supports_function_calling: true
-      supports_tool_choice: true
-      source: "https://docs.z.ai/guides/overview/pricing"
-    model_info:
-      mode: chat
-      max_tokens: 128000
-      max_input_tokens: 128000
-      max_output_tokens: 128000
+      max_output_tokens: 131072
       supports_system_messages: true
       supports_prompt_caching: true
       supports_vision: true
@@ -998,106 +907,7 @@ model_list:
       supports_reasoning: true
       supports_function_calling: true
       supports_response_schema: true
-
-  - model_name: glm-4.5
-    litellm_params:
-      model: anthropic/glm-4.5
-      litellm_credential_name: zai_anthropic_credential
-      max_input_tokens: 128000
-      max_output_tokens: 128000
-      input_cost_per_token: 6e-7
-      output_cost_per_token: 0.0000022
-      supports_function_calling: true
-      supports_tool_choice: true
-      source: "https://docs.z.ai/guides/overview/pricing"
-    model_info:
-      mode: chat
-      max_tokens: 128000
-      max_input_tokens: 128000
-      max_output_tokens: 128000
-      supports_system_messages: true
-      supports_prompt_caching: true
-      supports_vision: false
-      supports_audio_input: false
-      supports_web_search: false
-      supports_reasoning: true
-      supports_function_calling: true
-      supports_response_schema: true
-
-  - model_name: glm-4.5-flash
-    litellm_params:
-      model: anthropic/glm-4.5-flash
-      litellm_credential_name: zai_anthropic_credential
-      max_input_tokens: 128000
-      max_output_tokens: 128000
-      input_cost_per_token: 0
-      output_cost_per_token: 0
-      supports_function_calling: true
-      supports_tool_choice: true
-      source: "https://docs.z.ai/guides/overview/pricing"
-    model_info:
-      mode: chat
-      max_tokens: 128000
-      max_input_tokens: 128000
-      max_output_tokens: 128000
-      supports_system_messages: true
-      supports_prompt_caching: true
-      supports_vision: false
-      supports_audio_input: false
-      supports_web_search: false
-      supports_reasoning: true
-      supports_function_calling: true
-      supports_response_schema: true
-
-  - model_name: glm-4.5-air
-    litellm_params:
-      model: anthropic/glm-4.5-air
-      litellm_credential_name: zai_anthropic_credential
-      max_input_tokens: 128000
-      max_output_tokens: 128000
-      input_cost_per_token: 2e-7
-      output_cost_per_token: 0.0000011
-      supports_function_calling: true
-      supports_tool_choice: true
-      source: "https://docs.z.ai/guides/overview/pricing"
-    model_info:
-      mode: chat
-      max_tokens: 128000
-      max_input_tokens: 128000
-      max_output_tokens: 128000
-      supports_system_messages: true
-      supports_prompt_caching: true
-      supports_vision: false
-      supports_audio_input: false
-      supports_web_search: false
-      supports_reasoning: true
-      supports_function_calling: true
-      supports_response_schema: true
-
-  - model_name: glm-4.5-airx
-    litellm_params:
-      model: anthropic/glm-4.5-airx
-      litellm_credential_name: zai_anthropic_credential
-      max_input_tokens: 128000
-      max_output_tokens: 128000
-      input_cost_per_token: 0.0000011
-      output_cost_per_token: 0.0000045
-      supports_function_calling: true
-      supports_tool_choice: true
-      source: "https://docs.z.ai/guides/overview/pricing"
-    model_info:
-      mode: chat
-      max_tokens: 128000
-      max_input_tokens: 128000
-      max_output_tokens: 128000
-      supports_system_messages: true
-      supports_prompt_caching: true
-      supports_vision: false
-      supports_audio_input: false
-      supports_web_search: false
-      supports_reasoning: true
-      supports_function_calling: true
-      supports_response_schema: true
+      release_date: "2026-04-01"
 
   # - model_name: k2p5
   #   litellm_params:
