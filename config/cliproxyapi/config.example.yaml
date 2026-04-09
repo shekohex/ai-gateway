@@ -241,6 +241,10 @@ oauth-model-alias:
       alias: "google-gemini-3-flash-preview"
     - name: "gemini-3-pro-preview"
       alias: "google-gemini-3-pro-preview"
+    - name: "gemini-3.1-flash-lite-preview"
+      alias: "google-gemini-3.1-flash-lite-preview"
+    - name: "gemini-3.1-pro-preview"
+      alias: "google-gemini-3.1-pro-preview"
 #   vertex:
 #     - name: "gemini-2.5-pro"
 #       alias: "g2.5p"
