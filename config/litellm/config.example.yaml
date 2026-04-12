@@ -663,11 +663,11 @@ model_list:
   # --------------------------------------------------
   # Gemini 2.5 Google AI Studio - Using API Keys
   # --------------------------------------------------
-  - model_name: gemini-2.5-pro
-    litellm_params:
-      model: gemini/gemini-2.5-pro
-      litellm_credential_name: google_gemini_credential
-      order: 3
+  # - model_name: gemini-2.5-pro
+  #   litellm_params:
+  #     model: gemini/gemini-2.5-pro
+  #     litellm_credential_name: google_gemini_credential
+  #     order: 3
 
   - model_name: gemini-2.5-flash
     litellm_params:
@@ -685,17 +685,17 @@ model_list:
     model_info:
       supports_web_search: True
 
-  - model_name: gemini-3.1-flash-lite-preview
-    litellm_params:
-      model: gemini/gemini-3.1-flash-lite-preview
-      litellm_credential_name: google_gemini_credential
-      order: 3
+  # - model_name: gemini-3.1-flash-lite-preview
+  #   litellm_params:
+  #     model: gemini/gemini-3.1-flash-lite-preview
+  #     litellm_credential_name: google_gemini_credential
+  #     order: 3
 
-  - model_name: gemini-3.1-pro-preview
-    litellm_params:
-      model: gemini/gemini-3.1-pro-preview
-      litellm_credential_name: google_gemini_credential
-      order: 3
+  # - model_name: gemini-3.1-pro-preview
+  #   litellm_params:
+  #     model: gemini/gemini-3.1-pro-preview
+  #     litellm_credential_name: google_gemini_credential
+  #     order: 3
 
   # --------------------------------------------------
   # Audio Models (Speaches & EgypTalk, Gemini)

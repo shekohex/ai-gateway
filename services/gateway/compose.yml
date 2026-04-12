@@ -16,6 +16,7 @@ services:
       - ../../.env
     environment:
       PROXY_API_KEY: ${CLIPROXYAPI_KEY:-sk-dummy}
+      OPENAI_API_KEY: ""
     volumes:
       - ../../data/cliproxyapi/auth-dir:/root/.cli-proxy-api
       - ../../config/cliproxyapi/config.yaml:/CLIProxyAPI/config.yaml
