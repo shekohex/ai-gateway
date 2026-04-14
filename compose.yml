@@ -11,6 +11,7 @@ include:
   - path: services/gateway/compose.yml
   - path: services/observability/compose.yml
   - path: services/identity/compose.yml
+  - path: services/executor/compose.yaml
 
 networks:
   ai-gateway-connect:

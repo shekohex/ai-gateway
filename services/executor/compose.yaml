@@ -1,0 +1,17 @@
+services:
+  executor:
+    build:
+      context: .
+      args:
+        EXECUTOR_VERSION: ${EXECUTOR_VERSION:-latest}
+    image: ${EXECUTOR_IMAGE:-ghcr.io/shekohex/executor-proxy:latest}
+    ports:
+      - "${EXECUTOR_HTTP_PORT:-4788}:80"
+    environment:
+      EXECUTOR_PORT: ${EXECUTOR_PORT:-4788}
+      EXECUTOR_DATA_DIR: /var/lib/executor
+      EXECUTOR_SCOPE_DIR: /workspace
+    volumes:
+      - ../../data/executor/data:/var/lib/executor
+      - ../../config/executor/config:/workspace
+    restart: unless-stopped
