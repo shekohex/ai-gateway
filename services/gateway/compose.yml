@@ -31,11 +31,7 @@ services:
       - "host.docker.internal:host-gateway"
 
   litellm:
-    # image: docker.litellm.ai/berriai/litellm:main-stable
-    # Using a pinned version.
-    # See: https://github.com/BerriAI/litellm/issues/24512
-    # Also Check: https://github.com/BerriAI/litellm/issues/24518
-    image: docker.litellm.ai/berriai/litellm@sha256:b959a1816fa454a14d2842242d0fa1cd0d39f96fc94d3a1f4e1de4e48e2398c6
+    image: ghcr.io/berriai/litellm:v1.83.7-stable@sha256:af0152ca6dfb6703b35c0d4899effa9ac132bce9a4fbcbe1dc6ef145c100db26
     container_name: litellm_proxy
     logging: *default-logging
     ports:
@@ -57,10 +53,10 @@ services:
       test:
         - CMD-SHELL
         - python3 -c "import urllib.request; urllib.request.urlopen('http://localhost:4000/health/liveliness')"
-      interval: 30s
+      interval: 60s
       timeout: 10s
       retries: 3
-      start_period: 40s
+      start_period: 60s
     develop:
       watch:
         - action: sync+restart
