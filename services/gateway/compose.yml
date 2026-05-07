@@ -31,7 +31,7 @@ services:
       - "host.docker.internal:host-gateway"
 
   litellm:
-    image: ghcr.io/berriai/litellm:v1.83.7-stable@sha256:af0152ca6dfb6703b35c0d4899effa9ac132bce9a4fbcbe1dc6ef145c100db26
+    image: ghcr.io/berriai/litellm:1.84.0-rc.1@sha256:6c9ed01488e3d15643bbbaca5c1e1b7e97242d2f0a9be58f3e44c1d159857550
     container_name: litellm_proxy
     logging: *default-logging
     ports:
@@ -39,7 +39,7 @@ services:
     restart: always
     volumes:
       - ../../config/litellm/config.yaml:/app/config.yaml
-    command: ["--config", "/app/config.yaml", "--detailed_debug"]
+    command: ["--config", "/app/config.yaml"]
     init: true
     environment:
       CLIPROXYAPI_BASE_URL: "http://cli-proxy-api:8317"
