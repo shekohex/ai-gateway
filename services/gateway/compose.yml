@@ -31,7 +31,7 @@ services:
       - "host.docker.internal:host-gateway"
 
   litellm:
-    image: ghcr.io/berriai/litellm:v1.86.0-rc.1@sha256:cbf46a4b12f45daa868c95cf383a2b891a9b6b309a441db0fed67c6460eefd30
+    image: ghcr.io/berriai/litellm:1.87.0-dev.1@sha256:22036af1d529c4b1f9923a4d169c81d2d1885d62d5e64b3ca5b4bb7b09977b58
     container_name: litellm_proxy
     logging: *default-logging
     ports:
