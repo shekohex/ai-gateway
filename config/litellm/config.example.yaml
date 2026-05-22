@@ -616,7 +616,7 @@ model_list:
       model: openai/Systran/faster-whisper-large-v3
       litellm_credential_name: speaches_credential
     model_info:
-      mode: audio_transcription
+      mode: realtime
       input_cost_per_second: 0.00003083
 
   - model_name: whisper-large-v3
@@ -624,7 +624,7 @@ model_list:
       model: openai/Systran/faster-whisper-large-v3
       litellm_credential_name: speaches_credential
     model_info:
-      mode: audio_transcription
+      mode: realtime
       input_cost_per_second: 0.00003083
 
   - model_name: whisper-distil-large-v3.5
@@ -632,7 +632,7 @@ model_list:
       model: openai/distil-whisper/distil-large-v3.5-ct2
       litellm_credential_name: speaches_credential
     model_info:
-      mode: audio_transcription
+      mode: realtime
       input_cost_per_second: 0.00001111
 
   - model_name: whisper-turbo
@@ -640,7 +640,7 @@ model_list:
       model: openai/deepdml/faster-whisper-large-v3-turbo-ct2
       litellm_credential_name: speaches_credential
     model_info:
-      mode: audio_transcription
+      mode: realtime
       input_cost_per_second: 0.00000556
 
   - model_name: egyptalk-asr
@@ -648,7 +648,15 @@ model_list:
       model: openai/egyptalk-asr-v2
       litellm_credential_name: egyptalk_credential
     model_info:
-      mode: audio_transcription
+      mode: realtime
+      input_cost_per_second: 0.00003083
+
+  - model_name: parakeet-tdt-0.6b-v3
+    litellm_params:
+      model: openai/istupakov/parakeet-tdt-0.6b-v3-onnx
+      litellm_credential_name: speaches_credential
+    model_info:
+      mode: realtime
       input_cost_per_second: 0.00003083
 
   - model_name: glm-asr-2512
@@ -658,7 +666,7 @@ model_list:
       input_cost_per_token: 3e-8
       source: "https://docs.z.ai/guides/overview/pricing"
     model_info:
-      mode: audio_transcription
+      mode: realtime
 
   - model_name: glm-asr-latest
     litellm_params:
@@ -667,7 +675,7 @@ model_list:
       input_cost_per_token: 3e-8
       source: "https://docs.z.ai/guides/overview/pricing"
     model_info:
-      mode: audio_transcription
+      mode: realtime
 
   - model_name: gpt-4o-transcribe
     litellm_params:
