@@ -160,12 +160,20 @@ credential_list:
       api_key: os.environ/GEMINI_API_KEY
     credential_info:
       description: "Google Gemini credentials"
+
   - credential_name: openai_credential
     credential_values:
       api_base: https://api.openai.com/v1
       api_key: os.environ/OPENAI_API_KEY
     credential_info:
       description: "OpenAI credentials"
+
+  - credential_name: deepseek_credential
+    credential_values:
+      api_base: https://api.deepseek.com
+      api_key: os.environ/DEEPSEEK_API_KEY
+    credential_info:
+      description: "Deepseek credentials"
 
 model_list:
   # --------------------------------------------------
@@ -970,6 +978,24 @@ model_list:
       api_key: os.environ/OPENCODE_GO_API_KEY
       order: 1
 
+  # --------------------------------------------------
+  # Deepseek Models
+  # --------------------------------------------------
+  - model_name: deepseek-v4-flash
+    litellm_params:
+      model: deepseek/deepseek-v4-flash
+      litellm_credential_name: deepseek_credential
+      use_in_pass_through: true
+      api_key: os.environ/DEEPSEEK_API_KEY
+      order: 1
+
+  - model_name: deepseek-v4-pro
+    litellm_params:
+      model: deepseek/deepseek-v4-pro
+      litellm_credential_name: deepseek_credential
+      use_in_pass_through: true
+      api_key: os.environ/DEEPSEEK_API_KEY
+      order: 1
   # -------------------------------------------------------
   # Empedding Models
   # -------------------------------------------------------
