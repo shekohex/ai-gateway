@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     caddy \
     dbus-x11 \
     gnome-keyring \
+    libsecret-tools \
     ca-certificates \
   && rm -rf /var/lib/apt/lists/*
 RUN npm install -g "executor@${EXECUTOR_VERSION}"
@@ -24,6 +25,7 @@ COPY start.sh /usr/local/bin/start-executor-proxy
 
 RUN chmod +x /usr/local/bin/start-executor-proxy \
   && mkdir -p /var/lib/executor /workspace "$HOME/.local/share/keyrings" "$XDG_RUNTIME_DIR" \
+  && chmod 700 "$HOME" \
   && chmod 700 "$HOME/.local/share/keyrings" \
   && chmod 700 "$XDG_RUNTIME_DIR"
 
