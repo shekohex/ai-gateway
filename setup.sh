@@ -247,6 +247,9 @@ onboard() {
     local egyptalk_base; ask "EgypTalk ASR Base" "$(get_val EGYPTALK_ASR_BASE "echo http://192.168.1.120:3002/v1")" egyptalk_base
     local egyptalk_key; ask "EgypTalk ASR API Key" "$(get_val EGYPTALK_ASR_API "echo sk-free")" egyptalk_key 1
 
+    log "Configuring Executor..."
+    local executor_keyring_password; ask "Executor Keyring Password" "$(get_val EXECUTOR_KEYRING_PASSWORD "generate_secret 16")" executor_keyring_password 1
+
 
     # Configuration Analysis Section
 
@@ -390,6 +393,9 @@ onboard() {
         echo "SPEACHES_API_KEY=\"$speaches_key\""
         echo "EGYPTALK_ASR_BASE=\"$egyptalk_base\""
         echo "EGYPTALK_ASR_API=\"$egyptalk_key\""
+        echo ""
+        echo "# Executor"
+        echo "EXECUTOR_KEYRING_PASSWORD=\"$executor_keyring_password\""
     } >> "$ENV_FILE"
 
     if [[ -n "${zai_key:-}" ]]; then
