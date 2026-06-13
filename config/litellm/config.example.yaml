@@ -774,6 +774,34 @@ model_list:
       knowledge_date: "2025-04"
       release_date: "2026-03-27"
 
+  - model_name: glm-5.2
+    litellm_params:
+      model: zai/glm-5.2
+      litellm_credential_name: zai_coding_credential
+      max_input_tokens: 1000000
+      max_output_tokens: 131072
+      input_cost_per_token: 0
+      output_cost_per_token: 0
+      cache_read_input_token_cost: 0
+      supports_function_calling: true
+      supports_tool_choice: true
+      source: "https://docs.z.ai/guides/overview/pricing"
+    model_info:
+      mode: chat
+      max_tokens: 1000000
+      max_input_tokens: 1000000
+      max_output_tokens: 131072
+      supports_system_messages: true
+      supports_prompt_caching: true
+      supports_vision: false
+      supports_audio_input: false
+      supports_web_search: false
+      supports_reasoning: true
+      supports_function_calling: true
+      supports_response_schema: true
+      knowledge_date: "2025-04"
+      release_date: "2026-03-27"
+
   - model_name: glm-5v-turbo
     litellm_params:
       model: zai/glm-5v-turbo
@@ -946,6 +974,22 @@ model_list:
       api_key: os.environ/OPENCODE_GO_API_KEY
       order: 1
 
+  - model_name: glm-5.1
+    litellm_params:
+      model: openai/glm-5.1
+      litellm_credential_name: opencode_go_openai_credential
+      use_in_pass_through: true
+      api_key: os.environ/OPENCODE_GO_API_KEY
+      order: 1
+
+  - model_name: glm-5.2
+    litellm_params:
+      model: openai/glm-5.2
+      litellm_credential_name: opencode_go_openai_credential
+      use_in_pass_through: true
+      api_key: os.environ/OPENCODE_GO_API_KEY
+      order: 1
+
   - model_name: kimi-k2.5
     litellm_params:
       model: openai/kimi-k2.5
@@ -956,7 +1000,15 @@ model_list:
 
   - model_name: kimi-k2.6
     litellm_params:
-      model: openai/kimi-k2.5
+      model: openai/kimi-k2.6
+      litellm_credential_name: opencode_go_openai_credential
+      use_in_pass_through: true
+      api_key: os.environ/OPENCODE_GO_API_KEY
+      order: 1
+
+  - model_name: kimi-k2.7
+    litellm_params:
+      model: openai/kimi-k2.7
       litellm_credential_name: opencode_go_openai_credential
       use_in_pass_through: true
       api_key: os.environ/OPENCODE_GO_API_KEY
@@ -978,6 +1030,13 @@ model_list:
       api_key: os.environ/OPENCODE_GO_API_KEY
       order: 1
 
+  - model_name: minimax-m3
+    litellm_params:
+      model: anthropic/minimax-m3
+      litellm_credential_name: opencode_go_anthropic_credential
+      use_in_pass_through: true
+      api_key: os.environ/OPENCODE_GO_API_KEY
+      order: 1
   # --------------------------------------------------
   # Deepseek Models
   # --------------------------------------------------
