@@ -26,6 +26,6 @@ if [ "$keyring_ready" -ne 1 ]; then
   exit 1
 fi
 
-executor web --port "${EXECUTOR_PORT}" --scope "${EXECUTOR_SCOPE_DIR}" &
+executor web --foreground --port "${EXECUTOR_PORT}" --scope "${EXECUTOR_SCOPE_DIR}" &
 
 exec caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
