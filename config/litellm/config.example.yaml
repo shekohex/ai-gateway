@@ -119,6 +119,13 @@ credential_list:
     credential_info:
       description: "Gigabrain credentials"
 
+  - credential_name: supertonic_credential
+    credential_values:
+      api_base: os.environ/SUPERTONIC_API_BASE
+      api_key: os.environ/SUPERTONIC_API_KEY
+    credential_info:
+      description: "Supertonic credentials (OpenAI-compatible STT/TTS)"
+
   - credential_name: opencode_zen_openai_credential
     credential_values:
       api_base: https://opencode.ai/zen/v1
@@ -617,6 +624,16 @@ model_list:
       mode: audio_speech
       supports_audio_output: True
       supports_audio_input: False
+
+  - model_name: tts-supertonic
+    litellm_params:
+      model: openai/supertonic
+      litellm_credential_name: supertonic_credential
+    model_info:
+      mode: audio_speech
+      supports_audio_output: True
+      supports_audio_input: True
+      input_cost_per_character: 0.000015
 
   # STT (Transcription)
   - model_name: whisper-1
