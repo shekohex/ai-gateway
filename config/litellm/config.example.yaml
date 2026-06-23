@@ -625,9 +625,9 @@ model_list:
       supports_audio_output: True
       supports_audio_input: False
 
-  - model_name: tts-supertonic
+  - model_name: tts-supertonic-3
     litellm_params:
-      model: openai/supertonic
+      model: openai/supertonic-3
       litellm_credential_name: supertonic_credential
     model_info:
       mode: audio_speech
