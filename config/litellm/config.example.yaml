@@ -678,7 +678,7 @@ model_list:
 
   - model_name: parakeet-tdt-0.6b-v3
     litellm_params:
-      model: openai/istupakov/parakeet-tdt-0.6b-v3-onnx
+      model: hosted_vllm/istupakov/parakeet-tdt-0.6b-v3-onnx
       litellm_credential_name: speaches_credential
     model_info:
       mode: realtime
