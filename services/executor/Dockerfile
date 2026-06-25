@@ -1,4 +1,25 @@
-FROM node:24-bookworm-slim
+# syntax=docker/dockerfile:1.7
+
+ARG NODE_IMAGE=node:24-bookworm-slim
+
+FROM ${NODE_IMAGE} AS runtime-base
+
+ENV EXECUTOR_PORT=4788
+ENV EXECUTOR_DATA_DIR=/var/lib/executor
+ENV EXECUTOR_SCOPE_DIR=/workspace
+ENV HOME=/var/lib/executor/home
+ENV XDG_RUNTIME_DIR=/tmp/runtime-executor
+
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
+    apt-get update && apt-get install -y --no-install-recommends \
+      caddy \
+      dbus-x11 \
+      gnome-keyring \
+      libsecret-tools \
+      ca-certificates
+
+FROM runtime-base AS runtime
 
 ARG EXECUTOR_VERSION=latest
 
@@ -8,15 +29,10 @@ ENV EXECUTOR_SCOPE_DIR=/workspace
 ENV HOME=/var/lib/executor/home
 ENV XDG_RUNTIME_DIR=/tmp/runtime-executor
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    caddy \
-    dbus-x11 \
-    gnome-keyring \
-    libsecret-tools \
-    ca-certificates \
-  && rm -rf /var/lib/apt/lists/*
-RUN npm install -g "executor@${EXECUTOR_VERSION}"
-RUN executor --help >/dev/null
+RUN --mount=type=cache,target=/root/.npm \
+    npm install -g "executor@${EXECUTOR_VERSION}" \
+  && npm view "executor@${EXECUTOR_VERSION}" version dist.integrity dist.shasum --json > /usr/local/share/executor-package.json \
+  && executor --help >/dev/null
 
 WORKDIR /workspace
 
