@@ -26,6 +26,10 @@ if [ "$keyring_ready" -ne 1 ]; then
   exit 1
 fi
 
+rm -f \
+  "${EXECUTOR_DATA_DIR}/server-control/server.json" \
+  "${EXECUTOR_DATA_DIR}/server-control/startup.lock"
+
 executor daemon run --foreground --port "${EXECUTOR_PORT}" --scope "${EXECUTOR_SCOPE_DIR}" --log-level "debug" &
 
 exec caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
