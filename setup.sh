@@ -248,7 +248,7 @@ onboard() {
     local egyptalk_key; ask "EgypTalk ASR API Key" "$(get_val EGYPTALK_ASR_API "echo sk-free")" egyptalk_key 1
 
     log "Configuring Executor..."
-    local executor_keyring_password; ask "Executor Keyring Password" "$(get_val EXECUTOR_KEYRING_PASSWORD "generate_secret 16")" executor_keyring_password 1
+    local executor_web_base_url; ask "Executor Web Base URL" "$(get_val EXECUTOR_WEB_BASE_URL "echo http://localhost:4788")" executor_web_base_url
 
 
     # Configuration Analysis Section
@@ -395,7 +395,7 @@ onboard() {
         echo "EGYPTALK_ASR_API=\"$egyptalk_key\""
         echo ""
         echo "# Executor"
-        echo "EXECUTOR_KEYRING_PASSWORD=\"$executor_keyring_password\""
+        echo "EXECUTOR_WEB_BASE_URL=\"$executor_web_base_url\""
     } >> "$ENV_FILE"
 
     if [[ -n "${zai_key:-}" ]]; then
