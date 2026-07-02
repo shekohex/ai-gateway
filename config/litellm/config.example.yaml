@@ -14,6 +14,9 @@ litellm_settings:
   redact_user_api_key_info: true # Hide sensitive key info in logs https://docs.litellm.ai/docs/proxy/config_settings#redact_user_api_key_info
   set_verbose: False
   request_timeout: 1200
+  fallbacks:
+    - glm-5.2:
+        - glm-5.1
   json_logs: False # Get debug logs in json format
   cache: False # Enable/disable response caching https://docs.litellm.ai/docs/proxy/caching
   enable_caching_on_provider_specific_optional_params: True # Cache provider-specific params https://docs.litellm.ai/docs/proxy/caching
@@ -686,7 +689,7 @@ model_list:
 
   - model_name: glm-asr-2512
     litellm_params:
-      model: zai/glm-asr-2512
+      model: openai/glm-asr-2512
       litellm_credential_name: zai_coding_credential
       input_cost_per_token: 3e-8
       source: "https://docs.z.ai/guides/overview/pricing"
@@ -695,7 +698,7 @@ model_list:
 
   - model_name: glm-asr-latest
     litellm_params:
-      model: zai/glm-asr-2512
+      model: openai/glm-asr-2512
       litellm_credential_name: zai_coding_credential
       input_cost_per_token: 3e-8
       source: "https://docs.z.ai/guides/overview/pricing"
@@ -724,7 +727,7 @@ model_list:
   # --------------------------------------------------
   - model_name: glm-image
     litellm_params:
-      model: zai/glm-image
+      model: openai/glm-image
       litellm_credential_name: zai_coding_credential
       output_cost_per_image: 0.015
       input_cost_per_image: 0.015
@@ -737,7 +740,7 @@ model_list:
   # --------------------------------------------------
   - model_name: glm-5-turbo
     litellm_params:
-      model: zai/glm-5-turbo
+      model: openai/glm-5-turbo
       litellm_credential_name: zai_coding_credential
       max_input_tokens: 200000
       max_output_tokens: 131072
@@ -765,7 +768,7 @@ model_list:
 
   - model_name: glm-5.1
     litellm_params:
-      model: zai/glm-5.1
+      model: openai/glm-5.1
       litellm_credential_name: zai_coding_credential
       max_input_tokens: 200000
       max_output_tokens: 131072
@@ -793,7 +796,7 @@ model_list:
 
   - model_name: glm-5.2
     litellm_params:
-      model: zai/glm-5.2
+      model: openai/glm-5.2
       litellm_credential_name: zai_coding_credential
       max_input_tokens: 1000000
       max_output_tokens: 131072
@@ -821,7 +824,7 @@ model_list:
 
   - model_name: glm-5v-turbo
     litellm_params:
-      model: zai/glm-5v-turbo
+      model: openai/glm-5v-turbo
       litellm_credential_name: zai_coding_credential
       max_input_tokens: 200000
       max_output_tokens: 131072
