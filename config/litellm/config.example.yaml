@@ -203,6 +203,24 @@ model_list:
       litellm_credential_name: cliproxyapi_credential_openai
       order: 1
 
+  - model_name: gpt-5.6-sol
+    litellm_params:
+      model: openai/gpt-5.6-sol
+      litellm_credential_name: cliproxyapi_credential_openai
+      order: 1
+
+  - model_name: gpt-5.6-terra
+    litellm_params:
+      model: openai/gpt-5.6-terra
+      litellm_credential_name: cliproxyapi_credential_openai
+      order: 1
+
+  - model_name: gpt-5.6-luna
+    litellm_params:
+      model: openai/gpt-5.6-luna
+      litellm_credential_name: cliproxyapi_credential_openai
+      order: 1
+
   - model_name: gpt-5.4
     litellm_params:
       model: openai/gpt-5.4
