@@ -1,0 +1,39 @@
+{
+    auto_https disable_redirects
+}
+
+http://ai-gateway.0iq.xyz {
+    reverse_proxy litellm:4000
+}
+
+https://ai-gateway.0iq.xyz {
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    }
+
+    reverse_proxy litellm:4000
+}
+
+http://cliproxyapi.0iq.xyz {
+    reverse_proxy cli-proxy-api:8317
+}
+
+https://cliproxyapi.0iq.xyz {
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    }
+
+    reverse_proxy cli-proxy-api:8317
+}
+
+http://executor.0iq.xyz {
+    reverse_proxy executor:4788
+}
+
+https://executor.0iq.xyz {
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    }
+
+    reverse_proxy executor:4788
+}

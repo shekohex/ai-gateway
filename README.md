@@ -7,6 +7,7 @@ A production-grade AI gateway providing unified access to multiple LLM providers
 - **LiteLLM Proxy**: Unified OpenAI-compatible API gateway for 100+ LLMs.
 - **Langfuse**: Open-source observability, tracing, and prompt management.
 - **CLIProxyAPI**: High-performance backend for specialized coding models.
+- **Caddy**: Public HTTP/HTTPS reverse proxy with Cloudflare DNS-01 certificates.
 - **Newt**: Secure identity and site management.
 - **Data Stack**: Postgres (Persistence), Redis (Caching/Routing), Clickhouse (Analytics), Minio (Blob Storage).
 
@@ -75,6 +76,17 @@ When configuring a **Site** in the Pangolin Dashboard, use the following interna
 - **Metrics (Prometheus)**: `http://prometheus:9090`
 
 Other services (Postgres, Redis, Clickhouse, Minio) are kept isolated within the internal Docker network and are not exposed to the Pangolin agent.
+
+## Public Proxy Configuration
+
+Caddy runs on the same `ai-gateway-connect` network and exposes these services:
+
+- `https://ai-gateway.0iq.xyz` → LiteLLM (`litellm:4000`)
+- `https://cliproxyapi.0iq.xyz` → CLIProxyAPI (`cli-proxy-api:8317`)
+- `https://executor.0iq.xyz` → Executor (`executor:4788`)
+
+HTTP is also served for each hostname without an automatic HTTPS redirect.
+Set `CLOUDFLARE_API_TOKEN` in `.env` before starting Caddy. Token must be able to edit DNS records for the `0iq.xyz` zone.
 
 ## Observability and UI
 

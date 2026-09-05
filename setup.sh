@@ -201,6 +201,9 @@ onboard() {
     local newt_id; ask "Newt Site ID" "$(get_val NEWT_ID)" newt_id
     local newt_secret; ask "Newt Site Secret" "$(get_val NEWT_SECRET)" newt_secret 1
 
+    log "Configuring Caddy..."
+    local cloudflare_api_token; ask "Cloudflare API Token" "$(get_val CLOUDFLARE_API_TOKEN)" cloudflare_api_token 1
+
     log "Configuring Z.AI (Optional)..."
     local configure_zai
     ask "Configure Z.AI models (glm-4.7, coding, anthropic format)?" "n" configure_zai
@@ -383,6 +386,7 @@ onboard() {
         echo "PANGOLIN_ENDPOINT=\"$pangolin_endpoint\""
         echo "NEWT_ID=\"$newt_id\""
         echo "NEWT_SECRET=\"$newt_secret\""
+        echo "CLOUDFLARE_API_TOKEN=\"$cloudflare_api_token\""
         echo ""
         echo "# Search"
         echo "FIRECRAWL_API_BASE=\"$firecrawl_base\""
