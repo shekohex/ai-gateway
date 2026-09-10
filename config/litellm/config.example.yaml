@@ -189,11 +189,36 @@ model_list:
   # --------------------------------------------------
   # OpenAI Models (CLIProxyAPI)
   # --------------------------------------------------
+
+  - model_name: gpt-image-2.5-flare
+    model_info:
+      mode: image_generation
+    litellm_params:
+      model: openai/gpt-image-2.5-flare
+      litellm_credential_name: cliproxyapi_credential_openai
+      order: 1
+
+  - model_name: gpt-image-2.5-sunburst
+    model_info:
+      mode: image_generation
+    litellm_params:
+      model: openai/gpt-image-2.5-sunburst
+      litellm_credential_name: cliproxyapi_credential_openai
+      order: 1
+
   - model_name: gpt-image-2
     model_info:
       mode: image_generation
     litellm_params:
       model: openai/gpt-image-2
+      litellm_credential_name: cliproxyapi_credential_openai
+      order: 1
+
+  - model_name: gpt-image-2.5
+    model_info:
+      mode: image_generation
+    litellm_params:
+      model: openai/gpt-image-2.5
       litellm_credential_name: cliproxyapi_credential_openai
       order: 1
 
@@ -1192,9 +1217,17 @@ model_list:
   # --------------------------------------------------
   # Deepseek Models
   # --------------------------------------------------
+  - model_name: deepseek-v4.1-flash
+    litellm_params:
+      model: deepseek/deepseek-flash
+      litellm_credential_name: deepseek_credential
+      use_in_pass_through: true
+      api_key: os.environ/DEEPSEEK_API_KEY
+      order: 1
+
   - model_name: deepseek-v4-flash
     litellm_params:
-      model: deepseek/deepseek-v4-flash
+      model: deepseek/deepseek-flash
       litellm_credential_name: deepseek_credential
       use_in_pass_through: true
       api_key: os.environ/DEEPSEEK_API_KEY
