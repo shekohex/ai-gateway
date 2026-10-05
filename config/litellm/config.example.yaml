@@ -740,7 +740,7 @@ model_list:
       model: openai/gpt-realtime
       litellm_credential_name: codex_voice_credential
     model_info:
-      mode: realtime
+      mode: audio_speech
       supports_audio_output: True
       supports_audio_input: False
 
@@ -749,7 +749,7 @@ model_list:
       model: openai/gpt-realtime-2.1
       litellm_credential_name: codex_voice_credential
     model_info:
-      mode: realtime
+      mode: audio_speech
       supports_audio_output: True
       supports_audio_input: False
 
