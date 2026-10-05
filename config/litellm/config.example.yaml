@@ -115,6 +115,13 @@ credential_list:
     credential_info:
       description: "EgypTalk ASR credentials"
 
+  - credential_name: codex_dication_credential
+    credential_values:
+      api_base: os.environ/CODEX_DICTATION_BASE
+      api_key: os.environ/CODEX_DICTATION_API
+    credential_info:
+      description: "Codex Dictation credentials"
+
   - credential_name: gigabrain_credential
     credential_values:
       api_base: os.environ/GIGABRAIN_BASE_URL
@@ -817,7 +824,7 @@ model_list:
   - model_name: gpt-4o-transcribe
     litellm_params:
       model: openai/gpt-4o-transcribe
-      litellm_credential_name: openai_credential
+      litellm_credential_name: codex_dication_credential
     model_info:
       mode: audio_transcription
       supports_audio_output: False
@@ -826,7 +833,7 @@ model_list:
   - model_name: gpt-4o-mini-transcribe
     litellm_params:
       model: openai/gpt-4o-mini-transcribe
-      litellm_credential_name: openai_credential
+      litellm_credential_name: codex_dication_credential
     model_info:
       mode: audio_transcription
       supports_audio_output: False
