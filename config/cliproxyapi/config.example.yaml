@@ -87,6 +87,22 @@ nonstream-keepalive-interval: 0
 # When false (default), CodexInstructionsForModel returns immediately without modification.
 codex-instructions-enabled: false
 
+# Image and video behavior.
+multimedia:
+  # disable-image-generation supports: false (default), true, "chat", or "passthrough".
+  # - true: disable image_generation everywhere (also returns 404 for /v1/images/generations and /v1/images/edits).
+  # - "chat": disable image_generation injection on non-images endpoints, but keep /v1/images/generations and /v1/images/edits enabled.
+  # - "passthrough": never inject or strip image_generation on non-images endpoints (forward the client payload unchanged); behaves like "chat" on /v1/images/* endpoints.
+  disable-image-generation: "passthrough"
+
+  # Base model used by the legacy hosted image_generation tool path when a Codex image request is not proxied directly through the Image API.
+  # Must start with "gpt-" (case-insensitive). If unset or invalid, defaults to "gpt-5.4-mini".
+  # gpt-image-2-base-model: "gpt-5.4-mini"
+
+  # How long video IDs returned by /openai/v1/videos and xAI video creation stay bound
+  # to the credential that created them. Default: 3h.
+  video-result-auth-cache-ttl: "3h"
+
 # Gemini API keys
 # gemini-api-key:
 #   - api-key: "AIzaSy...01"
@@ -208,43 +224,43 @@ codex-instructions-enabled: false
 # Supported channels: gemini-cli, vertex, aistudio, antigravity, claude, codex, qwen, iflow.
 # NOTE: Aliases do not apply to gemini-api-key, codex-api-key, claude-api-key, openai-compatibility, vertex-api-key, or ampcode.
 # You can repeat the same name with different aliases to expose multiple client model names.
-oauth-model-alias:
-  antigravity:
-    - name: "gemini-2.5-flash"
-      alias: "gemini-2.5-flash"
-    - name: "gemini-2.5-flash-lite"
-      alias: "gemini-2.5-flash-lite"
-    - name: "gemini-3-flash"
-      alias: "gemini-3-flash-preview"
-    - name: "gemini-3-pro-high"
-      alias: "gemini-3-pro-preview"
-    - name: "gemini-3-pro-image"
-      alias: "gemini-3-pro-image-preview"
-    - name: "claude-sonnet-4-5"
-      alias: "claude-sonnet-4-5"
-    - name: "claude-sonnet-4-5-thinking"
-      alias: "claude-sonnet-4-5-thinking"
-    - name: "claude-opus-4-5-thinking"
-      alias: "claude-opus-4-5-thinking"
-    - name: "rev19-uic3-1p"
-      alias: "gemini-2.5-computer-use-preview-10-2025"
-    - name: "tab-flash-lite"
-      alias: "tab_flash_lite_preview"
-  gemini-cli:
-    - name: "gemini-2.5-pro"
-      alias: "gemini-2.5-pro"
-    - name: "gemini-2.5-flash"
-      alias: "google-gemini-2.5-flash"
-    - name: "gemini-2.5-flash-lite"
-      alias: "google-gemini-2.5-flash-lite"
-    - name: "gemini-3-flash-preview"
-      alias: "google-gemini-3-flash-preview"
-    - name: "gemini-3-pro-preview"
-      alias: "google-gemini-3-pro-preview"
-    - name: "gemini-3.1-flash-lite-preview"
-      alias: "google-gemini-3.1-flash-lite-preview"
-    - name: "gemini-3.1-pro-preview"
-      alias: "google-gemini-3.1-pro-preview"
+# oauth-model-alias:
+#   antigravity:
+#     - name: "gemini-2.5-flash"
+#       alias: "gemini-2.5-flash"
+#     - name: "gemini-2.5-flash-lite"
+#       alias: "gemini-2.5-flash-lite"
+#     - name: "gemini-3-flash"
+#       alias: "gemini-3-flash-preview"
+#     - name: "gemini-3-pro-high"
+#       alias: "gemini-3-pro-preview"
+#     - name: "gemini-3-pro-image"
+#       alias: "gemini-3-pro-image-preview"
+#     - name: "claude-sonnet-4-5"
+#       alias: "claude-sonnet-4-5"
+#     - name: "claude-sonnet-4-5-thinking"
+#       alias: "claude-sonnet-4-5-thinking"
+#     - name: "claude-opus-4-5-thinking"
+#       alias: "claude-opus-4-5-thinking"
+#     - name: "rev19-uic3-1p"
+#       alias: "gemini-2.5-computer-use-preview-10-2025"
+#     - name: "tab-flash-lite"
+#       alias: "tab_flash_lite_preview"
+#   gemini-cli:
+#     - name: "gemini-2.5-pro"
+#       alias: "gemini-2.5-pro"
+#     - name: "gemini-2.5-flash"
+#       alias: "google-gemini-2.5-flash"
+#     - name: "gemini-2.5-flash-lite"
+#       alias: "google-gemini-2.5-flash-lite"
+#     - name: "gemini-3-flash-preview"
+#       alias: "google-gemini-3-flash-preview"
+#     - name: "gemini-3-pro-preview"
+#       alias: "google-gemini-3-pro-preview"
+#     - name: "gemini-3.1-flash-lite-preview"
+#       alias: "google-gemini-3.1-flash-lite-preview"
+#     - name: "gemini-3.1-pro-preview"
+#       alias: "google-gemini-3.1-pro-preview"
 #   vertex:
 #     - name: "gemini-2.5-pro"
 #       alias: "g2.5p"
