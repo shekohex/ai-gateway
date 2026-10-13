@@ -234,23 +234,10 @@ model_list:
       model: openai/gpt-6-astra
       litellm_credential_name: cliproxyapi_credential_openai
       order: 1
-      max_input_tokens: 272000
+      max_input_tokens: 500000
       max_output_tokens: 128000
     model_info:
-      max_tokens: 128000
-      max_input_tokens: 272000
-      max_output_tokens: 128000
-
-  - model_name: gpt-6-sol
-    litellm_params:
-      model: openai/gpt-6-sol
-      litellm_credential_name: cliproxyapi_credential_openai
-      order: 1
-      max_input_tokens: 272000
-      max_output_tokens: 128000
-    model_info:
-      max_tokens: 128000
-      max_input_tokens: 272000
+      max_input_tokens: 500000
       max_output_tokens: 128000
 
   - model_name: gpt-6.1-sol
@@ -258,11 +245,11 @@ model_list:
       model: openai/gpt-6.1-sol
       litellm_credential_name: cliproxyapi_credential_openai
       order: 1
-      max_input_tokens: 272000
+      max_input_tokens: 500000
       max_output_tokens: 128000
     model_info:
       max_tokens: 128000
-      max_input_tokens: 272000
+      max_input_tokens: 500000
       max_output_tokens: 128000
 
   - model_name: gpt-6-luna
@@ -270,396 +257,43 @@ model_list:
       model: openai/gpt-6-luna
       litellm_credential_name: cliproxyapi_credential_openai
       order: 1
-      max_input_tokens: 272000
+      max_input_tokens: 500000
       max_output_tokens: 128000
     model_info:
       max_tokens: 128000
-      max_input_tokens: 272000
+      max_input_tokens: 500000
       max_output_tokens: 128000
-
-  - model_name: gpt-5.6-sol
-    litellm_params:
-      model: openai/gpt-5.6-sol
-      litellm_credential_name: cliproxyapi_credential_openai
-      order: 1
-      max_input_tokens: 272000
-      max_output_tokens: 128000
-    model_info:
-      max_tokens: 128000
-      max_input_tokens: 272000
-      max_output_tokens: 128000
-
-  - model_name: gpt-5.6-terra
-    litellm_params:
-      model: openai/gpt-5.6-terra
-      litellm_credential_name: cliproxyapi_credential_openai
-      order: 1
-      max_input_tokens: 272000
-      max_output_tokens: 128000
-    model_info:
-      max_tokens: 128000
-      max_input_tokens: 272000
-      max_output_tokens: 128000
-
-  - model_name: gpt-5.6-luna
-    litellm_params:
-      model: openai/gpt-5.6-luna
-      litellm_credential_name: cliproxyapi_credential_openai
-      order: 1
-      max_input_tokens: 272000
-      max_output_tokens: 128000
-    model_info:
-      max_tokens: 128000
-      max_input_tokens: 272000
-      max_output_tokens: 128000
-
-  - model_name: gpt-5.5
-    litellm_params:
-      model: openai/gpt-5.5
-      litellm_credential_name: cliproxyapi_credential_openai
-      order: 1
-
-  - model_name: gpt-5.4
-    litellm_params:
-      model: openai/gpt-5.4
-      litellm_credential_name: cliproxyapi_credential_openai
-      order: 1
-
-  - model_name: gpt-5.4-mini
-    litellm_params:
-      model: openai/gpt-5.4-mini
-      litellm_credential_name: cliproxyapi_credential_openai
-      order: 1
-
-  - model_name: gpt-5.4-nano
-    litellm_params:
-      model: openai/gpt-5.4-nano
-      litellm_credential_name: cliproxyapi_credential_openai
-      order: 1
-
-  # - model_name: gpt-5.3-codex
-  #   litellm_params:
-  #     model: openai/gpt-5.3-codex
-  #     litellm_credential_name: cliproxyapi_credential_openai
-  #     order: 1
-
-  # - model_name: gpt-5.2
-  #   litellm_params:
-  #     model: openai/gpt-5.2
-  #     litellm_credential_name: cliproxyapi_credential_openai
-  #     order: 1
-
-  #   - model_name: gpt-5.2
-  #     litellm_params:
-  #       model: openai/gpt-5.2
-  #       litellm_credential_name: opencode_zen_openai_credential
-  #       order: 2
-  #
-  - model_name: gpt-5.3-codex-spark
-    litellm_params:
-      model: openai/gpt-5.3-codex-spark
-      litellm_credential_name: cliproxyapi_credential_openai
-      order: 1
-      max_input_tokens: 100000
-      max_output_tokens: 32000
-      input_cost_per_token: 0.00000175
-      output_cost_per_token: 0.000014
-      cache_read_input_token_cost: 0.000000175
-      supports_function_calling: true
-      supports_tool_choice: true
-      source: "https://github.com/models-dev/models/blob/main/openai/gpt-5.3-codex-spark.toml"
-    model_info:
-      mode: chat
-      max_tokens: 128000
-      max_input_tokens: 100000
-      max_output_tokens: 32000
-      supports_system_messages: true
-      supports_prompt_caching: true
-      supports_vision: true
-      supports_audio_input: false
-      supports_web_search: false
-      supports_reasoning: true
-      supports_function_calling: true
-      supports_response_schema: true
-      knowledge_date: "2025-08-31"
-      release_date: "2026-02-05"
 
   # --------------------------------------------------
-  # Antigravity models (CLIProxyAPI) - Priority order: 1
+  # Google AI Studio - Using API Keys
   # --------------------------------------------------
-  # - model_name: claude-sonnet-4-5
-  #   litellm_params:
-  #     model: anthropic/claude-sonnet-4-5-thinking
-  #     litellm_credential_name: cliproxyapi_credential
-  #     order: 1
+  - model_name: gemini-flash-latest
+    litellm_params:
+      model: gemini/gemini-flash-latest
+      litellm_credential_name: google_gemini_credential
+      order: 1
+    model_info:
+      supports_web_search: True
 
-  #   - model_name: claude-sonnet-4-5
-  #     litellm_params:
-  #       model: anthropic/claude-sonnet-4-5
-  #       litellm_credential_name: opencode_zen_anthropic_credential
-  #       order: 2
-  #
-  # - model_name: claude-opus-4-6
-  #   litellm_params:
-  #     model: anthropic/claude-opus-4-6-thinking
-  #     litellm_credential_name: cliproxyapi_credential
-  #     order: 1
+  - model_name: gemini-flash-lite-latest
+    litellm_params:
+      model: gemini/gemini-flash-lite-latest
+      litellm_credential_name: google_gemini_credential
+      order: 1
+    model_info:
+      supports_web_search: True
 
-  #   - model_name: claude-opus-4-5
-  #     litellm_params:
-  #       model: anthropic/claude-opus-4-5
-  #       litellm_credential_name: opencode_zen_anthropic_credential
-  #       order: 2
-  #
-  # - model_name: claude-sonnet-4-5-20250929
-  #   litellm_params:
-  #     model: anthropic/claude-sonnet-4-5-thinking
-  #     litellm_credential_name: cliproxyapi_credential
-  #     order: 1
-  #
-  # - model_name: claude-sonnet-4
-  #   litellm_params:
-  #     model: anthropic/claude-sonnet-4
-  #     litellm_credential_name: opencode_zen_anthropic_credential
-  #     order: 1
-  #
-  # - model_name: claude-haiku-4-5
-  #   litellm_params:
-  #     model: anthropic/claude-haiku-4-5
-  #     litellm_credential_name: opencode_zen_anthropic_credential
-  #     order: 1
-  #
-  # - model_name: claude-3-5-haiku
-  #   litellm_params:
-  #     model: anthropic/claude-3-5-haiku
-  #     litellm_credential_name: opencode_zen_anthropic_credential
-  #     order: 1
-  #
-  # - model_name: claude-opus-4-1
-  #   litellm_params:
-  #     model: anthropic/claude-opus-4-1
-  #     litellm_credential_name: opencode_zen_anthropic_credential
-  #     order: 1
-
-  # - model_name: gemini-3-flash-preview
-  #   litellm_params:
-  #     model: gemini/gemini-3-flash-preview
-  #     litellm_credential_name: cliproxyapi_credential_gemini
-  #     order: 1
-  #   model_info:
-  #     supports_web_search: True
-
-  # - model_name: gemini-3-pro-preview
-  #   litellm_params:
-  #     model: gemini/gemini-3-pro-preview
-  #     litellm_credential_name: cliproxyapi_credential_gemini
-  #     order: 1
-  #
-  # - model_name: gemini-3.1-pro-preview
-  #   litellm_params:
-  #     model: gemini/gemini-3.1-pro-preview
-  #     litellm_credential_name: cliproxyapi_credential_gemini
-  #     order: 1
-  #
-  # - model_name: gemini-3-flash
-  #   litellm_params:
-  #     model: gemini/gemini-3-flash
-  #     litellm_credential_name: opencode_zen_gemini_credential
-  #     order: 1
-  #
-  # - model_name: gemini-3-pro
-  #   litellm_params:
-  #     model: gemini/gemini-3-pro
-  #     litellm_credential_name: opencode_zen_gemini_credential
-  #     order: 1
-  #
-  # - model_name: gemini-3-pro-image-preview
-  #   litellm_params:
-  #     model: gemini/gemini-3-pro-image-preview
-  #     litellm_credential_name: cliproxyapi_credential_gemini
-  #     order: 1
-  #
-  # - model_name: gemini-2.5-flash
-  #   litellm_params:
-  #     model: gemini/gemini-2.5-flash
-  #     litellm_credential_name: cliproxyapi_credential_gemini
-  #     order: 1
-  #   model_info:
-  #     supports_web_search: True
-  #
-  # - model_name: gemini-2.5-flash-lite
-  #   litellm_params:
-  #     model: gemini/gemini-2.5-flash-lite
-  #     litellm_credential_name: cliproxyapi_credential_gemini
-  #     order: 1
-  #   model_info:
-  #     supports_web_search: True
-
-  # --------------------------------------------------
-  # Google/Gemini-CLI models (CLIProxyAPI) - Fallback order: 2
-  # --------------------------------------------------
-  # Overlapping models - Gemini-CLI fallback (order: 2)
   - model_name: gemini-2.5-pro
     litellm_params:
       model: gemini/gemini-2.5-pro
-      litellm_credential_name: cliproxyapi_credential_gemini
+      litellm_credential_name: google_gemini_credential
       order: 1
-
-  - model_name: gemini-2.5-flash
-    litellm_params:
-      model: gemini/google-gemini-2.5-flash
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 2
-    model_info:
-      supports_web_search: True
-
-  - model_name: gemini-2.5-flash-lite
-    litellm_params:
-      model: gemini/google-gemini-2.5-flash-lite
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 2
-    model_info:
-      supports_web_search: True
-
-  - model_name: gemini-3-flash-preview
-    litellm_params:
-      model: gemini/google-gemini-3-flash-preview
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 2
-
-  - model_name: gemini-3-pro-preview
-    litellm_params:
-      model: gemini/google-gemini-3-pro-preview
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 2
-
-  - model_name: gemini-3.1-flash-lite-preview
-    litellm_params:
-      model: gemini/google-gemini-3.1-flash-lite-preview
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 2
-
-  - model_name: gemini-3.1-pro-preview
-    litellm_params:
-      model: gemini/google-gemini-3.1-pro-preview
-      litellm_credential_name: cliproxyapi_credential_gemini
-      order: 2
-
-  # --------------------------------------------------
-  # Gemini 2.5 Preview Aliases - Compatibility for dated versions
-  # --------------------------------------------------
-  # - model_name: gemini-2.5-flash-preview-04-17
-  #   litellm_params:
-  #     model: gemini/gemini-2.5-flash
-  #     litellm_credential_name: cliproxyapi_credential_gemini
-  #     order: 1
-  #
-  # - model_name: gemini-2.5-flash-preview-04-17
-  #   litellm_params:
-  #     model: gemini/google-gemini-2.5-flash
-  #     litellm_credential_name: cliproxyapi_credential_gemini
-  #     order: 2
-  #
-  # - model_name: gemini-2.5-flash-preview-05-20
-  #   litellm_params:
-  #     model: gemini/gemini-2.5-flash
-  #     litellm_credential_name: cliproxyapi_credential_gemini
-  #     order: 1
-  #
-  # - model_name: gemini-2.5-flash-preview-05-20
-  #   litellm_params:
-  #     model: gemini/google-gemini-2.5-flash
-  #     litellm_credential_name: cliproxyapi_credential_gemini
-  #     order: 2
-  #
-  # - model_name: gemini-2.5-flash-preview-09-2025
-  #   litellm_params:
-  #     model: gemini/gemini-2.5-flash
-  #     litellm_credential_name: cliproxyapi_credential_gemini
-  #     order: 1
-  #
-  # - model_name: gemini-2.5-flash-preview-09-2025
-  #   litellm_params:
-  #     model: gemini/google-gemini-2.5-flash
-  #     litellm_credential_name: cliproxyapi_credential_gemini
-  #     order: 2
-  #
-  # - model_name: gemini-2.5-flash-lite-preview-06-17
-  #   litellm_params:
-  #     model: gemini/gemini-2.5-flash-lite
-  #     litellm_credential_name: cliproxyapi_credential_gemini
-  #     order: 1
-  #
-  # - model_name: gemini-2.5-flash-lite-preview-06-17
-  #   litellm_params:
-  #     model: gemini/google-gemini-2.5-flash-lite
-  #     litellm_credential_name: cliproxyapi_credential_gemini
-  #     order: 2
-  #
-  # - model_name: gemini-2.5-flash-lite-preview-09-2025
-  #   litellm_params:
-  #     model: gemini/gemini-2.5-flash-lite
-  #     litellm_credential_name: cliproxyapi_credential_gemini
-  #     order: 1
-  #
-  # - model_name: gemini-2.5-flash-lite-preview-09-2025
-  #   litellm_params:
-  #     model: gemini/google-gemini-2.5-flash-lite
-  #     litellm_credential_name: cliproxyapi_credential_gemini
-  #     order: 2
-  #
-  # - model_name: gemini-2.5-pro-preview-05-06
-  #   litellm_params:
-  #     model: gemini/gemini-2.5-pro
-  #     litellm_credential_name: cliproxyapi_credential_gemini
-  #     order: 1
-  #
-  # - model_name: gemini-2.5-pro-preview-06-05
-  #   litellm_params:
-  #     model: gemini/gemini-2.5-pro
-  #     litellm_credential_name: cliproxyapi_credential_gemini
-  #     order: 1
-  #
-  # --------------------------------------------------
-  # Gemini Latest Aliases - Point to 3.0 preview models
-  # --------------------------------------------------
-  # - model_name: gemini-flash-latest
-  #   litellm_params:
-  #     model: gemini/gemini-3-flash-preview
-  #     litellm_credential_name: cliproxyapi_credential_gemini
-  #     order: 1
-  #
-  # - model_name: gemini-flash-latest
-  #   litellm_params:
-  #     model: gemini/google-gemini-3-flash-preview
-  #     litellm_credential_name: cliproxyapi_credential_gemini
-  #     order: 2
-  #
-  # - model_name: gemini-flash-lite-latest
-  #   litellm_params:
-  #     model: gemini/gemini-2.5-flash-lite
-  #     litellm_credential_name: cliproxyapi_credential_gemini
-  #     order: 1
-  #
-  # - model_name: gemini-flash-lite-latest
-  #   litellm_params:
-  #     model: gemini/google-gemini-2.5-flash-lite
-  #     litellm_credential_name: cliproxyapi_credential_gemini
-  #     order: 2
-  # --------------------------------------------------
-  # Gemini 2.5 Google AI Studio - Using API Keys
-  # --------------------------------------------------
-  # - model_name: gemini-2.5-pro
-  #   litellm_params:
-  #     model: gemini/gemini-2.5-pro
-  #     litellm_credential_name: google_gemini_credential
-  #     order: 3
 
   - model_name: gemini-2.5-flash
     litellm_params:
       model: gemini/gemini-2.5-flash
       litellm_credential_name: google_gemini_credential
-      order: 3
+      order: 1
     model_info:
       supports_web_search: True
 
@@ -667,22 +301,25 @@ model_list:
     litellm_params:
       model: gemini/gemini-2.5-flash-lite
       litellm_credential_name: google_gemini_credential
-      order: 3
+      order: 1
     model_info:
       supports_web_search: True
 
-  # - model_name: gemini-3.1-flash-lite-preview
-  #   litellm_params:
-  #     model: gemini/gemini-3.1-flash-lite-preview
-  #     litellm_credential_name: google_gemini_credential
-  #     order: 3
+  - model_name: gemini-3.8-flash
+    litellm_params:
+      model: gemini/gemini-3.8-flash
+      litellm_credential_name: google_gemini_credential
+      order: 1
+    model_info:
+      supports_web_search: True
 
-  # - model_name: gemini-3.1-pro-preview
-  #   litellm_params:
-  #     model: gemini/gemini-3.1-pro-preview
-  #     litellm_credential_name: google_gemini_credential
-  #     order: 3
-
+  - model_name: gemini-3.5-flash-lite
+    litellm_params:
+      model: gemini/gemini-3.5-flash-lite
+      litellm_credential_name: google_gemini_credential
+      order: 1
+    model_info:
+      supports_web_search: True
   # --------------------------------------------------
   # Audio Models (Speaches & EgypTalk, Gemini)
   # --------------------------------------------------
@@ -749,7 +386,7 @@ model_list:
       model: openai/gpt-realtime-2.1
       litellm_credential_name: codex_voice_credential
     model_info:
-      mode: audio_speech
+      mode: realtime
       supports_audio_output: True
       supports_audio_input: False
 
@@ -821,24 +458,6 @@ model_list:
       mode: realtime
       input_cost_per_second: 0.00003083
 
-  - model_name: glm-asr-2512
-    litellm_params:
-      model: openai/glm-asr-2512
-      litellm_credential_name: zai_coding_credential
-      input_cost_per_token: 3e-8
-      source: "https://docs.z.ai/guides/overview/pricing"
-    model_info:
-      mode: realtime
-
-  - model_name: glm-asr-latest
-    litellm_params:
-      model: openai/glm-asr-2512
-      litellm_credential_name: zai_coding_credential
-      input_cost_per_token: 3e-8
-      source: "https://docs.z.ai/guides/overview/pricing"
-    model_info:
-      mode: realtime
-
   - model_name: gpt-4o-transcribe
     litellm_params:
       model: openai/gpt-4o-transcribe
@@ -857,133 +476,8 @@ model_list:
       supports_audio_output: False
       supports_audio_input: True
   # --------------------------------------------------
-  # Image Generation Models (Z.AI)
-  # --------------------------------------------------
-  - model_name: glm-image
-    litellm_params:
-      model: openai/glm-image
-      litellm_credential_name: zai_coding_credential
-      output_cost_per_image: 0.015
-      input_cost_per_image: 0.015
-      source: "https://docs.z.ai/guides/overview/pricing"
-    model_info:
-      mode: image_generation
-
-  # --------------------------------------------------
   # Z.AI OpenAI Format - OpenAI-compatible Endpoint
   # --------------------------------------------------
-  - model_name: glm-5-turbo
-    litellm_params:
-      model: openai/glm-5-turbo
-      litellm_credential_name: zai_coding_credential
-      max_input_tokens: 200000
-      max_output_tokens: 131072
-      input_cost_per_token: 0
-      output_cost_per_token: 0
-      cache_read_input_token_cost: 0
-      supports_function_calling: true
-      supports_tool_choice: true
-      source: "https://docs.z.ai/guides/overview/pricing"
-    model_info:
-      mode: chat
-      max_tokens: 200000
-      max_input_tokens: 200000
-      max_output_tokens: 131072
-      supports_system_messages: true
-      supports_prompt_caching: true
-      supports_vision: false
-      supports_audio_input: false
-      supports_web_search: false
-      supports_reasoning: true
-      supports_function_calling: true
-      supports_response_schema: true
-      knowledge_date: "2025-04"
-      release_date: "2026-03-16"
-
-  - model_name: glm-5.1
-    litellm_params:
-      model: openai/glm-5.1
-      litellm_credential_name: zai_coding_credential
-      max_input_tokens: 200000
-      max_output_tokens: 131072
-      input_cost_per_token: 0
-      output_cost_per_token: 0
-      cache_read_input_token_cost: 0
-      supports_function_calling: true
-      supports_tool_choice: true
-      source: "https://docs.z.ai/guides/overview/pricing"
-    model_info:
-      mode: chat
-      max_tokens: 200000
-      max_input_tokens: 200000
-      max_output_tokens: 131072
-      supports_system_messages: true
-      supports_prompt_caching: true
-      supports_vision: false
-      supports_audio_input: false
-      supports_web_search: false
-      supports_reasoning: true
-      supports_function_calling: true
-      supports_response_schema: true
-      knowledge_date: "2025-04"
-      release_date: "2026-03-27"
-
-  - model_name: glm-5.2
-    litellm_params:
-      model: openai/glm-5.2
-      litellm_credential_name: zai_coding_credential
-      max_input_tokens: 1000000
-      max_output_tokens: 131072
-      input_cost_per_token: 0
-      output_cost_per_token: 0
-      cache_read_input_token_cost: 0
-      supports_function_calling: true
-      supports_tool_choice: true
-      source: "https://docs.z.ai/guides/overview/pricing"
-    model_info:
-      mode: chat
-      max_tokens: 1000000
-      max_input_tokens: 1000000
-      max_output_tokens: 131072
-      supports_system_messages: true
-      supports_prompt_caching: true
-      supports_vision: false
-      supports_audio_input: false
-      supports_web_search: false
-      supports_reasoning: true
-      supports_function_calling: true
-      supports_response_schema: true
-      knowledge_date: "2025-04"
-      release_date: "2026-03-27"
-
-  - model_name: glm-5.2-highspeed
-    litellm_params:
-      model: openai/glm-5.2-highspeed
-      litellm_credential_name: zai_coding_credential
-      max_input_tokens: 1000000
-      max_output_tokens: 131072
-      input_cost_per_token: 0
-      output_cost_per_token: 0
-      cache_read_input_token_cost: 0
-      supports_function_calling: true
-      supports_tool_choice: true
-      source: "https://docs.z.ai/guides/overview/pricing"
-    model_info:
-      mode: chat
-      max_tokens: 1000000
-      max_input_tokens: 1000000
-      max_output_tokens: 131072
-      supports_system_messages: true
-      supports_prompt_caching: true
-      supports_vision: false
-      supports_audio_input: false
-      supports_web_search: false
-      supports_reasoning: true
-      supports_function_calling: true
-      supports_response_schema: true
-      knowledge_date: "2025-04"
-      release_date: "2026-03-27"
-
   - model_name: glm-5.3
     litellm_params:
       model: openai/glm-5.3
@@ -1039,61 +533,6 @@ model_list:
       supports_response_schema: true
       knowledge_date: "2025-04"
       release_date: "2026-08-27"
-
-  - model_name: glm-5v-turbo
-    litellm_params:
-      model: openai/glm-5v-turbo
-      litellm_credential_name: zai_coding_credential
-      max_input_tokens: 200000
-      max_output_tokens: 131072
-      input_cost_per_token: 0
-      output_cost_per_token: 0
-      cache_read_input_token_cost: 0
-      supports_function_calling: true
-      supports_tool_choice: true
-      source: "https://docs.z.ai/guides/overview/pricing"
-    model_info:
-      mode: chat
-      max_tokens: 200000
-      max_input_tokens: 200000
-      max_output_tokens: 131072
-      supports_system_messages: true
-      supports_prompt_caching: true
-      supports_vision: true
-      supports_audio_input: false
-      supports_web_search: false
-      supports_reasoning: true
-      supports_function_calling: true
-      supports_response_schema: true
-      release_date: "2026-04-01"
-
-  # - model_name: k2p5
-  #   litellm_params:
-  #     model: anthropic/k2p5
-  #     use_in_pass_through: true
-  #     litellm_credential_name: kimi_coding_credential
-  #     api_key: os.environ/KIMI_API_KEY
-  #     max_input_tokens: 262144
-  #     max_output_tokens: 32768
-  #     input_cost_per_token: 6e-7
-  #     output_cost_per_token: 0.000003
-  #     cache_read_input_token_cost: 1e-7
-  #     supports_function_calling: true
-  #     supports_tool_choice: true
-  #     source: "https://www.kimi.com/coding/docs/en/third-party-agents.html"
-  #   model_info:
-  #     mode: chat
-  #     max_tokens: 262144
-  #     max_input_tokens: 262144
-  #     max_output_tokens: 32768
-  #     supports_system_messages: true
-  #     supports_prompt_caching: false
-  #     supports_vision: true
-  #     supports_audio_input: false
-  #     supports_web_search: false
-  #     supports_reasoning: true
-  #     supports_function_calling: true
-  #     supports_response_schema: true
 
   # --------------------------------------------------
   # Gigabrain Models (Bigboss)
@@ -1177,104 +616,12 @@ model_list:
   #       litellm_credential_name: opencode_zen_openai_credential
   #       order: 2
   #
-  - model_name: kimi-k2
-    litellm_params:
-      model: openai/kimi-k2
-      litellm_credential_name: opencode_zen_openai_credential
-      order: 1
-
-  - model_name: kimi-k2-thinking
-    litellm_params:
-      model: openai/kimi-k2-thinking
-      litellm_credential_name: opencode_zen_openai_credential
-      order: 1
-
-  - model_name: grok-code
-    litellm_params:
-      model: openai/grok-code
-      litellm_credential_name: opencode_zen_openai_credential
-      order: 1
-
   - model_name: big-pickle
     litellm_params:
       model: openai/big-pickle
       litellm_credential_name: opencode_zen_openai_credential
       order: 1
 
-  # --------------------------------------------------
-  # OpenCode Go Models
-  # --------------------------------------------------
-  # - model_name: glm-5
-  #   litellm_params:
-  #     model: openai/glm-5
-  #     litellm_credential_name: opencode_go_openai_credential
-  #     use_in_pass_through: true
-  #     api_key: os.environ/OPENCODE_GO_API_KEY
-  #     order: 1
-  #
-  # - model_name: glm-5.1
-  #   litellm_params:
-  #     model: openai/glm-5.1
-  #     litellm_credential_name: opencode_go_openai_credential
-  #     use_in_pass_through: true
-  #     api_key: os.environ/OPENCODE_GO_API_KEY
-  #     order: 1
-  #
-  # - model_name: glm-5.2
-  #   litellm_params:
-  #     model: openai/glm-5.2
-  #     litellm_credential_name: opencode_go_openai_credential
-  #     use_in_pass_through: true
-  #     api_key: os.environ/OPENCODE_GO_API_KEY
-  #     order: 1
-
-  - model_name: kimi-k2.5
-    litellm_params:
-      model: openai/kimi-k2.5
-      litellm_credential_name: opencode_go_openai_credential
-      use_in_pass_through: true
-      api_key: os.environ/OPENCODE_GO_API_KEY
-      order: 1
-
-  - model_name: kimi-k2.6
-    litellm_params:
-      model: openai/kimi-k2.6
-      litellm_credential_name: opencode_go_openai_credential
-      use_in_pass_through: true
-      api_key: os.environ/OPENCODE_GO_API_KEY
-      order: 1
-
-  - model_name: kimi-k2.7
-    litellm_params:
-      model: openai/kimi-k2.7
-      litellm_credential_name: opencode_go_openai_credential
-      use_in_pass_through: true
-      api_key: os.environ/OPENCODE_GO_API_KEY
-      order: 1
-
-  - model_name: minimax-m2.5
-    litellm_params:
-      model: anthropic/minimax-m2.5
-      litellm_credential_name: opencode_go_anthropic_credential
-      use_in_pass_through: true
-      api_key: os.environ/OPENCODE_GO_API_KEY
-      order: 1
-
-  - model_name: minimax-m2.7
-    litellm_params:
-      model: anthropic/minimax-m2.7
-      litellm_credential_name: opencode_go_anthropic_credential
-      use_in_pass_through: true
-      api_key: os.environ/OPENCODE_GO_API_KEY
-      order: 1
-
-  - model_name: minimax-m3
-    litellm_params:
-      model: anthropic/minimax-m3
-      litellm_credential_name: opencode_go_anthropic_credential
-      use_in_pass_through: true
-      api_key: os.environ/OPENCODE_GO_API_KEY
-      order: 1
   # --------------------------------------------------
   # Deepseek Models
   # --------------------------------------------------
