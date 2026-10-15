@@ -367,7 +367,7 @@ model_list:
   # STT (Transcription)
   - model_name: parakeet-ultra
     litellm_params:
-      model: hosted_vllm/moondream/parakeet-ultra
+      model: openai/moondream/parakeet-ultra
       litellm_credential_name: codex_voice_credential
     model_info:
       mode: audio_transcription
