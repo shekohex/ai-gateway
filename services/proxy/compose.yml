@@ -1,0 +1,28 @@
+x-logging: &default-logging
+  driver: "json-file"
+  options:
+    max-size: "100mb"
+    max-file: "3"
+
+services:
+  caddy:
+    image: ghcr.io/slothcroissant/caddy-cloudflaredns:latest
+    container_name: caddy
+    logging: *default-logging
+    restart: unless-stopped
+    env_file:
+      - ../../.env
+    ports:
+      - "80:80/tcp"
+      - "443:443/tcp"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - ai-gateway-connect
+
+volumes:
+  caddy_data:
+  caddy_config:

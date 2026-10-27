@@ -7,6 +7,7 @@ A production-grade AI gateway providing unified access to multiple LLM providers
 - **LiteLLM Proxy**: Unified OpenAI-compatible API gateway for 100+ LLMs.
 - **Langfuse**: Open-source observability, tracing, and prompt management.
 - **CLIProxyAPI**: High-performance backend for specialized coding models.
+- **Caddy**: Public HTTP/HTTPS reverse proxy with Cloudflare DNS-01 certificates.
 - **Cloudflared**: Cloudflare Tunnel connector that exposes the gateway publicly without opening any inbound ports.
 - **Data Stack**: Postgres (Persistence), Redis (Caching/Routing), Clickhouse (Analytics), Minio (Blob Storage).
 
@@ -75,12 +76,22 @@ CLOUDFLARE_TUNNEL_TOKEN="<your tunnel token>"
 
 Create the tunnel in the Cloudflare Zero Trust dashboard (Networks → Tunnels), copy its token, then add these **Public Hostnames** to it:
 
-- `ai-gateway.0iq.xyz` → `http://litellm:4000`
-- `cliproxyapi.0iq.xyz` → `http://cli-proxy-api:8317`
-- `executor.0iq.xyz` → `http://executor:4788`
-- Optional, if observability is enabled: Langfuse → `http://langfuse-web:3000`, Prometheus → `http://prometheus:9090`
+- `ai-gateway.0iq.xyz` → `http://caddy:80`
+- `cliproxyapi.0iq.xyz` → `http://caddy:80`
+- `executor.0iq.xyz` → `http://caddy:80`
 
-Cloudflare terminates TLS at the edge, so no certificates or DNS API tokens are needed. Other services (Postgres, Redis, Clickhouse, Minio) stay isolated within the internal Docker network.
+Caddy keeps routing by hostname (see below), so every hostname points at the same `http://caddy:80` origin. Other services (Postgres, Redis, Clickhouse, Minio) stay isolated within the internal Docker network.
+
+## Public Proxy Configuration
+
+Caddy runs on the same `ai-gateway-connect` network and exposes these services:
+
+- `https://ai-gateway.0iq.xyz` → LiteLLM (`litellm:4000`)
+- `https://cliproxyapi.0iq.xyz` → CLIProxyAPI (`cli-proxy-api:8317`)
+- `https://executor.0iq.xyz` → Executor (`executor:4788`)
+
+HTTP is also served for each hostname without an automatic HTTPS redirect.
+Set `CLOUDFLARE_API_TOKEN` in `.env` before starting Caddy. Token must be able to edit DNS records for the `0iq.xyz` zone.
 
 ## Observability and UI
 

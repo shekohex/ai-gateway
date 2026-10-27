@@ -199,6 +199,9 @@ onboard() {
     log "Configuring Cloudflare Tunnel..."
     local cloudflare_tunnel_token; ask "Cloudflare Tunnel Token" "$(get_val CLOUDFLARE_TUNNEL_TOKEN)" cloudflare_tunnel_token 1
 
+    log "Configuring Caddy..."
+    local cloudflare_api_token; ask "Cloudflare API Token" "$(get_val CLOUDFLARE_API_TOKEN)" cloudflare_api_token 1
+
     log "Configuring Z.AI (Optional)..."
     local configure_zai
     ask "Configure Z.AI models (glm-4.7, coding, anthropic format)?" "n" configure_zai
@@ -379,6 +382,8 @@ onboard() {
         echo ""
         echo "# Cloudflare Tunnel"
         echo "CLOUDFLARE_TUNNEL_TOKEN=\"$cloudflare_tunnel_token\""
+        echo "# Caddy / Cloudflare DNS-01 certificate management"
+        echo "CLOUDFLARE_API_TOKEN=\"$cloudflare_api_token\""
         echo ""
         echo "# Search"
         echo "FIRECRAWL_API_BASE=\"$firecrawl_base\""
@@ -427,13 +432,7 @@ onboard() {
     
     echo -e "\n${BOLD}Cloudflare Tunnel Public Hostnames:${NC}"
     echo -e "Add these Public Hostnames to your tunnel in the Cloudflare Zero Trust dashboard:"
-    echo -e "  - ${CYAN}LiteLLM Proxy${NC}: http://litellm:4000"
-    echo -e "  - ${CYAN}CLI-Proxy-API${NC}: http://cli-proxy-api:8317"
-    echo -e "  - ${CYAN}Executor${NC}: http://executor:4788"
-    if [[ "$enable_observability" =~ ^[Yy]$ ]]; then
-        echo -e "  - ${CYAN}Prometheus${NC}: http://prometheus:9090"
-        echo -e "  - ${CYAN}Langfuse UI${NC}: http://langfuse-web:3000"
-    fi
+    echo -e "  - ${CYAN}All hostnames (Caddy)${NC}: http://caddy:80"
     
     echo -e "\n${BOLD}Next Steps:${NC}"
     echo -e "1. Run ${BOLD}./setup.sh up -d${NC} to start the stack."
