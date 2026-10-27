@@ -1,14 +1,13 @@
 # AI Gateway
 
-A production-grade AI gateway providing unified access to multiple LLM providers with robust observability, security, and identity management. Powered by LiteLLM, Langfuse, and Pangolin.
+A production-grade AI gateway providing unified access to multiple LLM providers with robust observability, security, and identity management. Powered by LiteLLM, Langfuse, and Cloudflare Tunnel.
 
 ## Core Components
 
 - **LiteLLM Proxy**: Unified OpenAI-compatible API gateway for 100+ LLMs.
 - **Langfuse**: Open-source observability, tracing, and prompt management.
 - **CLIProxyAPI**: High-performance backend for specialized coding models.
-- **Caddy**: Public HTTP/HTTPS reverse proxy with Cloudflare DNS-01 certificates.
-- **Newt**: Secure identity and site management.
+- **Cloudflared**: Cloudflare Tunnel connector that exposes the gateway publicly without opening any inbound ports.
 - **Data Stack**: Postgres (Persistence), Redis (Caching/Routing), Clickhouse (Analytics), Minio (Blob Storage).
 
 ## Prerequisites
@@ -66,27 +65,22 @@ The `setup.sh` utility provides several commands for lifecycle management:
 | `cleanup` | Remove orphans and stop services |
 | `reset` | **Destructive**: Wipe all data volumes and configuration |
 
-## Pangolin Site Configuration
+## Cloudflare Tunnel
 
-When configuring a **Site** in the Pangolin Dashboard, use the following internal resource endpoints to expose them securely:
+The `cloudflared` container (`services/tunnel/compose.yml`) runs on the `ai-gateway-connect` network. The only configuration it needs is the tunnel token in `.env`:
 
-- **LiteLLM Gateway**: `http://litellm:4000`
-- **CLI-Proxy-API**: `http://cli-proxy-api:8317`
-- **Langfuse Interface**: `http://langfuse-web:3000`
-- **Metrics (Prometheus)**: `http://prometheus:9090`
+```bash
+CLOUDFLARE_TUNNEL_TOKEN="<your tunnel token>"
+```
 
-Other services (Postgres, Redis, Clickhouse, Minio) are kept isolated within the internal Docker network and are not exposed to the Pangolin agent.
+Create the tunnel in the Cloudflare Zero Trust dashboard (Networks → Tunnels), copy its token, then add these **Public Hostnames** to it:
 
-## Public Proxy Configuration
+- `ai-gateway.0iq.xyz` → `http://litellm:4000`
+- `cliproxyapi.0iq.xyz` → `http://cli-proxy-api:8317`
+- `executor.0iq.xyz` → `http://executor:4788`
+- Optional, if observability is enabled: Langfuse → `http://langfuse-web:3000`, Prometheus → `http://prometheus:9090`
 
-Caddy runs on the same `ai-gateway-connect` network and exposes these services:
-
-- `https://ai-gateway.0iq.xyz` → LiteLLM (`litellm:4000`)
-- `https://cliproxyapi.0iq.xyz` → CLIProxyAPI (`cli-proxy-api:8317`)
-- `https://executor.0iq.xyz` → Executor (`executor:4788`)
-
-HTTP is also served for each hostname without an automatic HTTPS redirect.
-Set `CLOUDFLARE_API_TOKEN` in `.env` before starting Caddy. Token must be able to edit DNS records for the `0iq.xyz` zone.
+Cloudflare terminates TLS at the edge, so no certificates or DNS API tokens are needed. Other services (Postgres, Redis, Clickhouse, Minio) stay isolated within the internal Docker network.
 
 ## Observability and UI
 

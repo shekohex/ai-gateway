@@ -196,13 +196,8 @@ onboard() {
     log "Configuring Redis..."
     local redis_pass; ask "Redis Password" "$(get_val REDIS_PASSWORD "generate_secret 16")" redis_pass 1
 
-    log "Configuring Newt..."
-    local pangolin_endpoint; ask "Pangolin Endpoint" "$(get_val PANGOLIN_ENDPOINT "echo https://app.pangolin.net")" pangolin_endpoint
-    local newt_id; ask "Newt Site ID" "$(get_val NEWT_ID)" newt_id
-    local newt_secret; ask "Newt Site Secret" "$(get_val NEWT_SECRET)" newt_secret 1
-
-    log "Configuring Caddy..."
-    local cloudflare_api_token; ask "Cloudflare API Token" "$(get_val CLOUDFLARE_API_TOKEN)" cloudflare_api_token 1
+    log "Configuring Cloudflare Tunnel..."
+    local cloudflare_tunnel_token; ask "Cloudflare Tunnel Token" "$(get_val CLOUDFLARE_TUNNEL_TOKEN)" cloudflare_tunnel_token 1
 
     log "Configuring Z.AI (Optional)..."
     local configure_zai
@@ -382,11 +377,8 @@ onboard() {
 
     {
         echo ""
-        echo "# Newt"
-        echo "PANGOLIN_ENDPOINT=\"$pangolin_endpoint\""
-        echo "NEWT_ID=\"$newt_id\""
-        echo "NEWT_SECRET=\"$newt_secret\""
-        echo "CLOUDFLARE_API_TOKEN=\"$cloudflare_api_token\""
+        echo "# Cloudflare Tunnel"
+        echo "CLOUDFLARE_TUNNEL_TOKEN=\"$cloudflare_tunnel_token\""
         echo ""
         echo "# Search"
         echo "FIRECRAWL_API_BASE=\"$firecrawl_base\""
@@ -433,10 +425,11 @@ onboard() {
     record_state "onboard" "Configuration generated in $ENV_FILE"
     success "Onboarding complete. Configuration saved to $ENV_FILE"
     
-    echo -e "\n${BOLD}Pangolin Site Configuration:${NC}"
-    echo -e "Configure these Resources in your Pangolin Dashboard for this Site:"
+    echo -e "\n${BOLD}Cloudflare Tunnel Public Hostnames:${NC}"
+    echo -e "Add these Public Hostnames to your tunnel in the Cloudflare Zero Trust dashboard:"
     echo -e "  - ${CYAN}LiteLLM Proxy${NC}: http://litellm:4000"
     echo -e "  - ${CYAN}CLI-Proxy-API${NC}: http://cli-proxy-api:8317"
+    echo -e "  - ${CYAN}Executor${NC}: http://executor:4788"
     if [[ "$enable_observability" =~ ^[Yy]$ ]]; then
         echo -e "  - ${CYAN}Prometheus${NC}: http://prometheus:9090"
         echo -e "  - ${CYAN}Langfuse UI${NC}: http://langfuse-web:3000"

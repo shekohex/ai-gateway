@@ -1,0 +1,17 @@
+x-logging: &default-logging
+  driver: "json-file"
+  options:
+    max-size: "100mb"
+    max-file: "3"
+
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    logging: *default-logging
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN:?CLOUDFLARE_TUNNEL_TOKEN must be set in .env}
+    networks:
+      - ai-gateway-connect
